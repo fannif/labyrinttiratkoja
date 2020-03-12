@@ -1,5 +1,6 @@
 ## Määrittelydokumentti
 
+Työn aiheena on labyrintinratkaisija, joka myös generoi labyrintteja. Ohjelmointikielenä on Java.
 
 ### Algoritmit
 
