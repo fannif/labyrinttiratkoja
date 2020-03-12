@@ -1,5 +1,6 @@
 ## Viikkoraportti 1
 
+Aikaa käytin tällä viikolla työhön n. 7 tuntia, josta iso osa kului algoritmien etsimiseen ja tutkimiseen.
 
 Tällä viikolla aloin miettiä ja lopulta valitsin aiheen työlleni. Aiheen keksittyäni aloin hioa mielessäni, mitä algoritmeja voisin toteuttaa. Halusin valita algoritmeja sopivan määrän ja erilaisia, jotta saan tutkittua ja testattua aihettani mahdollisimman hyvin. Pyrin myös siihen, että työni olisi laajuudeltaan kurssin puitteisiin sopiva.
 
