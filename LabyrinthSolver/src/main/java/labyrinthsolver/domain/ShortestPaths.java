@@ -1,5 +1,5 @@
 
-package labyrinthSolver.domain;
+package labyrinthsolver.domain;
 
 
 public class ShortestPaths {

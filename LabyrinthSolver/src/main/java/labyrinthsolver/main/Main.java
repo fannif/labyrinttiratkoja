@@ -1,4 +1,4 @@
-package labyrinthSolver.main;
+package labyrinthsolver.main;
 
 import javafx.application.Application;
 import javafx.geometry.Insets;
@@ -12,8 +12,8 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
-import labyrinthSolver.domain.Maze;
-import labyrinthSolver.domain.Sidewinder;
+import labyrinthsolver.domain.Maze;
+import labyrinthsolver.domain.Sidewinder;
 
 
 public class Main extends Application {
@@ -69,8 +69,8 @@ public class Main extends Application {
         for (int i = 0; i < maze.getSize(); i++) {
             for (int j = 0; j < maze.getSize(); j++) {
                 Label square = new Label(" ");
-                square.setMaxSize(10,10);
-                square.setMinSize(10,10);
+                square.setMaxSize(10, 10);
+                square.setMinSize(10, 10);
                 
                 if (maze.getFromCoordinates(i, j) == 1) {
                     square.setStyle("-fx-background-color: #000000");

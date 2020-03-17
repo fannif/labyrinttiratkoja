@@ -1,5 +1,5 @@
 
-package labyrinthSolver.domain;
+package labyrinthsolver.domain;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -29,7 +29,7 @@ public class Sidewinder {
         
         for (int i = 0; i < n; i++) {
             if (i % 2 == 1) {
-                for (int j = 0; j < n - 1; j=j+2) {
+                for (int j = 0; j < n - 1; j = j + 2) {
                     grid[i][j] = 1;
                 }
             } else {
@@ -47,10 +47,10 @@ public class Sidewinder {
             grid[x][1] = 0;
         }
         
-        for (int y = 3; y < n; y=y+2) {
+        for (int y = 3; y < n; y = y + 2) {
             HashSet<Pair> run = new HashSet<>();
             
-            for (int x = 2; x < n; x=x+2) {
+            for (int x = 2; x < n; x = x + 2) {
                 run.add(new Pair(x, y));
                 
                 if (x < n - 1 && (random.nextInt(2) + 1) % 2 == 0) {
@@ -62,7 +62,7 @@ public class Sidewinder {
                         iter.next();
                     }
                     int newX = iter.next().getX();
-                    grid[newX-1][y-1] = 0;
+                    grid[newX - 1][y - 1] = 0;
                     run.clear();
                 }
             }

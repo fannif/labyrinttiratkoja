@@ -1,5 +1,5 @@
 
-package labyrinthSolver.domain;
+package labyrinthsolver.domain;
 
 /**
  * Kahden arvon muodostama yksikkö, jota voidaan käyttää
