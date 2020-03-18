@@ -19,27 +19,17 @@ public class Sidewinder {
     
     /**
      * Sidewinder-algoritmi. Generoi labyrintin
-     * @param n Labyrintin rivin/sarakkeen pituus
+     * @param maze Labyrintti, jota ratkaistaan
      * @return Palauta luotu taulukkopohja, joka
      *  voidaan sitten asettaa labyrinttiin
      */
-    public int[][] generate(int n) {
+    public int[][] generate(Maze maze) {
+        
+        int n = maze.getSize();
+        maze.initialize();
+        maze.initializeWithWalls();
 
-        int[][] grid = new int[n][n];
-        
-        for (int i = 0; i < n; i++) {
-            if (i % 2 == 1) {
-                for (int j = 0; j < n - 1; j = j + 2) {
-                    grid[i][j] = 1;
-                }
-            } else {
-                Arrays.fill(grid[i], 1);
-            }
-        }
-        
-        for (int i = 0; i < n; i++) {
-            grid[i][n - 1] = 1;
-        }
+        int[][] grid = maze.getLayout();
         
         Random random = new Random();
         

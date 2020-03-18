@@ -14,6 +14,7 @@ import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import labyrinthsolver.domain.Maze;
 import labyrinthsolver.domain.Sidewinder;
+import labyrinthsolver.domain.WallFollower;
 
 
 public class Main extends Application {
@@ -37,7 +38,8 @@ public class Main extends Application {
         
         Maze maze = new Maze(51);
         Sidewinder sidew = new Sidewinder();
-        maze.setLayout(sidew.generate(maze.getSize()));
+        WallFollower wallFollower = new WallFollower();
+        maze.setLayout(sidew.generate(maze));
         
         BorderPane startLayout = new BorderPane();
         startLayout.setStyle("-fx-background-color: #ffdcff");
@@ -63,9 +65,59 @@ public class Main extends Application {
         VBox mazeMenu = new VBox(30);
         mazeMenu.setPadding(new Insets(100));
         Button generateNew = new Button("Generate a new maze");
+        Button solvefollower = new Button("Solve using Wall Follower");
+        Label info = new Label("Blue dot is the start. Green dot is the goal.");
+        Label routeInfo = new Label("Purple shows the route travelled by Wall Follower.");
         
         GridPane mazeGrid = new GridPane();
         
+        showMaze(maze, mazeGrid);
+        
+        mazeMenu.setAlignment(Pos.CENTER);
+        mazeMenu.getChildren().add(info);
+        mazeMenu.getChildren().add(mazeGrid);
+        mazeMenu.getChildren().add(solvefollower);
+        mazeMenu.getChildren().add(generateNew);
+        
+        Scene mazeScene = new Scene(mazeMenu, 1000, 800);
+        
+        generate.setOnAction((event) -> {
+            primaryStage.setScene(mazeScene);
+        });
+        
+        solvefollower.setOnAction((event) -> {
+            maze.setLayout(wallFollower.solve(maze));
+            showMaze(maze, mazeGrid);
+            mazeMenu.getChildren().clear();
+            mazeMenu.getChildren().add(info);
+            mazeMenu.getChildren().add(routeInfo);
+            mazeMenu.getChildren().add(mazeGrid);
+            mazeMenu.getChildren().add(solvefollower);
+            mazeMenu.getChildren().add(generateNew);
+        });
+        
+        generateNew.setOnAction((event) -> {
+            maze.setLayout(sidew.generate(maze));
+            showMaze(maze, mazeGrid);
+            mazeMenu.getChildren().clear();
+            mazeMenu.getChildren().add(info);
+            mazeMenu.getChildren().add(mazeGrid);
+            mazeMenu.getChildren().add(solvefollower);
+            mazeMenu.getChildren().add(generateNew);
+        });
+        
+        primaryStage.setScene(startScene);
+        primaryStage.setTitle("Maze Solver");
+        primaryStage.show();
+    }
+    
+    /**
+     * Luo visuaalisen esityksen sokkelolle
+     * @param maze Käsiteltävä sokkelo
+     * @param mazeGrid Visuaalinen pohja, jolla sokkelo esitetään
+     */
+    public void showMaze(Maze maze, GridPane mazeGrid) {
+        mazeGrid.getChildren().clear();
         for (int i = 0; i < maze.getSize(); i++) {
             for (int j = 0; j < maze.getSize(); j++) {
                 Label square = new Label(" ");
@@ -76,27 +128,15 @@ public class Main extends Application {
                     square.setStyle("-fx-background-color: #000000");
                 } else if (i == 1 && j == 1) {
                     square.setStyle("-fx-background-color: #0000ff");
-                } else if (i == maze.getSize() && j == maze.getSize() - 2) {
+                } else if (i == maze.getSize() - 2 && j == maze.getSize() - 2) {
                     square.setStyle("-fx-background-color: #00ff00");
+                } else if (maze.getFromCoordinates(i, j) == 2) {
+                    square.setStyle("-fx-background-color: #ff22ff");
                 }
                 
                 mazeGrid.add(square, i, j);
             }
         }
-        
-        mazeMenu.setAlignment(Pos.CENTER);
-        mazeMenu.getChildren().add(mazeGrid);
-        mazeMenu.getChildren().add(generateNew);
-        
-        Scene mazeScene = new Scene(mazeMenu, 1000, 800);
-        
-        generate.setOnAction((event) -> {
-            primaryStage.setScene(mazeScene);
-        });
-        
-        primaryStage.setScene(startScene);
-        primaryStage.setTitle("Maze Solver");
-        primaryStage.show();
     }
     
 }

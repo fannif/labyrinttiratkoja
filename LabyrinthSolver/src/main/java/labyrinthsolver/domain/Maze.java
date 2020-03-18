@@ -1,6 +1,8 @@
 
 package labyrinthsolver.domain;
 
+import java.util.Arrays;
+
 public class Maze {
     
     private int size;
@@ -19,11 +21,33 @@ public class Maze {
     /**
      * Alustaa tyhjän sokkelon, jossa on vain reunoilla seinät
      */
-    private void initialize() {
+    public void initialize() {
+        for (int i = 0; i < size; i++) {
+            Arrays.fill(layout[i], 0);
+        }
         for (int i = 0; i < size; i++) {
             layout[i][0] = 1;
             layout[0][i] = 1;
             layout[size - 1][i] = 1;
+            layout[i][size - 1] = 1;
+        }
+    } 
+    
+    /**
+     * Lisää sokkeloon kaikkiin väleihin seinät.
+     */
+    public void initializeWithWalls() {
+        for (int i = 0; i < size; i++) {
+            if (i % 2 == 1) {
+                for (int j = 0; j < size - 1; j = j + 2) {
+                    layout[i][j] = 1;
+                }
+            } else {
+                Arrays.fill(layout[i], 1);
+            }
+        }
+        
+        for (int i = 0; i < size; i++) {
             layout[i][size - 1] = 1;
         }
     }
