@@ -17,5 +17,12 @@ public class PairTest {
     public PairTest() {
     }
     
+    @Test
+    public void samePairIsRecognizedAsEqual() {
+        Pair pair1 = new Pair(1, 2);
+        Pair pair2 = new Pair(1, 2);
+        
+        assertTrue(pair1.equals(pair2));
+    }
     
 }
