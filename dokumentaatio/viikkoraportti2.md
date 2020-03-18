@@ -1,5 +1,6 @@
 ## Viikkoraportti 2
 
+Käytin tämän viikon aikana projektiin aikaa 15 tuntia ja 10 minuuttia.
 
 Tällä viikolla olen edistänyt projektia melko paljon. Ensin vaihdoin projektin tyypin Gradle-projektista Maveniin, koska minulla oli vaikeuksia saada JavaFX toimimaan Gradlen kanssa. Jouduin muutenkin konfiguroimaan projetia ja Javaa, ennen kuin sain graafisen käyttöliittymän näkymään. Tämän lisäksi alkuviikosta päivitin määrittelydokumenttia. Tarkensin sitä aika- ja tilavaativuutten suhteen, ja tein paremmin selväksi, mitä n-merkintä eri kohdissa tarkoittaa. Päätin myös vaihtaa yhden algoritmin, jollaisen suunnittelin koodavaani, erääseen toiseen algoritmiin. Minulla meni vähän aikaa uuden algoritmin valintaan ja tutkimiseen. Uudeksi algoritmiksi tuli Wall Follower -algoritmi, joka tavallaan simuloi labyrintissa olevaa ihmistä, joka pitää aina kättä kiinni sokkelon vasemmassa seinässä.
 
@@ -11,7 +12,7 @@ Nyt kun koodia oli jo vähän kirjoitettuna, niin aloin myös tarkkailla Checkst
 
 Seuraavaksi päätin toteuttaa yhden ratkaisualgoritmin, ja päädyin koodaamaan Wall Follower -algoritmin. Tein siinä aluksi paljon virheitä, joten siihen kului jonkin verran aikaa. Samalla kun testailin algoritmin toimivuutta, lisäsin graafiseen käyttöliittymään toiminnallisuuden, jolla ratkaisualgoritmin pystyy ajamaan. Toteutin sen myös niin, että se näyttää algoritmin läpikäymän reitin labyrintissa purppuralla, jotta voin sitten myöhemmin, kun olen toteuttanut enemmän ratkaisualgoritmeja, vertailla erilaisten algoritmien reittejä. 
 
-Lopuksi kirjoitin vielä testejä luomiini luokkiin. Varmistin ohjaajalta, ettei käyttöliittymää tarvitse sisältää Jacocon testikattavuuteen, joten en tehnyt käyttöliittymään testejä. Muihin luokkiin tein testejä sen verran, että sain niiden yhteiseksi rivikattavuudeksi 92% ja haarautumakattavuudeksi 82%.
+Lopuksi kirjoitin vielä testejä luomiini luokkiin. Varmistin ohjaajalta, ettei käyttöliittymää tarvitse sisältää Jacocon testikattavuuteen, joten en tehnyt käyttöliittymään testejä. Muihin luokkiin tein testejä sen verran, että sain niiden yhteiseksi rivikattavuudeksi 95% ja haarautumakattavuudeksi 87%.
 
 Ohjelma on siis tällä viikolla edistynyt melko hyvin. Olen saanut toteutettua kaksi algortmia, graafisen käyttöliittymän pohjan ja Maze-olion sekä testejä. Jacoco ja Checkstyle ovat nyt toimivassa kunnossa.
 
