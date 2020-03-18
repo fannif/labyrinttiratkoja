@@ -27,7 +27,7 @@
                 <version>0.8.3</version>
                 <configuration>
                     <excludes>
-                        <exclude>LabyrinthSolver/ui/*</exclude>
+                        <exclude>labyrinthsolver/main/*</exclude>
                     </excludes>
                 </configuration>
                 <executions>

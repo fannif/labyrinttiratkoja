@@ -3,6 +3,11 @@ package labyrinthsolver.domain;
 
 import java.util.Arrays;
 
+/**
+ * Olio, joka kuvaa labyrinttia.
+ * Siinä on oleellisena osana labyrintin pohjaa kuvaava taulukko.
+ * 
+ */
 public class Maze {
     
     private int size;
@@ -37,6 +42,7 @@ public class Maze {
      * Lisää sokkeloon kaikkiin väleihin seinät.
      */
     public void initializeWithWalls() {
+        this.initialize();
         for (int i = 0; i < size; i++) {
             if (i % 2 == 1) {
                 for (int j = 0; j < size - 1; j = j + 2) {
@@ -73,7 +79,11 @@ public class Maze {
      * @param layout Haluttu sokkelopohja
      */
     public void setLayout(int[][] layout) {
+        if (layout.length != layout[0].length) {
+            return;
+        }
         this.layout = layout;
+        size = layout[0].length;
     }
     
     /**
