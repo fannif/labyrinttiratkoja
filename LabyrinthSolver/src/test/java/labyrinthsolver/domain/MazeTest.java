@@ -25,22 +25,22 @@ public class MazeTest {
     }
     
     @Test
-    public void konstruktoriLuoOikeanKorkuisen() {
+    public void constructorCreatesCorrectHeight() {
         assertTrue(m.getLayout().length == 15);
     }
     
     @Test
-    public void konstruktoriLuoOikeanLevyisen() {
+    public void constructorCreatesCorrectWidth() {
         assertTrue(m.getLayout()[0].length == 15);
     }
     
     @Test
-    public void getSizePalauttaaOikeanArvon() {
+    public void getSizeReturnsCorrectValue() {
         assertTrue(m.getSize() == 15);
     }
     
     @Test
-    public void initializeTekeeReunoistaSeinat() {
+    public void initializeCreatesOuterWalls() {
         boolean ykkosia = true;
         
         for (int i = 0; i < m.getSize(); i++) {
@@ -62,7 +62,7 @@ public class MazeTest {
     }
     
     @Test
-    public void initializeWithWallsLuoSeinaRuudukon() {
+    public void initializeWithWallsCreatesGridOfWalls() {
         boolean ruudukko = true;
         
         m.initializeWithWalls();
@@ -85,38 +85,38 @@ public class MazeTest {
     }
     
     @Test
-    public void getFromCoordinatesAntaaOikeanArvon() {
+    public void getFromCoordinatesReturnsCorrectValue() {
         assertTrue(m.getFromCoordinates(0, 0) == 1 && m.getFromCoordinates(0, 0) == m.getLayout()[0][0]);
     }
     
     @Test
-    public void liianIsollaXKoordinaatillaPalautetaanMiinusYksi() {
+    public void tooLargeXCoordinateReturnsMinusOne() {
         assertTrue(m.getFromCoordinates(100, 1) == -1);
     }
     
     @Test
-    public void liianIsollaYKoordinaatillaPalautetaanMiinusYksi() {
+    public void tooLargeYCoordinateReturnsMinusOne() {
         assertTrue(m.getFromCoordinates(0, 100) == -1);
     }
     
     @Test
-    public void liianPienellaYKoordinaatillaPalautetaanMiinusYksi() {
+    public void negativeYCoordinateReturnsMinusOne() {
         assertTrue(m.getFromCoordinates(0, -1) == -1);
     }
     
     @Test
-    public void liianPienellaXKoordinaatillaPalautetaanMiinusYksi() {
+    public void negativeXCoordinateReturnsMinusOne() {
         assertTrue(m.getFromCoordinates(-5, 0) == -1);
     }
     
     @Test
-    public void setToCoordinatesAsettaaOikeanArvonOikeaanKohtaan() {
+    public void setToCoordinatesSetsCorrectValueToCorrectCoordinates() {
         m.setToCoordinates(5, 6, 7);
         assertTrue(m.getLayout()[5][6] == 7);
     }
     
     @Test
-    public void eiKaaduHuonoihinAsetettavanKoordinaatteihin() {
+    public void doesNotCrashWithBadCoordinates() {
         m.setToCoordinates(-5, 6, 7);
         m.setToCoordinates(5, -6, 7);
         m.setToCoordinates(55, 6, 7);
@@ -124,7 +124,7 @@ public class MazeTest {
     }
     
     @Test
-    public void setLayoutAsettaaOikeanPohjan() {
+    public void setLayoutSetsCorrectLayout() {
         int[][] uusi = new int[][]{
             {0, 1, 2, 3, 4},
             {0, 1, 2, 3, 4},
@@ -149,7 +149,7 @@ public class MazeTest {
     }
     
     @Test
-    public void setLayoutVaihtaaKoonOikeaksi() {
+    public void setLayoutChangesTheSizeToMatchNewLayout() {
         int[][] uusi = new int[][]{
             {0, 1, 2, 3, 4},
             {0, 1, 2, 3, 4},
@@ -164,7 +164,7 @@ public class MazeTest {
     }
     
     @Test
-    public void voidaanAsettaaPohjaksiVainNKertaaNTaulukoita() {
+    public void layoutsCanOnlyBeSetIfTheyAreNByN() {
 
         int[][] uusi = new int[][]{
             {0, 1, 2, 3, 4},

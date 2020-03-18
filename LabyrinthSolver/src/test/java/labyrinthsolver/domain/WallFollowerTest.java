@@ -30,35 +30,35 @@ public class WallFollowerTest {
     }
     
     @Test
-    public void turnLeftVahentaaSuunnanNumeroaYhdella() {
+    public void turnLeftReducesDirectionNumberByOne() {
         wf.setDirection(2);
         wf.turnLeft();
         assertTrue(wf.getDirection() == 1);
     }
     
     @Test
-    public void turnLeftPalauttaaSuunnanKolmeenJosKaannytaanNollasta() {
+    public void turnLeftSetsDirectionToThreeIfTurningFromZero() {
         wf.setDirection(0);
         wf.turnLeft();
         assertTrue(wf.getDirection() == 3);
     }
     
     @Test
-    public void turnRightKasvattaaSuunnanNumeroaYhdella() {
+    public void turnRightIncreasesDirectionNumberByOne() {
         wf.setDirection(0);
         wf.turnRight();
         assertTrue(wf.getDirection() == 1);
     }
     
     @Test
-    public void turnRightSiirtyyKolmosestaNollaan() {
+    public void turnRightSetsDirectionNumberFromThreeToZero() {
         wf.setDirection(3);
         wf.turnRight();
         assertTrue(wf.getDirection() == 0);
     }
     
     @Test
-    public void goingUpKaantyyVasemmalleEnsisijaisesti() {
+    public void goingUpPrimarilyTurnsLeft() {
         int[][] sokkelo = new int[][]{
             {1, 1, 1, 1},
             {1, 0, 0, 1},
@@ -76,7 +76,7 @@ public class WallFollowerTest {
     }
     
     @Test
-    public void goingDownKaantyyVasemmalleEnsisijaisesti() {
+    public void goingDownPrimarilyTurnsLeft() {
         int[][] sokkelo = new int[][]{
             {1, 1, 1, 1},
             {1, 0, 0, 1},
@@ -94,7 +94,7 @@ public class WallFollowerTest {
     }
     
     @Test
-    public void goingLeftKaantyyVasemmalleEnsisijaisesti() {
+    public void goingLeftPrimarilyTurnsLeft() {
         int[][] sokkelo = new int[][]{
             {1, 1, 1, 1},
             {1, 0, 0, 1},
@@ -112,7 +112,7 @@ public class WallFollowerTest {
     }
     
     @Test
-    public void goingRightKaantyyVasemmalleEnsisijaisesti() {
+    public void goingRightPrimarilyTurnsLeft() {
         int[][] sokkelo = new int[][]{
             {1, 1, 1, 1},
             {1, 0, 0, 1},
@@ -130,7 +130,7 @@ public class WallFollowerTest {
     }
     
     @Test
-    public void goingUpMeneeToissijaisestiSuoraan() {
+    public void goingUpSecondarilyKeepsGoingStraight() {
         int[][] sokkelo = new int[][]{
             {1, 1, 1, 1},
             {1, 0, 0, 1},
@@ -148,7 +148,7 @@ public class WallFollowerTest {
     }
     
     @Test
-    public void goingDownMeneeToissijaisestiSuoraan() {
+    public void goingDownSecondarilyKeepsGoingStraight() {
         int[][] sokkelo = new int[][]{
             {1, 1, 1, 1},
             {1, 0, 0, 1},
@@ -166,7 +166,7 @@ public class WallFollowerTest {
     }
     
     @Test
-    public void goingLeftMeneeToissijaisestiSuoraan() {
+    public void goingLeftSecondarilyKeepsGoingStraight() {
         int[][] sokkelo = new int[][]{
             {1, 1, 1, 1},
             {1, 0, 0, 1},
@@ -184,7 +184,7 @@ public class WallFollowerTest {
     }
     
     @Test
-    public void goingRightMeneeToissijaisestiSuoraan() {
+    public void goingRightSecondarilyKeepsGoingStraight() {
         int[][] sokkelo = new int[][]{
             {1, 1, 1, 1},
             {1, 0, 0, 1},
@@ -202,7 +202,7 @@ public class WallFollowerTest {
     }
     
     @Test
-    public void goingUpKaantyyYmpariJosMuutSuunnatEivatMahdollisia() {
+    public void goingUpTurnsAroundIfOtherDirectionsNotPossible() {
         int[][] sokkelo = new int[][]{
             {1, 1, 1, 1},
             {1, 0, 1, 1},
@@ -220,7 +220,7 @@ public class WallFollowerTest {
     }
     
     @Test
-    public void goingDownKaantyyYmpariJosMuutSuunnatEivatMahdollisia() {
+    public void goingDownTurnsAroundIfOtherDirectionsNotPossible() {
         int[][] sokkelo = new int[][]{
             {1, 1, 1, 1},
             {1, 0, 0, 1},
@@ -238,7 +238,7 @@ public class WallFollowerTest {
     }
     
     @Test
-    public void goingLeftKaantyyYmpariJosMuutSuunnatEivatMahdollisia() {
+    public void goingLeftTurnsAroundIfOtherDirectionsNotPossible() {
         int[][] sokkelo = new int[][]{
             {1, 1, 1, 1},
             {1, 0, 0, 1},
@@ -256,7 +256,7 @@ public class WallFollowerTest {
     }
     
     @Test
-    public void goingRightKaantyyYmpariJosMuutSuunnatEivatMahdollisia() {
+    public void goingRightTurnsAroundIfOtherDirectionsNotPossible() {
         int[][] sokkelo = new int[][]{
             {1, 1, 1, 1},
             {1, 0, 0, 1},
@@ -274,13 +274,13 @@ public class WallFollowerTest {
     }
     
     @Test
-    public void solveOnOllutAlkusolmussa() {
+    public void solveHasBeenAtTheStartPoint() {
         m.setLayout(wf.solve(m));
         assertTrue(m.getLayout()[1][1] == 2);
     }
     
     @Test
-    public void solvePaaseeMaaliinAsti() {
+    public void solveMakesItToTheGoalPoint() {
         m.setLayout(wf.solve(m));
         int n = m.getLayout().length;
         assertTrue(m.getLayout()[n - 2][n - 2] == 2);

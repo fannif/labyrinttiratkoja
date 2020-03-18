@@ -27,7 +27,7 @@ public class SidewinderTest {
     }
     
     @Test
-    public void generointiJattaaLaidatSeiniksi() {
+    public void generateSetsOuterWalls() {
         boolean onSeina = true;
         int n = m.getSize();
         m.setLayout(sw.generate(m));
@@ -51,20 +51,20 @@ public class SidewinderTest {
     }
     
     @Test
-    public void lahtoruutuEiOleSeina() {
+    public void startingPointIsNotAWall() {
         m.setLayout(sw.generate(m));
         assertTrue(m.getLayout()[1][1] == 0);
     }
     
     @Test
-    public void maaliruutuEiOleSeina() {
+    public void goalPointIsNotAWall() {
         int n = m.getSize();
         m.setLayout(sw.generate(m));
         assertTrue(m.getLayout()[n - 2][n - 2] == 0);
     }
     
     @Test
-    public void luotuLabyrinttiOnMahdollistaRatkaista() {
+    public void generatedMazeCanBeSolved() {
         int n = m.getSize();
         m.setLayout(sw.generate(m));
         WallFollower wf = new WallFollower();
