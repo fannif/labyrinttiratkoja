@@ -20,7 +20,6 @@ import labyrinthsolver.domain.WallFollower;
 
 public class Main extends Application {
     
-    
     /**
      * Main-metodi, joka käynnistää ohjelman
      * @param args 
