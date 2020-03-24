@@ -59,14 +59,14 @@ public class WallFollowerTest {
     
     @Test
     public void goingUpPrimarilyTurnsLeft() {
-        int[][] sokkelo = new int[][]{
+        int[][] maze = new int[][]{
             {1, 1, 1, 1},
             {1, 0, 0, 1},
             {1, 0, 0, 1},
             {1, 1, 1, 1}
         };
         
-        wf.setGrid(sokkelo);
+        wf.setGrid(maze);
         
         wf.setX(2);
         wf.setY(2);
@@ -77,14 +77,14 @@ public class WallFollowerTest {
     
     @Test
     public void goingDownPrimarilyTurnsLeft() {
-        int[][] sokkelo = new int[][]{
+        int[][] maze = new int[][]{
             {1, 1, 1, 1},
             {1, 0, 0, 1},
             {1, 0, 0, 1},
             {1, 1, 1, 1}
         };
         
-        wf.setGrid(sokkelo);
+        wf.setGrid(maze);
         
         wf.setX(1);
         wf.setY(1);
@@ -95,14 +95,14 @@ public class WallFollowerTest {
     
     @Test
     public void goingLeftPrimarilyTurnsLeft() {
-        int[][] sokkelo = new int[][]{
+        int[][] maze = new int[][]{
             {1, 1, 1, 1},
             {1, 0, 0, 1},
             {1, 0, 0, 1},
             {1, 1, 1, 1}
         };
         
-        wf.setGrid(sokkelo);
+        wf.setGrid(maze);
         
         wf.setX(1);
         wf.setY(1);
@@ -113,14 +113,14 @@ public class WallFollowerTest {
     
     @Test
     public void goingRightPrimarilyTurnsLeft() {
-        int[][] sokkelo = new int[][]{
+        int[][] maze = new int[][]{
             {1, 1, 1, 1},
             {1, 0, 0, 1},
             {1, 0, 0, 1},
             {1, 1, 1, 1}
         };
         
-        wf.setGrid(sokkelo);
+        wf.setGrid(maze);
         
         wf.setX(2);
         wf.setY(2);
@@ -131,14 +131,14 @@ public class WallFollowerTest {
     
     @Test
     public void goingUpSecondarilyKeepsGoingStraight() {
-        int[][] sokkelo = new int[][]{
+        int[][] maze = new int[][]{
             {1, 1, 1, 1},
             {1, 0, 0, 1},
             {1, 0, 0, 1},
             {1, 1, 1, 1}
         };
         
-        wf.setGrid(sokkelo);
+        wf.setGrid(maze);
         
         wf.setX(2);
         wf.setY(1);
@@ -149,14 +149,14 @@ public class WallFollowerTest {
     
     @Test
     public void goingDownSecondarilyKeepsGoingStraight() {
-        int[][] sokkelo = new int[][]{
+        int[][] maze = new int[][]{
             {1, 1, 1, 1},
             {1, 0, 0, 1},
             {1, 0, 0, 1},
             {1, 1, 1, 1}
         };
         
-        wf.setGrid(sokkelo);
+        wf.setGrid(maze);
         
         wf.setX(1);
         wf.setY(2);
@@ -167,14 +167,14 @@ public class WallFollowerTest {
     
     @Test
     public void goingLeftSecondarilyKeepsGoingStraight() {
-        int[][] sokkelo = new int[][]{
+        int[][] maze = new int[][]{
             {1, 1, 1, 1},
             {1, 0, 0, 1},
             {1, 0, 0, 1},
             {1, 1, 1, 1}
         };
         
-        wf.setGrid(sokkelo);
+        wf.setGrid(maze);
         
         wf.setX(2);
         wf.setY(2);
@@ -185,14 +185,14 @@ public class WallFollowerTest {
     
     @Test
     public void goingRightSecondarilyKeepsGoingStraight() {
-        int[][] sokkelo = new int[][]{
+        int[][] maze = new int[][]{
             {1, 1, 1, 1},
             {1, 0, 0, 1},
             {1, 0, 0, 1},
             {1, 1, 1, 1}
         };
         
-        wf.setGrid(sokkelo);
+        wf.setGrid(maze);
         
         wf.setX(1);
         wf.setY(1);
@@ -203,14 +203,14 @@ public class WallFollowerTest {
     
     @Test
     public void goingUpTurnsAroundIfOtherDirectionsNotPossible() {
-        int[][] sokkelo = new int[][]{
+        int[][] maze = new int[][]{
             {1, 1, 1, 1},
             {1, 0, 1, 1},
             {1, 0, 0, 1},
             {1, 1, 1, 1}
         };
         
-        wf.setGrid(sokkelo);
+        wf.setGrid(maze);
         
         wf.setX(1);
         wf.setY(1);
@@ -221,14 +221,14 @@ public class WallFollowerTest {
     
     @Test
     public void goingDownTurnsAroundIfOtherDirectionsNotPossible() {
-        int[][] sokkelo = new int[][]{
+        int[][] maze = new int[][]{
             {1, 1, 1, 1},
             {1, 0, 0, 1},
             {1, 0, 1, 1},
             {1, 1, 1, 1}
         };
         
-        wf.setGrid(sokkelo);
+        wf.setGrid(maze);
         
         wf.setX(2);
         wf.setY(1);
@@ -239,14 +239,14 @@ public class WallFollowerTest {
     
     @Test
     public void goingLeftTurnsAroundIfOtherDirectionsNotPossible() {
-        int[][] sokkelo = new int[][]{
+        int[][] maze = new int[][]{
             {1, 1, 1, 1},
             {1, 0, 0, 1},
             {1, 1, 0, 1},
             {1, 1, 1, 1}
         };
         
-        wf.setGrid(sokkelo);
+        wf.setGrid(maze);
         
         wf.setX(1);
         wf.setY(1);
@@ -257,14 +257,14 @@ public class WallFollowerTest {
     
     @Test
     public void goingRightTurnsAroundIfOtherDirectionsNotPossible() {
-        int[][] sokkelo = new int[][]{
+        int[][] maze = new int[][]{
             {1, 1, 1, 1},
             {1, 0, 0, 1},
             {1, 0, 1, 1},
             {1, 1, 1, 1}
         };
         
-        wf.setGrid(sokkelo);
+        wf.setGrid(maze);
         
         wf.setX(2);
         wf.setY(1);

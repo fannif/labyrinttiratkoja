@@ -41,29 +41,29 @@ public class MazeTest {
     
     @Test
     public void initializeCreatesOuterWalls() {
-        boolean ykkosia = true;
+        boolean ones = true;
         
         for (int i = 0; i < m.getSize(); i++) {
             if (m.getLayout()[i][0] != 1) {
-                ykkosia = false;
+                ones = false;
             }
             if (m.getLayout()[0][i] != 1) {
-                ykkosia = false;
+                ones = false;
             }
             if (m.getLayout()[m.getSize() - 1][i] != 1) {
-                ykkosia = false;
+                ones = false;
             }
             if (m.getLayout()[i][m.getSize() - 1] != 1) {
-                ykkosia = false;
+                ones = false;
             }
         }
         
-        assertTrue(ykkosia);
+        assertTrue(ones);
     }
     
     @Test
     public void initializeWithWallsCreatesGridOfWalls() {
-        boolean ruudukko = true;
+        boolean grid = true;
         
         m.initializeWithWalls();
         
@@ -71,17 +71,17 @@ public class MazeTest {
             for (int j = 1; j < m.getSize() - 1; j++) {
                 if (j % 2 == 0 || i % 2 == 0) {
                     if (m.getLayout()[i][j] != 1) {
-                        ruudukko = false;
+                        grid = false;
                     }
                 } else {
                     if (m.getLayout()[i][j] != 0) {
-                        ruudukko = false;
+                        grid = false;
                     }
                 }
             }
         }
         
-        assertTrue(ruudukko);
+        assertTrue(grid);
     }
     
     @Test
@@ -125,7 +125,7 @@ public class MazeTest {
     
     @Test
     public void setLayoutSetsCorrectLayout() {
-        int[][] uusi = new int[][]{
+        int[][] newMaze = new int[][]{
             {0, 1, 2, 3, 4},
             {0, 1, 2, 3, 4},
             {0, 1, 2, 3, 4},
@@ -133,24 +133,24 @@ public class MazeTest {
             {0, 1, 2, 3, 4}
         };
         
-        m.setLayout(uusi);
+        m.setLayout(newMaze);
         
-        boolean oikein = true;
+        boolean correct = true;
         
         for (int i = 0; i < m.getSize(); i++) {
             for (int j = 0; j < m.getSize(); j++) {
-                if (m.getLayout()[i][j] != uusi[i][j]) {
-                    oikein = false;
+                if (m.getLayout()[i][j] != newMaze[i][j]) {
+                    correct = false;
                 }
             }
         }
         
-        assertTrue(oikein);
+        assertTrue(correct);
     }
     
     @Test
     public void setLayoutChangesTheSizeToMatchNewLayout() {
-        int[][] uusi = new int[][]{
+        int[][] newMaze = new int[][]{
             {0, 1, 2, 3, 4},
             {0, 1, 2, 3, 4},
             {0, 1, 2, 3, 4},
@@ -158,7 +158,7 @@ public class MazeTest {
             {0, 1, 2, 3, 4}
         };
         
-        m.setLayout(uusi);
+        m.setLayout(newMaze);
         
         assertTrue(m.getSize() == 5);
     }
@@ -166,14 +166,14 @@ public class MazeTest {
     @Test
     public void layoutsCanOnlyBeSetIfTheyAreNByN() {
 
-        int[][] uusi = new int[][]{
+        int[][] newMaze = new int[][]{
             {0, 1, 2, 3, 4},
             {0, 1, 2, 3, 4},
             {0, 1, 2, 3, 4},
             {0, 1, 2, 3, 4},
         };
         
-        m.setLayout(uusi);
+        m.setLayout(newMaze);
         
         assertTrue(m.getLayout().length == m.getLayout()[0].length);
     }

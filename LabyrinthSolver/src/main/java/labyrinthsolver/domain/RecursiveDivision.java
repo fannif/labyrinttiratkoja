@@ -3,6 +3,12 @@ package labyrinthsolver.domain;
 
 import java.util.Random;
 
+/**
+ * Generoi sokkeloita rekursiivisella jakoalgoritmilla.
+ * Orientation on suunta, jossa sokkelo jaetaan. Tässä 0
+ * on vaakasuora ja 1 on pystysuora.
+ * width on käsiteltävän sokkelon leveys ja height korkeus.
+ */
 public class RecursiveDivision {
     
     private int orientation = 0;
@@ -11,24 +17,33 @@ public class RecursiveDivision {
     private int grid[][];
     private Random random = new Random();
     
+    /**
+     * Konstruktorimetodi.
+     */
     public RecursiveDivision() {
     }
     
+    /**
+     * Metodi generoi uuden sokkelon.
+     * @param maze Pohja, josta saadaan haluttu koko.
+     * @return Generoitu sokkelopohja.
+     */
     public int[][] generate(Maze maze) {
         int n = maze.getSize();
         maze.initialize();
         width = n;
         height = n;
-        grid = new int[n][n];
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < n; j++) {
-                grid[i][j] = maze.getLayout()[i][j];
-            }
-        }
+        grid = maze.getLayout();
+        
         divide(width, height, new Pair(0, 0));
         return grid;
     }
     
+    /**
+     * Valitsee, jaetaanko sokkelu seuraavaksi vaaka- vai pystysuunnassa.
+     * @param height Senhetkisen käsiteltävän osan korkeus
+     * @param width Käsiteltävän sokkelonosan leveys
+     */
     public void newOrientation(int height, int width) {
         if (height > width) {
             orientation = 0;
@@ -37,6 +52,14 @@ public class RecursiveDivision {
         }
     }
     
+    /**
+     * Jakaa käsiteltävän sokkelon pienempään käsiteltävään alueeseen,
+     * ja lisää seinän jakokohtaan, ja seinään reiän.
+     * @param width Käsiteltävän sokkelonosan leveys.
+     * @param height Käsiteltävän sokkelonosan korkeus.
+     * @param offset Pari, joka kuvaa, kuinka kaukaa nollarivistä
+     * ja -sarakkeesta käsiteltävä alue alkaa.
+     */
     public void divide(int width, int height, Pair offset) {
         if (width < 4 || height < 4) {
             return;
@@ -83,4 +106,11 @@ public class RecursiveDivision {
         }
     }
     
+    /**
+     * Palauttaa seuraavan jaon suuntaa vastaavan arvon
+     * @return Yksi jos seuraava jako pystysuora, nolla jos seuraava jako vaakasuora
+     */
+    public int getOrientation() {
+        return this.orientation;
+    }
 }

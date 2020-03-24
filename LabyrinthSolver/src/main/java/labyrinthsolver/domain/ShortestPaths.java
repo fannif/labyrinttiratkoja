@@ -1,14 +1,28 @@
 
 package labyrinthsolver.domain;
 
+/**
+ * Ratkaisee sokkelon kaikki lyhimmät reitit.
+ * Grid kuvaa sokkelopohjaa ja distance kuvaa
+ * ruutujen etäisyyksiä lähtöpisteestä.
+ */
 public class ShortestPaths {
     
     private int[][] grid;
     private int[][] distance;
     
+    /**
+     * Konstruktorimetodi.
+     */
     public ShortestPaths() {
     }
     
+    /**
+     * Ratkaisee sokkelon hyödyntäen yhdistelmää kahdesta
+     * erilaisesta syvyyshausta.
+     * @param maze Ratkaistava sokkelo
+     * @return Ratkaistu sokkelopohja
+     */
     public int[][] solve(Maze maze) {
         int n = maze.getSize();
         grid = new int[n][n];
@@ -24,6 +38,10 @@ public class ShortestPaths {
         return grid;
     }
     
+    /**
+     * Normaali syvyyshaku. Etsii matkat lähtöpisteestä kaikkiin
+     * pisteisiin.
+     */
     public void BFS() {
         PairQueue queue = new PairQueue(5000);
         queue.enqueue(new Pair(1, 1));
@@ -57,6 +75,13 @@ public class ShortestPaths {
         }
     }
     
+    /**
+     * Muunneltu syvyyhaku. Etsii maalipisteestä lähtien
+     * kaikki sellaiset reitit, joilla etäisyys aina lyhenee
+     * alkua kohden mennessä. Ne merkataan kakkosilla.
+     * @param startX Maalipisteen x-koordinaatti
+     * @param startY Maalipisteen y-koordinaatti
+     */
     public void pickyBFS(int startX, int startY) {
         PairQueue queue = new PairQueue(5000);
         queue.enqueue(new Pair(startX, startY));
@@ -84,6 +109,17 @@ public class ShortestPaths {
                 grid[y][x - 1] = 2;
             } 
         }
+    }
+    
+    /**
+     * Palautta distance-taulukon arvon kohdasta (y, x).
+     * Testausta varten.
+     * @param x Palautettavan arvon sarake
+     * @param y Palautettavan arvon rivi
+     * @return Etäisyys, joka on merkattu annetuille koordinaateille
+     */
+    public int getDistanceTo(int x, int y) {
+        return distance[y][x];
     }
     
 }

@@ -25,4 +25,10 @@ public class PairTest {
         assertTrue(pair1.equals(pair2));
     }
     
+    @Test
+    public void gettersReturnRightValues() {
+        Pair pair = new Pair(2, 3);
+        assertTrue(pair.getX() == 2 && pair.getY() == 3);
+    }
+    
 }

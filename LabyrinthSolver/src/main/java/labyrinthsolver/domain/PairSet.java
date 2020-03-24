@@ -3,18 +3,33 @@ package labyrinthsolver.domain;
 
 import java.util.Random;
 
+/**
+ * Joukko, johon voi tallettaa pareja.
+ * Kukin pari ilmenee joukossa korkeintaan kerran
+ */
 public class PairSet {
     
     private Pair[] set;
     private int endIndex;
     private int size;
     
+    /**
+     * Konstruktori luo joukon.
+     * Samalla alustetaan taulukko, johon alkiot talletetaan.
+     * size on joukon senhetkinen maksimikoko ja endIndex kuvaa
+     * indeksiä, johon seuraava alkio tulisi.
+     */
     public PairSet() {
         set = new Pair[10];
         size = 10;
         endIndex = 0;
     }
     
+    /**
+     * Lisää joukkoon parin. Jos se on jo siellä, niin ei lisätä.
+     * Jos ollaan maksimikoossa, niin kasvatetaan joukkoa.
+     * @param pair Lisättävä pari
+     */
     public void add(Pair pair) {
         int exists = contains(pair);
         if (exists >= 0) {
@@ -27,6 +42,13 @@ public class PairSet {
         endIndex++;
     }
     
+    /**
+     * Poistaa alkion joukosta.
+     * Jos alkioiden määrä putoaa alle neljännekseen
+     * maksimikoosta ja joukko on tarpeeksi iso,
+     * niin pienennetään joukkoa.
+     * @param pair Poistettava alkio
+     */
     public void remove(Pair pair) {
         int exists = contains(pair);
         if (exists < 0) {
@@ -42,15 +64,25 @@ public class PairSet {
         }
     }
     
+    /**
+     * Tarkistaa, kuuluuko annettu alkio joukkoon
+     * @param pair Tarkistettava alkio
+     * @return Alkion indeksi, jos se kuuluu joukkoon, ja
+     * -1 jos se ei kuulu.
+     */
     public int contains(Pair pair) {
         for (int i = 0; i < endIndex; i++) {
-            if (set[i] == pair) {
+            if (set[i].equals(pair)) {
                 return i;
             }
         }
         return -1;
     }
     
+    /**
+     * Palauttaa satunnaisesti valitun alkion joukosta.
+     * @return Satunnainen joukon alkio.
+     */
     public Pair randomPair() {
         Random random = new Random();
         if (endIndex == 0) {
@@ -60,6 +92,9 @@ public class PairSet {
         return set[next];
     }
     
+    /**
+     * Kasvattaa joukon maksimikoon kaksinkertaiseksi.
+     */
     private void increaseSize() {
         Pair[] newSet = new Pair[size * 2];
         for (int i = 0; i < endIndex; i++) {
@@ -69,6 +104,9 @@ public class PairSet {
         size = newSet.length;
     }
     
+    /**
+     * Puolittaa joukon maksimikoon.
+     */
     private void decreaseSize() {
         if (endIndex > size / 4) {
             return;
@@ -81,10 +119,31 @@ public class PairSet {
         size = newSet.length;
     }
     
+    /**
+     * Tyhjentää joukon, ja asettaa sen maksimikooksi 10.
+     */
     public void clear() {
         set = new Pair[10];
         size = 10;
         endIndex = 0;
     }
+
+    /**
+     * Palauttaa endIndexin.
+     * @return Seuraavan lisättävän alkion indeksi.
+     */
+    public int getEndIndex() {
+        return endIndex;
+    }
+    
+    /**
+     * Palauttaa joukon senhetkisen maksimikoon.
+     * @return Joukon tämänhetkinen maksimikoko.
+     */
+    public int getSize() {
+        return size;
+    }
+    
+    
     
 }
