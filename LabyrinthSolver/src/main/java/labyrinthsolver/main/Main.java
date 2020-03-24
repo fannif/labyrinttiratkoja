@@ -67,7 +67,7 @@ public class Main extends Application {
         Button generateNew = new Button("Generate a new maze");
         Button solvefollower = new Button("Solve using Wall Follower");
         Label info = new Label("Blue dot is the start. Green dot is the goal.");
-        Label routeInfo = new Label("Purple shows the route travelled by Wall Follower.");
+        Label routeInfo = new Label("Purple shows the places visited by Wall Follower.");
         
         GridPane mazeGrid = new GridPane();
         

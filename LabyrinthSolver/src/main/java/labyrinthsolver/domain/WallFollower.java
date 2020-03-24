@@ -37,7 +37,14 @@ public class WallFollower {
      */
     public int[][] solve(Maze maze) {
         int n = maze.getSize();
-        grid = maze.getLayout().clone();
+        grid = new int[n][n];
+
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                grid[i][j] = maze.getLayout()[i][j];
+            }
+        }
+        
         x = 1;
         y = 1;
         grid[x][y] = 2;

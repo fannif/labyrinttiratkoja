@@ -28,7 +28,9 @@ public class Maze {
      */
     public void initialize() {
         for (int i = 0; i < size; i++) {
-            Arrays.fill(layout[i], 0);
+            for (int j = 0; j < size; j++) {
+                layout[i][j] = 0;
+            }
         }
         for (int i = 0; i < size; i++) {
             layout[i][0] = 1;
@@ -49,7 +51,9 @@ public class Maze {
                     layout[i][j] = 1;
                 }
             } else {
-                Arrays.fill(layout[i], 1);
+                for (int j = 0; j < size; j++) {
+                    layout[i][j] = 1;
+                }
             }
         }
         
