@@ -13,6 +13,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import labyrinthsolver.domain.Maze;
+import labyrinthsolver.domain.RecursiveDivision;
 import labyrinthsolver.domain.Sidewinder;
 import labyrinthsolver.domain.WallFollower;
 
@@ -36,10 +37,10 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         
-        Maze maze = new Maze(51);
+        Maze maze = new Maze(45);
         Sidewinder sidew = new Sidewinder();
         WallFollower wallFollower = new WallFollower();
-        maze.setLayout(sidew.generate(maze));
+        RecursiveDivision reDiv = new RecursiveDivision();
         
         BorderPane startLayout = new BorderPane();
         startLayout.setStyle("-fx-background-color: #ffdcff");
@@ -50,11 +51,13 @@ public class Main extends Application {
         Label welcome = new Label("Welcome!\nWhat would you like to do?");
         welcome.setFont(Font.font("Verdana", FontWeight.BOLD, 20));
         
-        Button generate = new Button("Generate a maze");
+        Button generateSW = new Button("Generate a Sidewinder maze");
+        Button generateRD = new Button("Generate a Recursive Division maze");
         
         startMenu.setAlignment(Pos.CENTER);
         startMenu.getChildren().add(welcome);
-        startMenu.getChildren().add(generate);
+        startMenu.getChildren().add(generateSW);
+        startMenu.getChildren().add(generateRD);
         
         startLayout.setCenter(startMenu);
         Scene startScene = new Scene(startLayout, 1000, 800);
@@ -64,7 +67,8 @@ public class Main extends Application {
         
         VBox mazeMenu = new VBox(30);
         mazeMenu.setPadding(new Insets(100));
-        Button generateNew = new Button("Generate a new maze");
+        Button generateNewSW = new Button("Generate a new Sidewinder maze");
+        Button generateNewRD = new Button("Generate a new Recursive division maze");
         Button solvefollower = new Button("Solve using Wall Follower");
         Label info = new Label("Blue dot is the start. Green dot is the goal.");
         Label routeInfo = new Label("Purple shows the places visited by Wall Follower.");
@@ -77,11 +81,34 @@ public class Main extends Application {
         mazeMenu.getChildren().add(info);
         mazeMenu.getChildren().add(mazeGrid);
         mazeMenu.getChildren().add(solvefollower);
-        mazeMenu.getChildren().add(generateNew);
+        mazeMenu.getChildren().add(generateNewSW);
+        mazeMenu.getChildren().add(generateNewRD);
         
         Scene mazeScene = new Scene(mazeMenu, 1000, 800);
         
-        generate.setOnAction((event) -> {
+        generateSW.setOnAction((event) -> {
+            maze.setLayout(sidew.generate(maze));
+            showMaze(maze, mazeGrid);
+            mazeMenu.getChildren().clear();
+            mazeMenu.getChildren().add(info);
+            mazeMenu.getChildren().add(routeInfo);
+            mazeMenu.getChildren().add(mazeGrid);
+            mazeMenu.getChildren().add(solvefollower);
+            mazeMenu.getChildren().add(generateNewSW);
+            mazeMenu.getChildren().add(generateNewRD);
+            primaryStage.setScene(mazeScene);
+        });
+        
+        generateRD.setOnAction((event) -> {
+            maze.setLayout(reDiv.generate(maze));
+            showMaze(maze, mazeGrid);
+            mazeMenu.getChildren().clear();
+            mazeMenu.getChildren().add(info);
+            mazeMenu.getChildren().add(routeInfo);
+            mazeMenu.getChildren().add(mazeGrid);
+            mazeMenu.getChildren().add(solvefollower);
+            mazeMenu.getChildren().add(generateNewSW);
+            mazeMenu.getChildren().add(generateNewRD);
             primaryStage.setScene(mazeScene);
         });
         
@@ -93,17 +120,30 @@ public class Main extends Application {
             mazeMenu.getChildren().add(routeInfo);
             mazeMenu.getChildren().add(mazeGrid);
             mazeMenu.getChildren().add(solvefollower);
-            mazeMenu.getChildren().add(generateNew);
+            mazeMenu.getChildren().add(generateNewSW);
+            mazeMenu.getChildren().add(generateNewRD);
         });
         
-        generateNew.setOnAction((event) -> {
+        generateNewSW.setOnAction((event) -> {
             maze.setLayout(sidew.generate(maze));
             showMaze(maze, mazeGrid);
             mazeMenu.getChildren().clear();
             mazeMenu.getChildren().add(info);
             mazeMenu.getChildren().add(mazeGrid);
             mazeMenu.getChildren().add(solvefollower);
-            mazeMenu.getChildren().add(generateNew);
+            mazeMenu.getChildren().add(generateNewSW);
+            mazeMenu.getChildren().add(generateNewRD);
+        });
+        
+        generateNewRD.setOnAction((event) -> {
+            maze.setLayout(reDiv.generate(maze));
+            showMaze(maze, mazeGrid);
+            mazeMenu.getChildren().clear();
+            mazeMenu.getChildren().add(info);
+            mazeMenu.getChildren().add(mazeGrid);
+            mazeMenu.getChildren().add(solvefollower);
+            mazeMenu.getChildren().add(generateNewSW);
+            mazeMenu.getChildren().add(generateNewRD);
         });
         
         primaryStage.setScene(startScene);
