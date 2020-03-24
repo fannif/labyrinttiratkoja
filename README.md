@@ -6,4 +6,6 @@
 
 ### [Viikkoraportti 2](https://github.com/fannif/labyrinttiratkoja/blob/master/dokumentaatio/viikkoraportti2.md)
 
+### [Viikkoraportti 3](https://github.com/fannif/labyrinttiratkoja/blob/master/dokumentaatio/viikkoraportti3.md)
+
 ### [Määrittelydokumentti](https://github.com/fannif/labyrinttiratkoja/tree/master/dokumentaatio/maarittelydokumentti.md)
