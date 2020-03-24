@@ -23,7 +23,7 @@ Sidewinderin aikavaativuudeksi pyrin saamaan O(n^2), koska siinä joudutaan mene
 
 Kuten yllä mainittu, ratkaisualgoritmeista, joita aion toteuttaa, nopeimmat polut etsivän algoritmin pohjana tulee todennäköisesti olemaan leveyshaku. Leveyshaun aikavaativuus on O(n + m), joten pyrin pääsemään algoritmillani mahdollisimman lähelle kyseistä aikavaativuutta. Tässä n kuvaa solmujen ja m kaarien määrää, kun taulukkomuotoinen labyrintti on ensin muutettu verkoksi. Seinänseuraamisalgoritmissa joudutaan pahimmillaan käymään kaikki labyrintin ruudut läpi, joten sen aikavaativuus on O(n^2), missä n on labyrinttia kuvaavan taulukon rivin pituus.
 
-Seinänseuraamisalgoritmi tarvitsee todennäköisesti aputaulukon, joten sen tilavaativuus on O(n^2), missä n on alkuperäisen taulukon rivin pituus. Myös kaksi muuta algoritmia voivat joutua käyttämään aputaulukoita, jolloin niiden tilavaativuus on tämä sama.
+Seinänseuraamisalgoritmi tarvitsee todennäköisesti aputaulukon, joten sen tilavaativuus on O(n^2), missä n on alkuperäisen taulukon rivin pituus. Myös kaksi muuta algoritmia voivat joutua käyttämään aputaulukoita, jolloin niiden tilavaativuus on tämä sama. Ketjualgoritmi joutuu pahimmassa tapauksessa käymään läpi koko sokkelotaulukon, jolloin sen aikavaativuus on O(n^2), missä n on sokkelotaulukon rivin/sarakkeen pituus.
 
 
 ### Ongelma
