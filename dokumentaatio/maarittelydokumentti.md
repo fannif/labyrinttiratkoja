@@ -9,7 +9,7 @@ Työssäni minulla on suunnitelmana toteuttaa labyritin luomista varten ainakin 
 Labyritmin ratkaisemista varten on myös aikomus toteuttaa ainakin kolme eri algoritmia. Haluan toteuttaa algoritmin, joka etsii lyhyimmän polun, algoritmin joka etsii kaikki lyhyimmät polut
 ja seinänseuraamisalgoritmin, joka simuloi ihmistä, joka ratkaisee sokkelon pitämällä kättä kiinni seinässä ja jatkamalla eteenpäin niin, että jos jo käyty seinä tulee vastaan, niin vaihdetaan seinää käymättömään. Todennäköisesti tulen hyödyntämään näistä ainakin kahden ensimmäisen toteutuksessa leveyshakua. Lyhyimmän polun etsimisalgoritmi tulee muistuttamaan toteutukseltaa A*-algoritmia ilman painoja. Nopeimmat polut-algoritmissa etsitään kaikki lyhyimmät polut leveyshakuun perustuvalla menetelmällä. Seinänseuraamisalgoritmissa kuljetaan jotain seinää pitkin kohti ratkaisua.
 
-Valitsemieni algoritmien toteuttamiseksi tarvitsen tietorakenteet ainakin joukkoa ja verkkoa varten. Niinpä toteutan ohjelmassani ne.
+Valitsemieni algoritmien toteuttamiseksi tarvitsen tietorakenteet ainakin joukkoa ja jonoa varten. Niinpä toteutan ohjelmassani ne.
 
 
 ### Aika- ja tilavaativuustavoitteet
