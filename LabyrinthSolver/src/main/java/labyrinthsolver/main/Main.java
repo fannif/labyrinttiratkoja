@@ -14,6 +14,7 @@ import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import labyrinthsolver.domain.Maze;
 import labyrinthsolver.domain.RecursiveDivision;
+import labyrinthsolver.domain.ShortestPaths;
 import labyrinthsolver.domain.Sidewinder;
 import labyrinthsolver.domain.WallFollower;
 
@@ -40,6 +41,7 @@ public class Main extends Application {
         Sidewinder sidew = new Sidewinder();
         WallFollower wallFollower = new WallFollower();
         RecursiveDivision reDiv = new RecursiveDivision();
+        ShortestPaths allShortest = new ShortestPaths();
         
         BorderPane startLayout = new BorderPane();
         startLayout.setStyle("-fx-background-color: #ffdcff");
@@ -69,8 +71,9 @@ public class Main extends Application {
         Button generateNewSW = new Button("Generate a new Sidewinder maze");
         Button generateNewRD = new Button("Generate a new Recursive division maze");
         Button solvefollower = new Button("Solve using Wall Follower");
+        Button solveAllShortest = new Button("Solve all shortest paths");
         Label info = new Label("Blue dot is the start. Green dot is the goal.");
-        Label routeInfo = new Label("Purple shows the places visited by Wall Follower.");
+        Label routeInfo = new Label("Purple shows the places visited by solver algorithm.");
         
         GridPane mazeGrid = new GridPane();
         
@@ -80,6 +83,7 @@ public class Main extends Application {
         mazeMenu.getChildren().add(info);
         mazeMenu.getChildren().add(mazeGrid);
         mazeMenu.getChildren().add(solvefollower);
+        mazeMenu.getChildren().add(solveAllShortest);      
         mazeMenu.getChildren().add(generateNewSW);
         mazeMenu.getChildren().add(generateNewRD);
         
@@ -93,6 +97,7 @@ public class Main extends Application {
             mazeMenu.getChildren().add(routeInfo);
             mazeMenu.getChildren().add(mazeGrid);
             mazeMenu.getChildren().add(solvefollower);
+            mazeMenu.getChildren().add(solveAllShortest);
             mazeMenu.getChildren().add(generateNewSW);
             mazeMenu.getChildren().add(generateNewRD);
             primaryStage.setScene(mazeScene);
@@ -106,19 +111,36 @@ public class Main extends Application {
             mazeMenu.getChildren().add(routeInfo);
             mazeMenu.getChildren().add(mazeGrid);
             mazeMenu.getChildren().add(solvefollower);
+            mazeMenu.getChildren().add(solveAllShortest);
             mazeMenu.getChildren().add(generateNewSW);
             mazeMenu.getChildren().add(generateNewRD);
             primaryStage.setScene(mazeScene);
         });
         
         solvefollower.setOnAction((event) -> {
-            maze.setLayout(wallFollower.solve(maze));
-            showMaze(maze, mazeGrid);
+            Maze solvedMaze = new Maze(maze.getSize());
+            solvedMaze.setLayout(wallFollower.solve(maze));
+            showMaze(solvedMaze, mazeGrid);
             mazeMenu.getChildren().clear();
             mazeMenu.getChildren().add(info);
             mazeMenu.getChildren().add(routeInfo);
             mazeMenu.getChildren().add(mazeGrid);
             mazeMenu.getChildren().add(solvefollower);
+            mazeMenu.getChildren().add(solveAllShortest);
+            mazeMenu.getChildren().add(generateNewSW);
+            mazeMenu.getChildren().add(generateNewRD);
+        });
+        
+        solveAllShortest.setOnAction((event) -> {
+            Maze solvedMaze = new Maze(maze.getSize());
+            solvedMaze.setLayout(allShortest.solve(maze));
+            showMaze(solvedMaze, mazeGrid);
+            mazeMenu.getChildren().clear();
+            mazeMenu.getChildren().add(info);
+            mazeMenu.getChildren().add(routeInfo);
+            mazeMenu.getChildren().add(mazeGrid);
+            mazeMenu.getChildren().add(solvefollower);
+            mazeMenu.getChildren().add(solveAllShortest);
             mazeMenu.getChildren().add(generateNewSW);
             mazeMenu.getChildren().add(generateNewRD);
         });
@@ -130,6 +152,7 @@ public class Main extends Application {
             mazeMenu.getChildren().add(info);
             mazeMenu.getChildren().add(mazeGrid);
             mazeMenu.getChildren().add(solvefollower);
+            mazeMenu.getChildren().add(solveAllShortest);
             mazeMenu.getChildren().add(generateNewSW);
             mazeMenu.getChildren().add(generateNewRD);
         });
@@ -141,6 +164,7 @@ public class Main extends Application {
             mazeMenu.getChildren().add(info);
             mazeMenu.getChildren().add(mazeGrid);
             mazeMenu.getChildren().add(solvefollower);
+            mazeMenu.getChildren().add(solveAllShortest);
             mazeMenu.getChildren().add(generateNewSW);
             mazeMenu.getChildren().add(generateNewRD);
         });

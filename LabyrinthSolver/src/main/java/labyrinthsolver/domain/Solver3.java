@@ -2,6 +2,6 @@
 package labyrinthsolver.domain;
 
 
-public class ShortestPath {
+public class Solver3 {
     
 }
