@@ -32,7 +32,7 @@ public class ShortestPaths {
                 grid[i][j] = maze.getLayout()[i][j];
             }
         }
-        BFS();
+        bFS();
         pickyBFS(n - 2, n - 2);
         
         return grid;
@@ -42,7 +42,7 @@ public class ShortestPaths {
      * Normaali syvyyshaku. Etsii matkat lähtöpisteestä kaikkiin
      * pisteisiin.
      */
-    public void BFS() {
+    public void bFS() {
         PairQueue queue = new PairQueue(5000);
         queue.enqueue(new Pair(1, 1));
         grid[1][1] = 3;
