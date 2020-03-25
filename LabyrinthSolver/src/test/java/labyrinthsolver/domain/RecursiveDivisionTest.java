@@ -82,4 +82,9 @@ public class RecursiveDivisionTest {
         m.setLayout(wf.solve(m));
         assertTrue(m.getLayout()[13][13] == 2);
     }
+    
+    @Test
+    public void timeIsZeroBeforeGenerating() {
+        assertTrue(rd.getTime() == 0);
+    }
 }

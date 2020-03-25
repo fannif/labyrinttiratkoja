@@ -18,6 +18,7 @@ public class WallFollower {
     private int[][] grid;
     private int x;
     private int y;
+    private long time = 0;
     
     /**
      * Konstruktorimetodi
@@ -36,6 +37,7 @@ public class WallFollower {
      * @return Ratkaistun sokkelon sokkelopohja
      */
     public int[][] solve(Maze maze) {
+        long startTime = System.currentTimeMillis();
         int n = maze.getSize();
         grid = new int[n][n];
 
@@ -67,6 +69,8 @@ public class WallFollower {
                 break;
             }
         }
+        long endTime = System.currentTimeMillis();
+        time = endTime - startTime;
         return grid;
     }
     
@@ -224,5 +228,11 @@ public class WallFollower {
         this.grid = grid.clone();
     }
     
-    
+    /**
+     * Palauttaa ajan, joka meni viimeksi solve-metodin ajamiseen.
+     * @return Aika, joka meni solve-metodiin millisekunteina.
+     */
+    public long getTime() {
+        return time;
+    }
 }

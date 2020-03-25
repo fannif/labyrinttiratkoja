@@ -37,11 +37,13 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         
-        Maze maze = new Maze(45);
+        Maze maze = new Maze(51);
         Sidewinder sidew = new Sidewinder();
         WallFollower wallFollower = new WallFollower();
         RecursiveDivision reDiv = new RecursiveDivision();
         ShortestPaths allShortest = new ShortestPaths();
+//        long generateTime = 0;
+//        long solveTime = 0;
         
         BorderPane startLayout = new BorderPane();
         startLayout.setStyle("-fx-background-color: #ffdcff");
@@ -61,7 +63,7 @@ public class Main extends Application {
         startMenu.getChildren().add(generateRD);
         
         startLayout.setCenter(startMenu);
-        Scene startScene = new Scene(startLayout, 1000, 800);
+        Scene startScene = new Scene(startLayout, 1000, 900);
         
         BorderPane mazeLayout = new BorderPane();
         mazeLayout.setStyle("-fx-background-color: #ffdcff");
@@ -87,13 +89,14 @@ public class Main extends Application {
         mazeMenu.getChildren().add(generateNewSW);
         mazeMenu.getChildren().add(generateNewRD);
         
-        Scene mazeScene = new Scene(mazeMenu, 1000, 800);
+        Scene mazeScene = new Scene(mazeMenu, 1000, 900);
         
         generateSW.setOnAction((event) -> {
             maze.setLayout(sidew.generate(maze));
             showMaze(maze, mazeGrid);
             mazeMenu.getChildren().clear();
             mazeMenu.getChildren().add(info);
+            mazeMenu.getChildren().add(new Label("Time to generate: " + sidew.getTime() + " ms"));
             mazeMenu.getChildren().add(routeInfo);
             mazeMenu.getChildren().add(mazeGrid);
             mazeMenu.getChildren().add(solvefollower);
@@ -108,6 +111,7 @@ public class Main extends Application {
             showMaze(maze, mazeGrid);
             mazeMenu.getChildren().clear();
             mazeMenu.getChildren().add(info);
+            mazeMenu.getChildren().add(new Label("Time to generate: " + reDiv.getTime() + " ms"));
             mazeMenu.getChildren().add(routeInfo);
             mazeMenu.getChildren().add(mazeGrid);
             mazeMenu.getChildren().add(solvefollower);
@@ -124,6 +128,7 @@ public class Main extends Application {
             mazeMenu.getChildren().clear();
             mazeMenu.getChildren().add(info);
             mazeMenu.getChildren().add(routeInfo);
+            mazeMenu.getChildren().add(new Label("Time to solve: " + wallFollower.getTime() + " ms"));
             mazeMenu.getChildren().add(mazeGrid);
             mazeMenu.getChildren().add(solvefollower);
             mazeMenu.getChildren().add(solveAllShortest);
@@ -138,6 +143,7 @@ public class Main extends Application {
             mazeMenu.getChildren().clear();
             mazeMenu.getChildren().add(info);
             mazeMenu.getChildren().add(routeInfo);
+            mazeMenu.getChildren().add(new Label("Time to solve: " + allShortest.getTime() + " ms"));
             mazeMenu.getChildren().add(mazeGrid);
             mazeMenu.getChildren().add(solvefollower);
             mazeMenu.getChildren().add(solveAllShortest);
@@ -150,6 +156,7 @@ public class Main extends Application {
             showMaze(maze, mazeGrid);
             mazeMenu.getChildren().clear();
             mazeMenu.getChildren().add(info);
+            mazeMenu.getChildren().add(new Label("Time to generate: " + sidew.getTime() + " ms"));
             mazeMenu.getChildren().add(mazeGrid);
             mazeMenu.getChildren().add(solvefollower);
             mazeMenu.getChildren().add(solveAllShortest);
@@ -162,6 +169,7 @@ public class Main extends Application {
             showMaze(maze, mazeGrid);
             mazeMenu.getChildren().clear();
             mazeMenu.getChildren().add(info);
+            mazeMenu.getChildren().add(new Label("Time to generate: " + reDiv.getTime() + " ms"));
             mazeMenu.getChildren().add(mazeGrid);
             mazeMenu.getChildren().add(solvefollower);
             mazeMenu.getChildren().add(solveAllShortest);

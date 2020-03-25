@@ -73,4 +73,9 @@ public class SidewinderTest {
         
         assertTrue(m.getLayout()[n - 2][n - 2] == 2);
     }
+    
+    @Test
+    public void timeIsZeroBeforeGenerating() {
+        assertTrue(sw.getTime() == 0);
+    }
 }

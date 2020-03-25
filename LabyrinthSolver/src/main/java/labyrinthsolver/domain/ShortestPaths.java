@@ -10,6 +10,7 @@ public class ShortestPaths {
     
     private int[][] grid;
     private int[][] distance;
+    private long time = 0;
     
     /**
      * Konstruktorimetodi.
@@ -24,6 +25,7 @@ public class ShortestPaths {
      * @return Ratkaistu sokkelopohja
      */
     public int[][] solve(Maze maze) {
+        long startTime = System.currentTimeMillis();
         int n = maze.getSize();
         grid = new int[n][n];
         distance = new int[n][n];
@@ -34,6 +36,8 @@ public class ShortestPaths {
         }
         bFS();
         pickyBFS(n - 2, n - 2);
+        long endTime = System.currentTimeMillis();
+        time = endTime - startTime;
         
         return grid;
     }
@@ -120,6 +124,14 @@ public class ShortestPaths {
      */
     public int getDistanceTo(int x, int y) {
         return distance[y][x];
+    }
+
+    /**
+     * Palauttaa ajan, joka meni viimeksi solve-metodin ajamiseen.
+     * @return Aika, joka meni solve-metodiin millisekunteina.
+     */
+    public long getTime() {
+        return time;
     }
     
 }

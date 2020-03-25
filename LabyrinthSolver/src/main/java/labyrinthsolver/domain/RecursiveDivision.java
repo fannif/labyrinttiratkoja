@@ -12,6 +12,7 @@ import java.util.Random;
 public class RecursiveDivision {
     
     private int orientation = 0;
+    private long time = 0;
     private int width;
     private int height;
     private int grid[][];
@@ -29,6 +30,7 @@ public class RecursiveDivision {
      * @return Generoitu sokkelopohja.
      */
     public int[][] generate(Maze maze) {
+        long startTime = System.currentTimeMillis();
         int n = maze.getSize();
         maze.initialize();
         width = n;
@@ -36,6 +38,9 @@ public class RecursiveDivision {
         grid = maze.getLayout();
         
         divide(width, height, new Pair(0, 0));
+        long endTime = System.currentTimeMillis();
+        time = endTime - startTime;
+        
         return grid;
     }
     
@@ -112,5 +117,13 @@ public class RecursiveDivision {
      */
     public int getOrientation() {
         return this.orientation;
+    }
+    
+    /**
+     * Palauttaa generoimiseen viimeksi kuluneen ajan.
+     * @return Viimeksi genrointiin kulunut aika millisekunteina.
+     */
+    public long getTime() {
+        return time;
     }
 }

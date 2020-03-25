@@ -286,4 +286,9 @@ public class WallFollowerTest {
         assertTrue(m.getLayout()[n - 2][n - 2] == 2);
     }
     
+    @Test
+    public void timeIsZeroBeforeSolving() {
+        assertTrue(wf.getTime() == 0);
+    }
+    
 }

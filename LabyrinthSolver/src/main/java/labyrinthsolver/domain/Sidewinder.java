@@ -9,6 +9,8 @@ import java.util.Random;
  * Luokka, joka luo labyrintteja Sidewinder-algoritmilla
  */
 public class Sidewinder {
+    
+    private long time = 0;
 
     /**
      * Konstruktori
@@ -23,7 +25,7 @@ public class Sidewinder {
      *  voidaan sitten asettaa labyrinttiin
      */
     public int[][] generate(Maze maze) {
-        
+        long startTime = System.currentTimeMillis();
         int n = maze.getSize();
         maze.initialize();
         maze.initializeWithWalls();
@@ -55,8 +57,18 @@ public class Sidewinder {
                 }
             }
         }
+        long endTime = System.currentTimeMillis();
+        time = endTime - startTime;
         
         return grid;
+    }
+    
+    /**
+     * Palauttaa generoimiseen viimeksi kuluneen ajan.
+     * @return Viimeksi genrointiin kulunut aika millisekunteina.
+     */
+    public long getTime() {
+        return time;
     }
     
 }

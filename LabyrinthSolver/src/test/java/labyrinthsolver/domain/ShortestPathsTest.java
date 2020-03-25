@@ -53,4 +53,9 @@ public class ShortestPathsTest {
         assertTrue(m.getLayout()[1][1] == 2);
     }
     
+    @Test
+    public void timeIsZeroBeforeSolving() {
+        assertTrue(sp.getTime() == 0);
+    }
+    
 }
