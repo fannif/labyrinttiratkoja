@@ -37,7 +37,7 @@ public class WallFollower {
      * @return Ratkaistun sokkelon sokkelopohja
      */
     public int[][] solve(Maze maze) {
-        long startTime = System.currentTimeMillis();
+        long startTime = System.nanoTime();
         int n = maze.getSize();
         grid = new int[n][n];
 
@@ -69,7 +69,7 @@ public class WallFollower {
                 break;
             }
         }
-        long endTime = System.currentTimeMillis();
+        long endTime = System.nanoTime();
         time = endTime - startTime;
         return grid;
     }

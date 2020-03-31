@@ -30,7 +30,7 @@ public class RecursiveDivision {
      * @return Generoitu sokkelopohja.
      */
     public int[][] generate(Maze maze) {
-        long startTime = System.currentTimeMillis();
+        long startTime = System.nanoTime();
         int n = maze.getSize();
         maze.initialize();
         width = n;
@@ -38,7 +38,7 @@ public class RecursiveDivision {
         grid = maze.getLayout();
         
         divide(width, height, new Pair(0, 0));
-        long endTime = System.currentTimeMillis();
+        long endTime = System.nanoTime();
         time = endTime - startTime;
         
         return grid;

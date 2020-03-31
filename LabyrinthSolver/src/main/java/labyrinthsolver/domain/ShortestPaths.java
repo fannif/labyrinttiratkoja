@@ -25,7 +25,7 @@ public class ShortestPaths {
      * @return Ratkaistu sokkelopohja
      */
     public int[][] solve(Maze maze) {
-        long startTime = System.currentTimeMillis();
+        long startTime = System.nanoTime();
         int n = maze.getSize();
         grid = new int[n][n];
         distance = new int[n][n];
@@ -36,7 +36,7 @@ public class ShortestPaths {
         }
         bFS();
         pickyBFS(n - 2, n - 2);
-        long endTime = System.currentTimeMillis();
+        long endTime = System.nanoTime();
         time = endTime - startTime;
         
         return grid;

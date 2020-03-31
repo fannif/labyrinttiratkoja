@@ -18,7 +18,7 @@ public class ChainSolver {
     }
     
     public int[][] solve(Maze maze) {
-        long startTime = System.currentTimeMillis();
+        long startTime = System.nanoTime();
         n = maze.getSize();
         grid = new int[n][n];
         path = new boolean[n][n];
@@ -32,7 +32,6 @@ public class ChainSolver {
         pathStraightThrough();
         
         int[] newPath = new int[3];
-     //   int[] secondPath = new int[3];
         int i = 1;
         int j = 1;
         path[i][j] = true;
@@ -43,18 +42,7 @@ public class ChainSolver {
                     newPath = findWayAround(i, j);
                     i = newPath[0];
                     j = newPath[1];
-//                    firstPath = findWayAround(i, j, -1);
-//                    secondPath = findWayAround(i, j, 1);
-//                    if (firstPath[3] < secondPath[3] && firstPath[2] == 1) {
-//                        i = firstPath[0];
-//                        j = firstPath[1];
-//                    } else if (secondPath[2] == 1) {
-//                        i = secondPath[0];
-//                        j = secondPath[1];
-//                    } else {
-//                        i = firstPath[0];
-//                        j = firstPath[1];
-//                    }
+                    grid[i][j] = 0;
                 } else {
                     grid[i][j + 1] = 0;
                     path[i][j + 1] = true;
@@ -71,32 +59,20 @@ public class ChainSolver {
                     newPath = findWayAround(i, j);
                     i = newPath[0];
                     j = newPath[1];
+                    grid[i][j] = 0;
                 } else {
                     grid[i + 1][j] = 0;
                     path[i + 1][j] = true;
                     i++;
                 }
-                System.out.println(i + ", " + j);
-//                for (int x = 0; x < n; x++) {
-//                    for (int y = 0; y < n; y++) {
-//                        System.out.print(grid[y][x]);
-//                    }
-//                    System.out.println("");
-//                }
             }
         }
-        
-        
         
         wallsToNormal();
         paintPath();
         
-        for (int x = 0; x < n; x++) {
-                    for (int y = 0; y < n; y++) {
-                        System.out.print(grid[y][x]);
-                    }
-                    System.out.println("");
-                }
+        long endTime = System.nanoTime();
+        time = endTime - startTime;
         
         return grid;
     }
@@ -131,8 +107,8 @@ public class ChainSolver {
     }
     
     public void paintPath() {
-        for (int i = 1; i < n - 2; i++) {
-            for (int j = 1; j < n - 2; j++) {
+        for (int i = 1; i < n - 1; i++) {
+            for (int j = 1; j < n - 1; j++) {
                 if (path[i][j]) {
                     grid[i][j] = 2;
                 }
@@ -141,143 +117,83 @@ public class ChainSolver {
     }
     
     public int[] findWayAround(int y, int x) {
-        success = 1;
+        success = 0;
         travelled = new int[n][n];
-//        travelled[y][x] = 2;
+        chainLength = 0;
         goUp(y, x, 0);
         int firstX = endX;
         int firstY = endY;
         int length = chainLength;
         int firstSuccess = success;
         travelled = new int[n][n];
-        success = 1;
+        success = 0;
+        chainLength = 0;
         goDown(y, x, 0);
         
-        if (length < chainLength || firstSuccess == 1) {
+        if (length < chainLength && firstSuccess == 1) {
             return new int[]{firstY, firstX, firstSuccess, length};
         } else if (success == 1) {
             return new int[]{endY, endX, success, chainLength};
         } else {
             return  new int[]{firstY, firstX, firstSuccess, length};
         }
-//        while (true) {
-//            if (grid[y + direction][x] == 3) {
-//                y = y + direction;
-//                grid[y][x] = 0;
-//                path[y][x] = true;
-//                length++;
-//                break;
-//            } else if (grid[y][x + direction] == 3) {
-//                x = x + direction;
-//                grid[y][x] = 0;
-//                path[y][x] = true;
-//                length++;
-//                break;
-//            } else if (grid[y][x - direction] == 3) {
-//                x = x - direction;
-//                grid[y][x] = 0;
-//                path[y][x] = true;
-//                length++;
-//                break;
-//            } else if (grid[y - direction][x] == 3) {
-//                y = y - direction;
-//                grid[y][x] = 0;
-//                path[y][x] = true;
-//                length++;
-//                break;
-//            } else if (grid[y + direction][x] == 0 && travelled[y + direction][x] < 1) {
-//                y = y + direction;               
-//                path[y][x] = true;
-//                length++;
-//                travelled[y][x]++;
-//            } else if (grid[y][x + direction] == 0 && travelled[y][x + direction] < 1) {
-//                x = x + direction;
-//                path[y][x] = true;
-//                length++;
-//                travelled[y][x]++;
-//            }  else if (grid[y][x - direction] == 0 && travelled[y][x - direction] < 1) {
-//                x = x - direction;
-//                path[y][x] = true;
-//                length++;
-//                travelled[y][x]++;
-//            } else if (grid[y - direction][x] == 0 && travelled[y - direction][x] < 1) {
-//                y = y - direction;
-//                path[y][x] = true;
-//                length++;
-//                travelled[y][x]++;
-//            } else if (grid[y + direction][x] == 0 && travelled[y + direction][x] < 2) {
-//                y = y + direction;               
-//                path[y][x] = false;
-//                length--;
-//                travelled[y][x]++;
-//            } else if (grid[y][x + direction] == 0 && travelled[y][x + direction] < 2) {
-//                x = x + direction;
-//                path[y][x] = false;
-//                length--;
-//                travelled[y][x]++;
-//            }  else if (grid[y][x - direction] == 0 && travelled[y][x - direction] < 2) {
-//                x = x - direction;
-//                path[y][x] = false;
-//                length--;
-//                travelled[y][x]++;
-//            } else if (grid[y - direction][x] == 0 && travelled[y - direction][x] < 2) {
-//                y = y - direction;
-//                path[y][x] = false;
-//                length--;
-//                travelled[y][x]++;
-//            } else {
-//                // Ei löydy reittiä, koska ympärillä vain seiniä
-//                // tai käytyjä kohtia.
-//                success = 0;
-//                break;
-//            }
-//        }
-//        return new int[]{endY, endX, success, chainLength};
     }
     
     public void goUp(int y, int x, int length) {
-        if (y < 1 || x < 1 || x > n - 2 || y > n - 2) {
+        if (success == 1) {
             return;
         }
-        if (grid[y][x] == 1 || grid[y][x] == 4 || travelled[y][x] == 1) {
-            success = 0;
-            return;
-        }
-        path[y][x] = true;
-        travelled[y][x]++;
-        if (grid[y][x] == 3) {
-            endX = x;
-            endY = y;
-            chainLength = length;
-            grid[y][x] = 0;
-            return;
-        }
-        goUp(y + 1, x, length + 1);
-        goUp(y, x + 1, length + 1);
-        goUp(y, x - 1, length + 1);
-        goUp(y - 1, x, length + 1);
-    }
-    
-    public void goDown(int y, int x, int length) {
         if (y < 1 || x < 1 || x > n - 2 || y > n - 2) {
             return;
         }
         if (grid[y][x] == 1 || grid[y][x] == 4 || travelled[y][x] > 0) {
             return;
-        }
-        path[y][x] = true;
+        }      
         travelled[y][x]++;
         if (grid[y][x] == 3) {
             endX = x;
             endY = y;
             chainLength = length;
-            grid[y][x] = 0;
+            success = 1;
+            path[y][x] = true;
             return;
         }
-        goDown(y - 1, x, length + 1);
+        goUp(y - 1, x, length + 1);
+        goUp(y, x + 1, length + 1);
+        goUp(y, x - 1, length + 1);
+        goUp(y + 1, x, length + 1);
+        if (success == 1) {
+            path[y][x] = true;
+        }
+    }
+    
+    public void goDown(int y, int x, int length) {
+        if (success == 1) {
+            return;
+        }
+        if (grid[y][x] == 1 || grid[y][x] == 4 || travelled[y][x] > 0) {
+            return;
+        }
+        travelled[y][x]++;
+        if (grid[y][x] == 3) {
+            endX = x;
+            endY = y;
+            chainLength = length;
+            success = 1;
+            path[y][x] = true;
+            return;
+        }
+        goDown(y + 1, x, length + 1);
         goDown(y, x - 1, length + 1);
         goDown(y, x + 1, length + 1);
-        goDown(y + 1, x, length + 1);
+        goDown(y - 1, x, length + 1);
+        if (success == 1) {
+            path[y][x] = true;
+        }
+    }
+
+    public long getTime() {
+        return time;
     }
     
 }

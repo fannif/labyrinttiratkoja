@@ -25,7 +25,7 @@ public class Sidewinder {
      *  voidaan sitten asettaa labyrinttiin
      */
     public int[][] generate(Maze maze) {
-        long startTime = System.currentTimeMillis();
+        long startTime = System.nanoTime();
         int n = maze.getSize();
         maze.initialize();
         maze.initializeWithWalls();
@@ -57,7 +57,7 @@ public class Sidewinder {
                 }
             }
         }
-        long endTime = System.currentTimeMillis();
+        long endTime = System.nanoTime();
         time = endTime - startTime;
         
         return grid;

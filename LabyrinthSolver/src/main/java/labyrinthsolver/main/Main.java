@@ -39,7 +39,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         
-        Maze maze = new Maze(9);
+        Maze maze = new Maze(51);
         Sidewinder sidew = new Sidewinder();
         WallFollower wallFollower = new WallFollower();
         RecursiveDivision reDiv = new RecursiveDivision();
@@ -106,7 +106,7 @@ public class Main extends Application {
             showMaze(maze, mazeGrid);
             mazeMenu.getChildren().clear();
             mazeMenu.getChildren().add(info);
-            mazeMenu.getChildren().add(new Label("Time to generate: " + sidew.getTime() + " ms"));
+            mazeMenu.getChildren().add(new Label("Time to generate: " + sidew.getTime() + " ns"));
             mazeMenu.getChildren().add(routeInfo);
             mazeMenu.getChildren().add(mazeGrid);
             mazeMenu.getChildren().add(solvers);
@@ -119,7 +119,7 @@ public class Main extends Application {
             showMaze(maze, mazeGrid);
             mazeMenu.getChildren().clear();
             mazeMenu.getChildren().add(info);
-            mazeMenu.getChildren().add(new Label("Time to generate: " + reDiv.getTime() + " ms"));
+            mazeMenu.getChildren().add(new Label("Time to generate: " + reDiv.getTime() + " ns"));
             mazeMenu.getChildren().add(routeInfo);
             mazeMenu.getChildren().add(mazeGrid);
             mazeMenu.getChildren().add(solvers);
@@ -134,7 +134,7 @@ public class Main extends Application {
             mazeMenu.getChildren().clear();
             mazeMenu.getChildren().add(info);
             mazeMenu.getChildren().add(routeInfo);
-            mazeMenu.getChildren().add(new Label("Time to solve: " + wallFollower.getTime() + " ms"));
+            mazeMenu.getChildren().add(new Label("Time to solve: " + wallFollower.getTime() + " ns"));
             mazeMenu.getChildren().add(mazeGrid);
             mazeMenu.getChildren().add(solvers);
             mazeMenu.getChildren().add(generators);
@@ -147,7 +147,7 @@ public class Main extends Application {
             mazeMenu.getChildren().clear();
             mazeMenu.getChildren().add(info);
             mazeMenu.getChildren().add(routeInfo);
-            mazeMenu.getChildren().add(new Label("Time to solve: " + allShortest.getTime() + " ms"));
+            mazeMenu.getChildren().add(new Label("Time to solve: " + allShortest.getTime() + " ns"));
             mazeMenu.getChildren().add(mazeGrid);
             mazeMenu.getChildren().add(solvers);
             mazeMenu.getChildren().add(generators);
@@ -160,7 +160,7 @@ public class Main extends Application {
             mazeMenu.getChildren().clear();
             mazeMenu.getChildren().add(info);
             mazeMenu.getChildren().add(routeInfo);
-            mazeMenu.getChildren().add(new Label("Time to solve: " + "xxx" + " ms"));
+            mazeMenu.getChildren().add(new Label("Time to solve: " + chainSolver.getTime() + " ns"));
             mazeMenu.getChildren().add(mazeGrid);
             mazeMenu.getChildren().add(solvers);
             mazeMenu.getChildren().add(generators);
@@ -171,7 +171,7 @@ public class Main extends Application {
             showMaze(maze, mazeGrid);
             mazeMenu.getChildren().clear();
             mazeMenu.getChildren().add(info);
-            mazeMenu.getChildren().add(new Label("Time to generate: " + sidew.getTime() + " ms"));
+            mazeMenu.getChildren().add(new Label("Time to generate: " + sidew.getTime() + " ns"));
             mazeMenu.getChildren().add(mazeGrid);
             mazeMenu.getChildren().add(solvers);
             mazeMenu.getChildren().add(generators);
@@ -182,7 +182,7 @@ public class Main extends Application {
             showMaze(maze, mazeGrid);
             mazeMenu.getChildren().clear();
             mazeMenu.getChildren().add(info);
-            mazeMenu.getChildren().add(new Label("Time to generate: " + reDiv.getTime() + " ms"));
+            mazeMenu.getChildren().add(new Label("Time to generate: " + reDiv.getTime() + " ns"));
             mazeMenu.getChildren().add(mazeGrid);
             mazeMenu.getChildren().add(solvers);
             mazeMenu.getChildren().add(generators);
