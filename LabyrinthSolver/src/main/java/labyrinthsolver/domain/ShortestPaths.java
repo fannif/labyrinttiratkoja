@@ -20,7 +20,7 @@ public class ShortestPaths {
     
     /**
      * Ratkaisee sokkelon hyödyntäen yhdistelmää kahdesta
-     * erilaisesta syvyyshausta.
+     * erilaisesta leveyshausta.
      * @param maze Ratkaistava sokkelo
      * @return Ratkaistu sokkelopohja
      */
@@ -43,7 +43,7 @@ public class ShortestPaths {
     }
     
     /**
-     * Normaali syvyyshaku. Etsii matkat lähtöpisteestä kaikkiin
+     * Normaali leveyshaku. Etsii matkat lähtöpisteestä kaikkiin
      * pisteisiin.
      */
     public void bFS() {
@@ -80,7 +80,7 @@ public class ShortestPaths {
     }
     
     /**
-     * Muunneltu syvyyhaku. Etsii maalipisteestä lähtien
+     * Muunneltu leveyshaku. Etsii maalipisteestä lähtien
      * kaikki sellaiset reitit, joilla etäisyys aina lyhenee
      * alkua kohden mennessä. Ne merkataan kakkosilla.
      * @param startX Maalipisteen x-koordinaatti
