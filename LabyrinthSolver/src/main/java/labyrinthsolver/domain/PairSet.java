@@ -9,7 +9,7 @@ import java.util.Random;
  */
 public class PairSet {
     
-    private Pair[] set;
+    private TwoValues[] set;
     private int endIndex;
     private int size;
     
@@ -20,7 +20,7 @@ public class PairSet {
      * indeksiä, johon seuraava alkio tulisi.
      */
     public PairSet() {
-        set = new Pair[10];
+        set = new TwoValues[10];
         size = 10;
         endIndex = 0;
     }
@@ -30,7 +30,7 @@ public class PairSet {
      * Jos ollaan maksimikoossa, niin kasvatetaan joukkoa.
      * @param pair Lisättävä pari
      */
-    public void add(Pair pair) {
+    public void add(TwoValues pair) {
         int exists = contains(pair);
         if (exists >= 0) {
             return;
@@ -49,7 +49,7 @@ public class PairSet {
      * niin pienennetään joukkoa.
      * @param pair Poistettava alkio
      */
-    public void remove(Pair pair) {
+    public void remove(TwoValues pair) {
         int exists = contains(pair);
         if (exists < 0) {
             return;
@@ -70,7 +70,7 @@ public class PairSet {
      * @return Alkion indeksi, jos se kuuluu joukkoon, ja
      * -1 jos se ei kuulu.
      */
-    public int contains(Pair pair) {
+    public int contains(TwoValues pair) {
         for (int i = 0; i < endIndex; i++) {
             if (set[i].equals(pair)) {
                 return i;
@@ -83,7 +83,7 @@ public class PairSet {
      * Palauttaa satunnaisesti valitun alkion joukosta.
      * @return Satunnainen joukon alkio.
      */
-    public Pair randomPair() {
+    public TwoValues randomPair() {
         Random random = new Random();
         if (endIndex == 0) {
             return null;
@@ -96,7 +96,7 @@ public class PairSet {
      * Kasvattaa joukon maksimikoon kaksinkertaiseksi.
      */
     private void increaseSize() {
-        Pair[] newSet = new Pair[size * 2];
+        TwoValues[] newSet = new TwoValues[size * 2];
         for (int i = 0; i < endIndex; i++) {
             newSet[i] = set[i];
         }
@@ -111,7 +111,7 @@ public class PairSet {
         if (endIndex > size / 4) {
             return;
         }
-        Pair[] newSet = new Pair[size / 2];
+        TwoValues[] newSet = new TwoValues[size / 2];
         for (int i = 0; i < endIndex; i++) {
             newSet[i] = set[i];
         }
@@ -123,7 +123,7 @@ public class PairSet {
      * Tyhjentää joukon, ja asettaa sen maksimikooksi 10.
      */
     public void clear() {
-        set = new Pair[10];
+        set = new TwoValues[10];
         size = 10;
         endIndex = 0;
     }

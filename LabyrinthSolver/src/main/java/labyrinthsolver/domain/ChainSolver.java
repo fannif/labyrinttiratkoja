@@ -1,6 +1,12 @@
 
 package labyrinthsolver.domain;
 
+/**
+ * Luokka toteuttaa labyrintin ratkaisun ketjualgoritmilla.
+ * Siinä hyödynnetään rekursiota, joten sitä varten muistissa pidettävät
+ * arvot y:lle, x:lle, pituudelle ja onnistumiselle ja kuljetulle matkalle
+ * on asetettu luokan muuttujiksi endY, endX, chainLength, success ja travelled.
+ */
 public class ChainSolver {
     
     private int[][] grid;
@@ -13,10 +19,20 @@ public class ChainSolver {
     private int success;
     private int[][] travelled;
     
+    /**
+     * Konstruktorimetodi.
+     */
     public ChainSolver() {
-        
     }
     
+    /**
+     * Ratkaisee labyrintin käyttämällä ketjualgoritmia.
+     * Ensin sokkelopohja kopioidaan talteen, sitten siihen piirretään
+     * suora reitti sokkelon läpi, ja sitten lähdetään kulkemaan reittiä, kiertämään reitille osuneita seiniä.
+     * Lopuksi merkataan lopullinen polku ja palautetaan sokkelon seinät ennalleen.
+     * @param maze Ratkaistava sokkelo.
+     * @return Ratkaistu sokkelopohja.
+     */
     public int[][] solve(Maze maze) {
         long startTime = System.nanoTime();
         n = maze.getSize();
@@ -28,9 +44,7 @@ public class ChainSolver {
                 grid[i][j] = maze.getLayout()[i][j];
             }
         }
-        
         pathStraightThrough();
-        
         int[] newPath = new int[3];
         int i = 1;
         int j = 1;
@@ -49,11 +63,9 @@ public class ChainSolver {
                     j++;
                 }
             }
-            
             if (i == n - 2 && j == n - 2) {
                 break;
             }
-            
             if (i == j) {
                 if (grid[i + 1][j] == 4 || grid[i + 1][j] == 1) {
                     newPath = findWayAround(i, j);
@@ -67,16 +79,18 @@ public class ChainSolver {
                 }
             }
         }
-        
         wallsToNormal();
         paintPath();
-        
         long endTime = System.nanoTime();
         time = endTime - startTime;
         
         return grid;
     }
     
+    /**
+     * Piirtää sokkelopohjaan polun alusta loppuun.
+     * Polulla seinät merkitään nelosella ja kulkuväylä kolmosella.
+     */
     public void pathStraightThrough() {
         n = grid.length;
         for (int i = 1; i < n - 2; i++) {
@@ -94,6 +108,10 @@ public class ChainSolver {
         grid[n - 2][n - 2] = 3;
     }
     
+    /**
+     * Palauttaa seinät normaaleiksi seiniksi.
+     * Siis ne seinät, jotka oli merkattu nelosella, vaihdetaan ykkösiksi.
+     */
     public void wallsToNormal() {
         n = grid.length;
         for (int i = 1; i < n - 2; i++) {
@@ -106,6 +124,10 @@ public class ChainSolver {
         }
     }
     
+    /**
+     * Merkkaa path-muuttujan perusteella algoritmin löytämän polun
+     * sokkelopohjaan.
+     */
     public void paintPath() {
         for (int i = 1; i < n - 1; i++) {
             for (int j = 1; j < n - 1; j++) {
@@ -116,6 +138,13 @@ public class ChainSolver {
         }
     }
     
+    /**
+     * Etsii seinään törmätessä reitin seinän ympäri takaisin kolmosella merkatulle kulkuväylälle.
+     * @param y Rivi, jolta kiertäminen aloitetaan.
+     * @param x Sarake, josta kiertäminen aloitetaan.
+     * @return Palauta nelikko, jossa on annettu lyhyemmän kiertoreitin 
+     * koordinaatit, onnistumistieto ja reitin pituus.
+     */
     public int[] findWayAround(int y, int x) {
         success = 0;
         travelled = new int[n][n];
@@ -139,6 +168,12 @@ public class ChainSolver {
         }
     }
     
+    /**
+     * Etsii reittiä takaisin merkatulle polulle pyrkien pystyessään menemään ylös ja oikealle.
+     * @param y Tämänhetkinen rivi.
+     * @param x Tämänhetkinen sarake.
+     * @param length Senhetkisen löydetyn reitin pituus.
+     */
     public void goUp(int y, int x, int length) {
         if (success == 1) {
             return;
@@ -167,6 +202,12 @@ public class ChainSolver {
         }
     }
     
+    /**
+     * Etsii reittiä takaisin merkatulle polulle pyrkien pystyessään menemään alas ja vasemalle.
+     * @param y Tämänhetkinen rivi.
+     * @param x Tämänhetkinen sarake.
+     * @param length Tällä hetkellä löydetyn reitin pituus.
+     */
     public void goDown(int y, int x, int length) {
         if (success == 1) {
             return;
@@ -191,9 +232,43 @@ public class ChainSolver {
             path[y][x] = true;
         }
     }
-
+    
+    /**
+     * Palauttaa ajan, joka viimeksi on kulunut labyrintin ratkaisemiseen.
+     * @return Ketjualgoritmin suoritukseen viimeksi kulunut aika nanosekunteina.
+     */
     public long getTime() {
         return time;
     }
+    
+    /**
+     * Palauttaa kopion tämänhetkisestä sokkelopohjasta.
+     * @return Sokkelopohjan kopio.
+     */
+    public int[][] getGrid() {
+        int[][] grid = new int[this.grid.length][this.grid.length];
+        for (int i = 0; i < grid.length; i++) {
+            for (int j = 0; j < grid.length; j++) {
+                grid[i][j] = this.grid[i][j];
+            }
+        }
+        return grid;
+    }
+    
+    /**
+     * Asettaa uuden sokkelopohjan tarkasteltavaksi.
+     * Uusi pohja on annetun taulukon kopio.
+     * @param grid Uusi sokkelopohja, joka kopioidaan.
+     */
+    public void setGrid(int[][] grid) {
+        this.grid = new int[grid.length][grid.length];
+        for (int i = 0; i < grid.length; i++) {
+            for (int j = 0; j < grid.length; j++) {
+                this.grid[i][j] = grid[i][j];
+            }
+        }
+    }
+    
+    
     
 }

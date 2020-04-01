@@ -5,7 +5,7 @@ package labyrinthsolver.domain;
  * Kahden arvon muodostama yksikkö, jota voidaan käyttää
  * koordinaattien säilömiseen
  */
-public class Pair {
+public class Pair implements TwoValues{
     
     private int x;
     private int y;
@@ -24,7 +24,8 @@ public class Pair {
      * Palauttaa parin ensimmäisen arvon
      * @return 
      */
-    public int getX() {
+    @Override
+    public Integer getX() {
         return x;
     }
     
@@ -32,7 +33,7 @@ public class Pair {
      * Palauttaa parin toisen arvon
      * @return 
      */
-    public int getY() {
+    public Integer getY() {
         return y;
     }
 
@@ -50,8 +51,8 @@ public class Pair {
     
     /**
      * Metodi vertailua varten
-     * @param obj
-     * @return 
+     * @param obj Vertailtava objekti.
+     * @return True jos objektit ovat samat. Muuten false.
      */
     @Override
     public boolean equals(Object obj) {
@@ -73,5 +74,7 @@ public class Pair {
         }
         return true;
     }
+    
+    
      
 }

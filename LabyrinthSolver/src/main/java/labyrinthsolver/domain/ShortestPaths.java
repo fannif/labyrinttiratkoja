@@ -128,7 +128,7 @@ public class ShortestPaths {
 
     /**
      * Palauttaa ajan, joka meni viimeksi solve-metodin ajamiseen.
-     * @return Aika, joka meni solve-metodiin millisekunteina.
+     * @return Aika, joka meni solve-metodiin nanosekunteina.
      */
     public long getTime() {
         return time;

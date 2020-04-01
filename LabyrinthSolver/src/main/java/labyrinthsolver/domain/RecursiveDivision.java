@@ -121,7 +121,7 @@ public class RecursiveDivision {
     
     /**
      * Palauttaa generoimiseen viimeksi kuluneen ajan.
-     * @return Viimeksi genrointiin kulunut aika millisekunteina.
+     * @return Viimeksi genrointiin kulunut aika nanosekunteina.
      */
     public long getTime() {
         return time;

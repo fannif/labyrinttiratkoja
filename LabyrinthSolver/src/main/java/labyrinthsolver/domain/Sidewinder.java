@@ -47,7 +47,7 @@ public class Sidewinder {
                 if (x < n - 1 && (random.nextInt(2) + 1) % 2 == 0) {
                     grid[x][y] = 0;
                 } else {
-                    Pair newPair = run.randomPair();
+                    Pair newPair = (Pair) run.randomPair();
                     if (newPair == null) {
                         continue;
                     }
@@ -65,7 +65,7 @@ public class Sidewinder {
     
     /**
      * Palauttaa generoimiseen viimeksi kuluneen ajan.
-     * @return Viimeksi genrointiin kulunut aika millisekunteina.
+     * @return Viimeksi genrointiin kulunut aika nanosekunteina.
      */
     public long getTime() {
         return time;

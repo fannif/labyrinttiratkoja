@@ -109,8 +109,8 @@ public class PairSetTest {
         for (int i = 0; i < 12; i++) {
             set.add(new Pair(0, i));
         }
-        Pair random = set.randomPair();
-        assertTrue(set.contains(random) > 0);
+        TwoValues random = set.randomPair();
+        assertTrue(set.contains(random) >= 0);
     }
     
     @Test
