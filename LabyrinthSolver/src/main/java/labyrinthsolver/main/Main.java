@@ -13,14 +13,13 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
-import labyrinthsolver.domain.ChainSolver;
-import labyrinthsolver.domain.Kruskal;
-import labyrinthsolver.domain.Maze;
-import labyrinthsolver.domain.RecursiveDivision;
-import labyrinthsolver.domain.ShortestPaths;
-import labyrinthsolver.domain.Sidewinder;
-import labyrinthsolver.domain.WallFollower;
-
+import labyrinthsolver.domain.algorithms.ChainSolver;
+import labyrinthsolver.domain.algorithms.Kruskal;
+import labyrinthsolver.domain.utils.Maze;
+import labyrinthsolver.domain.algorithms.RecursiveDivision;
+import labyrinthsolver.domain.algorithms.ShortestPaths;
+import labyrinthsolver.domain.algorithms.Sidewinder;
+import labyrinthsolver.domain.algorithms.WallFollower;
 
 public class Main extends Application {
     
@@ -39,7 +38,7 @@ public class Main extends Application {
      */
     @Override
     public void start(Stage primaryStage) throws Exception {
-        
+
         Maze maze = new Maze(51);
         Sidewinder sidew = new Sidewinder();
         WallFollower wallFollower = new WallFollower();
