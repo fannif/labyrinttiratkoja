@@ -10,12 +10,12 @@ Labyritmin ratkaisemista varten on myös aikomus toteuttaa ainakin kolme eri alg
 
 Kaikki kolme valitsemaani ratkaisualgoritmia toimivat erilailla, koska yksi simuloi ihmistä, toinen ratkaisee lyhyimmät reitit ja kolmas ratkaisee syhteellisen lyhyen reitin nopeasti.
 
-Valitsemieni algoritmien toteuttamiseksi tarvitsen tietorakenteet ainakin joukkoa ja jonoa varten. Niinpä toteutan ohjelmassani ne.
+Valitsemieni algoritmien toteuttamiseksi tarvitsen tietorakenteet ainakin sokkeloa, joukkoa ja jonoa varten. Niinpä toteutan ohjelmassani ne. Lisäksi toteutan algoritmin satunnaislukujen generoimiseksi.
 
 
 ### Aika- ja tilavaativuustavoitteet
 
-Alla yleisesti layrintin oletetaan olevan kaksiulotteisessa taulukossa. Taulukon rivit ja sarakkeet ovat yhtä pitkiä.
+Alla yleisesti labyrintin oletetaan olevan kaksiulotteisessa taulukossa. Taulukon rivit ja sarakkeet ovat yhtä pitkiä.
 
 Sidewinderin tilavaativuuden haluaisin olevan O(1), koska sen tarvitsee itseasiassa käsitellä vain yksittäisiä ruutuja kerrallaan. Ei siis pitäisi tarvita aputaulukkoja. Kruskalin algoritmin tilavaativuudeksi pyrin saamaan O(n^2), missä n on yhden rivin pituus, koska sen suorituksessa tarvitaan apuna labyrintin koosta riippuvia apurakenteita, toista taulukkoa. Rekursiivisen algoritmin tilavaativuudeksi haluaisin O(n), missä n on rivin pituus, koska siinä pitää ainakin hyödyntää stäckiä. 
 
@@ -35,7 +35,7 @@ Koska ongelmaan kuuluu sekä labyrinttien luominen että ratkaiseminen, täytyy 
 
 ### Syötteet
 
-Ohjelma ei tarvitse käyttäjältä paljoa syötteitä, koska se generoi ja ratkaisee labyrintit itse. Kuitenkin käyttäjä saa valita, mitä generointialgoritmia käytetään. Sovellukseen voi myös tulla mahdollisuus käyttäjälle valita labyrintin koko annetuista vaihtoehdoista. Syötteiden antaminen tapahtuu graafisen käyttöliittymän kautta.
+Ohjelma ei tarvitse käyttäjältä paljoa syötteitä, koska se generoi ja ratkaisee labyrintit itse. Kuitenkin käyttäjä saa valita, mitä generointi- tai ratkaisualgoritmia käytetään. Sovellukseen voi myös tulla mahdollisuus käyttäjälle valita labyrintin koko annetuista vaihtoehdoista. Syötteiden antaminen tapahtuu graafisen käyttöliittymän kautta nappeja klikkaamalla.
 
 
 

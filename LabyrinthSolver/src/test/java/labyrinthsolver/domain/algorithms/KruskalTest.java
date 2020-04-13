@@ -1,12 +1,8 @@
 
 package labyrinthsolver.domain.algorithms;
 
-import labyrinthsolver.domain.utils.Pair;
 import labyrinthsolver.domain.utils.Maze;
 import labyrinthsolver.domain.utils.PairSet;
-import labyrinthsolver.domain.utils.Edge;
-import labyrinthsolver.domain.algorithms.WallFollower;
-import labyrinthsolver.domain.algorithms.Kruskal;
 import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
@@ -31,29 +27,35 @@ public class KruskalTest {
     
     @Test
     public void sameMazeRecognizesIfInSameSubsection() {
-        Pair[][] parents = new Pair[][]{{new Pair(0, 0)},{new Pair(0, 0)}};
+        int[][] parents = new int[][]{new int[]{0, 0},new int[]{0, 0},new int[]{0, 0},new int[]{0, 0}};
         k.setParent(parents);
-        assertTrue(k.sameMaze(new Pair(0, 0), new Pair(1, 0)));
+        k.setGrid(new int[2][2]);
+        int[] rep1 = k.representative(new int[]{0, 0});
+        int[] rep2 = k.representative(new int[]{1, 0});
+        assertTrue(rep1[0] == rep2[0] && rep1[1] == rep2[1]);
     }
     
     @Test
     public void sameMazeReturnsFalseNotIfInSameSubsection() {
-        Pair[][] parents = new Pair[][]{{new Pair(0, 0)},{new Pair(1, 0)}};
+        int[][] parents = new int[][]{new int[]{0, 0}, new int[]{0, 1},new int[]{0, 0},new int[]{0, 0}};
         k.setParent(parents);
-        assertTrue(!k.sameMaze(new Pair(0, 0), new Pair(1, 0)));
+        k.setGrid(new int[2][2]);
+        int[] rep1 = k.representative(new int[]{0, 0});
+        int[] rep2 = k.representative(new int[]{0, 1});
+        assertTrue(!(rep1[0] == rep2[0] && rep1[1] == rep2[1]));
     }
     
     @Test
     public void originallyEachIsItsOwnParent() {
-        Pair[][] emptyParents = new Pair[m.getSize()][m.getSize()];
+        int[][] emptyParents = new int[m.getSize() * m.getSize()][2];
         k.setParent(emptyParents);
         k.setGrid(m.getLayout());
         k.originalParents();
         boolean works = true;
         for (int i = 0; i < m.getSize(); i++) {
             for (int j = 0; j < m.getSize(); j++) {
-                Pair pair = new Pair(i, j);
-                if (!pair.equals(k.getParent()[i][j])) {
+                int[] pair = new int[]{i, j};
+                if (!(pair[0] == k.getParent()[i * k.getGrid().length + j][0] && pair[1] == k.getParent()[i * k.getGrid().length + j][1])) {
                     works = false;
                 }
             }
@@ -79,22 +81,22 @@ public class KruskalTest {
     
     @Test
     public void afterUnitePairsHaveSameRepresentatives() {
-        Pair[][] emptyParents = new Pair[m.getSize()][m.getSize()];
+        int[][] emptyParents = new int[m.getSize() * m.getSize()][2];
         k.setParent(emptyParents);
         k.setSize(m.getLayout());
         int[][] emptyMaze = new int[m.getSize()][m.getSize()];
         k.setGrid(emptyMaze);
         k.originalParents();
         k.originalSizes();
-        Pair p1 = new Pair(0, 1);
-        Pair p2 = new Pair (0, 3);
+        int[] p1 = new int[]{0, 1};
+        int[] p2 = new int[]{0, 3};
         k.unite(p1, p2);
-        assertTrue(k.representative(p1).equals(k.representative(p2)));
+        assertTrue(k.representative(p1)[0] == k.representative(p2)[0] && k.representative(p1)[1] == k.representative(p2)[1]);
     }
     
     @Test
     public void smallerSubNetJoinsBiggerSubnet() {
-        Pair[][] emptyParents = new Pair[m.getSize()][m.getSize()];
+        int[][] emptyParents = new int[m.getSize() * m.getSize()][2];
         k.setParent(emptyParents);
         k.setSize(m.getLayout());
         int[][] emptyMaze = new int[m.getSize()][m.getSize()];
@@ -102,10 +104,10 @@ public class KruskalTest {
         k.originalParents();
         emptyMaze[0][0]++;
         k.setSize(emptyMaze);
-        Pair p1 = new Pair(0, 0);
-        Pair p2 = new Pair (0, 2);
+        int[] p1 = new int[]{0, 0};
+        int[] p2 = new int[]{0, 2};
         k.unite(p1, p2);
-        assertTrue(k.representative(p2).equals(p1));
+        assertTrue(k.representative(p2)[0] == p1[0] && k.representative(p2)[1] == p1[1]);
     }
     
     @Test
@@ -121,16 +123,16 @@ public class KruskalTest {
         k.setGrid(maze);
         k.setEdges(new PairSet());
         k.originalEdges();
-        if (k.getEdges().contains(new Edge(new Pair(1, 1), new Pair(1, 3))) < 0) {
+        if (k.getEdges().contains(new int[]{1, 1, 1, 3}) < 0) {
             works = false;
         }
-        if (k.getEdges().contains(new Edge(new Pair(1, 1), new Pair(3, 1))) < 0) {
+        if (k.getEdges().contains(new int[]{1, 1, 3, 1}) < 0) {
             works = false;
         }
-        if (k.getEdges().contains(new Edge(new Pair(1, 3), new Pair(3, 3))) < 0) {
+        if (k.getEdges().contains(new int[]{1, 3, 3, 3}) < 0) {
             works = false;
         }
-        if (k.getEdges().contains(new Edge(new Pair(3, 1), new Pair(3, 3))) < 0) {
+        if (k.getEdges().contains(new int[]{3, 1, 3, 3}) < 0) {
             works = false;
         }
         assertTrue(works);

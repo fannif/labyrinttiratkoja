@@ -3,7 +3,6 @@ package labyrinthsolver.domain.algorithms;
 
 import labyrinthsolver.domain.utils.Maze;
 import labyrinthsolver.domain.utils.MersenneTwister;
-import labyrinthsolver.domain.utils.Pair;
 
 /**
  * Generoi sokkeloita rekursiivisella jakoalgoritmilla.
@@ -34,12 +33,12 @@ public class RecursiveDivision {
     public int[][] generate(Maze maze) {
         long startTime = System.nanoTime();
         int n = maze.getSize();
-        maze.initialize();
+        maze.initialize(n);
         width = n;
         height = n;
         grid = maze.getLayout();
         
-        divide(width, height, new Pair(0, 0));
+        divide(width, height, new int[]{0, 0});
         long endTime = System.nanoTime();
         time = endTime - startTime;
         
@@ -67,7 +66,7 @@ public class RecursiveDivision {
      * @param offset Pari, joka kuvaa, kuinka kaukaa nollarivistä
      * ja -sarakkeesta käsiteltävä alue alkaa.
      */
-    public void divide(int width, int height, Pair offset) {
+    public void divide(int width, int height, int[] offset) {
         if (width < 4 || height < 4) {
             return;
         }
@@ -86,7 +85,7 @@ public class RecursiveDivision {
                 if (i == path) {
                     continue;
                 }
-                grid[wall + offset.getY()][i + offset.getX()] = 1;
+                grid[wall + offset[1]][i + offset[0]] = 1;
             }
         } else {
             while (wall % 2 != 0 || wall == 0) {
@@ -100,16 +99,16 @@ public class RecursiveDivision {
                 if (i == path) {
                     continue;
                 }
-                grid[i + offset.getY()][wall + offset.getX()] = 1;
+                grid[i + offset[1]][wall + offset[0]] = 1;
             }
         }
         
         if (orientation == 0) {
             divide(width, wall, offset);
-            divide(width, height - wall, new Pair(offset.getX(), offset.getY() + wall));
+            divide(width, height - wall, new int[]{offset[0], offset[1] + wall});
         } else {
             divide(wall, height, offset);
-            divide(width - wall, height, new Pair(offset.getX() + wall, offset.getY()));
+            divide(width - wall, height, new int[]{offset[0] + wall, offset[1]});
         }
     }
     

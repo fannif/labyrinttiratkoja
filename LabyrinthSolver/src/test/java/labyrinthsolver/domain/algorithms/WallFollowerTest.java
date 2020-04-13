@@ -2,12 +2,7 @@
 package labyrinthsolver.domain.algorithms;
 
 import labyrinthsolver.domain.utils.Maze;
-import labyrinthsolver.domain.algorithms.WallFollower;
-import labyrinthsolver.domain.algorithms.Sidewinder;
-import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -292,6 +287,14 @@ public class WallFollowerTest {
     @Test
     public void timeIsZeroBeforeSolving() {
         assertTrue(wf.getTime() == 0);
+    }
+    
+    @Test
+    public void solutionLengthIsPlausible() {
+        wf.solve(m);
+        int n = m.getSize();
+        int length = wf.solutionLength();
+        assertTrue(0 <= length && length < n * n);
     }
     
 }

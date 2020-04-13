@@ -2,7 +2,6 @@
 package labyrinthsolver.domain.algorithms;
 
 import labyrinthsolver.domain.utils.Maze;
-import labyrinthsolver.domain.utils.Pair;
 import labyrinthsolver.domain.utils.PairQueue;
 
 /**
@@ -52,31 +51,31 @@ public class ShortestPaths {
      */
     public void bFS() {
         PairQueue queue = new PairQueue(5000);
-        queue.enqueue(new Pair(1, 1));
+        queue.enqueue(new int[]{1, 1});
         grid[1][1] = 3;
         distance[1][1] = 0;
-        Pair current = new Pair(1, 1);
+        int[] currentPair = new int[]{1, 1};
         while (!queue.empty()) {
-            current = queue.dequeue();
-            int x = current.getX();
-            int y = current.getY();
+            currentPair = queue.dequeue();
+            int x = currentPair[0];
+            int y = currentPair[1];
             if (grid[y + 1][x] == 0) {
-                queue.enqueue(new Pair(x, y + 1));
+                queue.enqueue(new int[]{x, y + 1});
                 grid[y + 1][x] = 3;
                 distance[y + 1][x] = distance[y][x] + 1;
             } 
             if (grid[y - 1][x] == 0) {
-                queue.enqueue(new Pair(x, y - 1));
+                queue.enqueue(new int[]{x, y - 1});
                 grid[y - 1][x] = 3;
                 distance[y - 1][x] = distance[y][x] + 1;
             } 
             if (grid[y][x + 1] == 0) {
-                queue.enqueue(new Pair(x + 1, y));
+                queue.enqueue(new int[]{x + 1, y});
                 grid[y][x + 1] = 3;
                 distance[y][x + 1] = distance[y][x] + 1;
             } 
             if (grid[y][x - 1] == 0) {
-                queue.enqueue(new Pair(x - 1, y));
+                queue.enqueue(new int[]{x - 1, y});
                 grid[y][x - 1] = 3;
                 distance[y][x - 1] = distance[y][x] + 1;
             } 
@@ -92,28 +91,28 @@ public class ShortestPaths {
      */
     public void pickyBFS(int startX, int startY) {
         PairQueue queue = new PairQueue(5000);
-        queue.enqueue(new Pair(startX, startY));
+        queue.enqueue(new int[]{startX, startY});
         grid[startX][startY] = 2;
-        Pair current = new Pair(startX, startY);
+        int[] currentPair = new int[]{startX, startY};
         while (!queue.empty()) {
-            current = queue.dequeue();    
-            int x = current.getX();
-            int y = current.getY();
+            currentPair = queue.dequeue();    
+            int x = currentPair[0];
+            int y = currentPair[1];
             int currentDist = distance[y][x];
             if (distance[y + 1][x] == currentDist - 1 && grid[y + 1][x] != 1) {
-                queue.enqueue(new Pair(x, y + 1));
+                queue.enqueue(new int[]{x, y + 1});
                 grid[y + 1][x] = 2;
             } 
             if (distance[y - 1][x] == currentDist - 1 && grid[y - 1][x] != 1) {
-                queue.enqueue(new Pair(x, y - 1));
+                queue.enqueue(new int[]{x, y - 1});
                 grid[y - 1][x] = 2;
             } 
             if (distance[y][x + 1] == currentDist - 1 && grid[y][x + 1] != 1) {
-                queue.enqueue(new Pair(x + 1, y));
+                queue.enqueue(new int[]{x + 1, y});
                 grid[y][x + 1] = 2;
             } 
             if (distance[y][x - 1] == currentDist - 1 && grid[y][x - 1] != 1) {
-                queue.enqueue(new Pair(x - 1, y));
+                queue.enqueue(new int[]{x - 1, y});
                 grid[y][x - 1] = 2;
             } 
         }
@@ -136,6 +135,23 @@ public class ShortestPaths {
      */
     public long getTime() {
         return time;
+    }
+    
+    /**
+     * Palauttaa lopullisen merkatun polun pituuden.
+     * @return Lopullisen merkatun polun pituus.
+     */
+    public int solutionLength() {
+        int n = grid.length;
+        int path = 0;
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                if (grid[i][j] == 2) {
+                    path++;
+                }
+            }
+        }
+        return path;
     }
     
 }

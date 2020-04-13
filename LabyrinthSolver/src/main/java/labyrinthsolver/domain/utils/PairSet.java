@@ -7,7 +7,7 @@ package labyrinthsolver.domain.utils;
  */
 public class PairSet {
     
-    private TwoValues[] set;
+    private int[][] set;
     private int endIndex;
     private int size;
     
@@ -18,7 +18,7 @@ public class PairSet {
      * indeksiä, johon seuraava alkio tulisi.
      */
     public PairSet() {
-        set = new TwoValues[10];
+        set = new int[10][4];
         size = 10;
         endIndex = 0;
     }
@@ -28,7 +28,7 @@ public class PairSet {
      * Jos ollaan maksimikoossa, niin kasvatetaan joukkoa.
      * @param pair Lisättävä pari
      */
-    public void add(TwoValues pair) {
+    public void add(int[] pair) {
         int exists = contains(pair);
         if (exists >= 0) {
             return;
@@ -47,7 +47,7 @@ public class PairSet {
      * niin pienennetään joukkoa.
      * @param pair Poistettava alkio
      */
-    public void remove(TwoValues pair) {
+    public void remove(int[] pair) {
         int exists = contains(pair);
         if (exists < 0) {
             return;
@@ -68,11 +68,18 @@ public class PairSet {
      * @return Alkion indeksi, jos se kuuluu joukkoon, ja
      * -1 jos se ei kuulu.
      */
-    public int contains(TwoValues pair) {
+    public int contains(int[] pair) {
+        boolean exists = true;
         for (int i = 0; i < endIndex; i++) {
-            if (set[i].equals(pair)) {
+            for (int j = 0; j < pair.length; j++) {
+                if (set[i][j] != pair[j]) {
+                    exists = false;
+                }
+            }
+            if (exists) {
                 return i;
             }
+            exists = true;
         }
         return -1;
     }
@@ -81,7 +88,7 @@ public class PairSet {
      * Palauttaa satunnaisesti valitun alkion joukosta.
      * @return Satunnainen joukon alkio.
      */
-    public TwoValues randomPair() {
+    public int[] randomPair() {
         MersenneTwister random = new MersenneTwister(System.currentTimeMillis());
         if (endIndex == 0) {
             return null;
@@ -94,7 +101,7 @@ public class PairSet {
      * Kasvattaa joukon maksimikoon kaksinkertaiseksi.
      */
     private void increaseSize() {
-        TwoValues[] newSet = new TwoValues[size * 2];
+        int[][] newSet = new int[size * 2][4];
         for (int i = 0; i < endIndex; i++) {
             newSet[i] = set[i];
         }
@@ -109,7 +116,7 @@ public class PairSet {
         if (endIndex > size / 4) {
             return;
         }
-        TwoValues[] newSet = new TwoValues[size / 2];
+        int[][] newSet = new int[size / 2][4];
         for (int i = 0; i < endIndex; i++) {
             newSet[i] = set[i];
         }
@@ -121,7 +128,7 @@ public class PairSet {
      * Tyhjentää joukon, ja asettaa sen maksimikooksi 10.
      */
     public void clear() {
-        set = new TwoValues[10];
+        set = new int[10][4];
         size = 10;
         endIndex = 0;
     }

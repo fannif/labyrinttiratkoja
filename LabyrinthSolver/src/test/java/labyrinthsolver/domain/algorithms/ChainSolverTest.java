@@ -2,8 +2,6 @@
 package labyrinthsolver.domain.algorithms;
 
 import labyrinthsolver.domain.utils.Maze;
-import labyrinthsolver.domain.algorithms.Sidewinder;
-import labyrinthsolver.domain.algorithms.ChainSolver;
 import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
@@ -122,5 +120,13 @@ public class ChainSolverTest {
     public void solveFindsGoal() {
         m.setLayout(cs.solve(m));
         assertTrue(m.getFromCoordinates(m.getSize() - 2, m.getSize() - 2) == 2);
+    }
+    
+    @Test
+    public void solutionLengthIsPlausible() {
+        cs.solve(m);
+        int n = m.getSize();
+        int length = cs.solutionLength();
+        assertTrue(0 <= length && length < n * n);
     }
 }

@@ -1,23 +1,44 @@
 
 package labyrinthsolver.domain.utils;
 
+/**
+ * Luokalla voidaan generoida satunnaismuuttujia.
+ * Toteutus on mukautettu MersenneTwiter-algoritmista.
+ * Muuttuja seed on arvo, joka alussa asetetaan satunnaislukutaulukon alkuun.
+ * Taulukko values kuvaa sillä hetkellä käsiteltäviä lukuja, joista satunnaisluku valitaan järjestyksessä.
+ * Next on seuraavaksi otettavan satunnaisluvun indeksi taulukossa.
+ */
 public class MersenneTwister {
     
     private int seed;
     private int[] values;
     private int next;
     
+    /**
+     * Konstruktorimetodi, joka alustaa arvoja satunnaislukutaulukkoon.
+     * @param seed Taulukkoon ensimmäiseksi alkioksi tuleva lähtöalkio.
+     */
     public MersenneTwister (long seed) {
         this.seed = (int) (seed % 100000);
         next = 0;
         values = new int[624];
         values[0] = this.seed;
         for (int i = 1; i < 624; i++) {
+            // Siirretään ja kerrotaan taulukon bittejä
             values[i] = 1812433253 * (values[i-1] ^ (values[i-1] >> 30)) + i;
         }
     }
     
+    /**
+     * Palauttaa satunnaisluvun, joka annettua rajaa pienempi kokonaisluku.
+     * @param limit Satunnaismuuttujan arvon yläraja. Arvo on alle tämän.
+     * @return Palauttaa generoidun satunnaisluvun. Jos limit on nolla, niin
+     * palautetaan nolla, jottei tapahdu nollalla jakamista.
+     */
     public int nextInt(int limit) {
+        if (limit == 0) {
+            return 0;
+        }
         if (next >= values.length) {
             newValues();
         }
@@ -31,6 +52,10 @@ public class MersenneTwister {
         return value % limit;
     }
     
+    /**
+     * Laskee values-taulukkoon uudet satunnaisluvut.
+     * Tämä tehdään viimeistään 624 käyttökierroksen välein, koska silloin kaikki edelliset arvot on käytetty.
+     */
     public void newValues() {
         int length = values.length;
         int firstGroup = 227;

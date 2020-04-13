@@ -1,9 +1,7 @@
 
 package labyrinthsolver.domain.algorithms;
 
-import labyrinthsolver.domain.utils.Edge;
 import labyrinthsolver.domain.utils.Maze;
-import labyrinthsolver.domain.utils.Pair;
 import labyrinthsolver.domain.utils.PairSet;
 
 /**
@@ -11,7 +9,8 @@ import labyrinthsolver.domain.utils.PairSet;
  * Tässä käytetään kaikki seinät sisältävää sokkeloa, josta seiniä sitten otetaan pois
  * niin, että saadaan ratkaistava labyrintti.
  * Luokka hyödyntää puurakennetta. 
- * Taulukko parent kuvaa labyrintin solmujen vahempia puussa.
+ * Taulukko parent kuvaa labyrintin solmujen vahempia puussa. Tämä on toteutettu kaksiulotteisena taulukkona,
+ * jossa toinen ulottuvuus lasketaan kunkin solmun koordinaateista, ja toinen kuvaa solmuje xy-pareja.
  * Taulukko grid on sokkelopohja, joka on aluksi tyhjä.
  * Taulukko size kuvaa kullekin solmulle sen verkkopalan kokoa, johon solmu kuuluu.
  * Algorimti nimittäin perustuu pienempien verkkojen yhdistämiseen.
@@ -19,10 +18,11 @@ import labyrinthsolver.domain.utils.PairSet;
  */
 public class Kruskal {
     
-    private Pair[][] parent;
+    private int[][] parent;
     private int[][] grid;
     private int [][] size;
     private long time = 0;
+    private int n;
     PairSet edges;
     
     /**
@@ -40,30 +40,29 @@ public class Kruskal {
      */
     public int[][] generate(Maze maze) {
         long startTime = System.nanoTime();
-        int n = maze.getSize();
-        maze.initialize();
+        n = maze.getSize();
         maze.initializeWithWalls();
         grid = maze.getLayout();
-        parent = new Pair[n][n];
+        parent = new int[n * n][2];
         size = new int[n][n];
         edges = new PairSet();
         originalParents();
         originalSizes();
         originalEdges();
-        Edge edge;
+        int[] edge;
         
         while (edges.getEndIndex() > 0) {
-            edge = (Edge) edges.randomPair();
+            edge = edges.randomPair();
             edges.remove(edge);
-            if (unite(edge.getX(), edge.getY())) {
-                if (edge.getX().getX() > edge.getY().getX()) {
-                    grid[edge.getX().getX() - 1][edge.getX().getY()] = 0;
-                } else if (edge.getX().getX() < edge.getY().getX()) {
-                    grid[edge.getX().getX() + 1][edge.getX().getY()] = 0;
-                } else if (edge.getX().getY() > edge.getY().getY()) {
-                    grid[edge.getX().getX()][edge.getX().getY() - 1] = 0;
-                } else if (edge.getX().getY() < edge.getY().getY()) {
-                    grid[edge.getX().getX()][edge.getX().getY() + 1] = 0;
+            if (unite(new int[]{edge[0], edge[1]}, new int[]{edge[2], edge[3]})) {
+                if (edge[0] > edge[2]) {
+                    grid[edge[0] - 1][edge[1]] = 0;
+                } else if (edge[0] < edge[2]) {
+                    grid[edge[0] + 1][edge[1]] = 0;
+                } else if (edge[1] > edge[3]) {
+                    grid[edge[0]][edge[1] - 1] = 0;
+                } else if (edge[1] < edge[3]) {
+                    grid[edge[0]][edge[1] + 1] = 0;
                 }
             }
         }
@@ -77,21 +76,21 @@ public class Kruskal {
      * jos labyrintti ajatellaan puurakenteena.
      */
     public void originalParents() {
-        int n = grid.length;
+        n = grid.length;
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
-                parent[i][j] = new Pair(i, j);
+                parent[i * n + j] = new int[]{i, j};
             }
         }
     }
     
     /**
-     * Täyttää kollekin läbyrintin solmulle sen aliverkon koon, 
+     * Täyttää kullekin labyrintin solmulle sen aliverkon koon, 
      * jossa se alkutilanteessa on. 
      * Alussa kussakin aliverkossa on vain solmu itse.
      */
     public void originalSizes() {
-        int n = grid.length;
+        n = grid.length;
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
                 size[i][j] = 1;
@@ -104,23 +103,23 @@ public class Kruskal {
      * seinät kaikki yhteen joukkoon.
      */
     public void originalEdges() {
-        int n = grid.length;
+        n = grid.length;
         for (int i = 1; i < n - 1; i += 2) {
             for (int j = 1; j < n - 1; j += 2) {
                 if (grid[i][j] == 1) {
                     continue;
                 }
                 if (i > 2) {
-                    edges.add(new Edge(new Pair(i, j), new Pair(i - 2, j)));
+                    edges.add(new int[]{i, j, i - 2, j});
                 }
                 if (i < n - 2) {
-                    edges.add(new Edge(new Pair(i, j), new Pair(i + 2, j)));
+                    edges.add(new int[]{i, j, i + 2, j});
                 }
                 if (j > 2) {
-                    edges.add(new Edge(new Pair(i, j), new Pair(i, j - 2)));
+                    edges.add(new int[]{i, j, i, j - 2});
                 }
                 if (j < n - 2) {
-                    edges.add(new Edge(new Pair(i, j), new Pair(i, j + 2)));
+                    edges.add(new int[]{i, j, i, j + 2});
                 }
             }
         }
@@ -132,25 +131,15 @@ public class Kruskal {
      * @param current Tällähetkellä käsiteltävänä oleva solmu, jolle etsitään edustajaa.
      * @return Alunperin annetu solmun edustaja.
      */
-    public Pair representative(Pair current) {
-        int i = current.getX();
-        int j = current.getY();
-        while (!current.equals(parent[i][j])) {
-            current = parent[i][j];
-            i = current.getX();
-            j = current.getY();
+    public int[] representative(int[] current) {
+        int i = current[0];
+        int j = current[1];
+        while (!(i == parent[i * n + j][0] && j == parent[i * n + j][1])) {
+            current = parent[i * n + j];
+            i = current[0];
+            j = current[1];
         }
         return current;
-    }
-    
-    /**
-     * Tarkistaa, kuuluvatko annetut solmut samaan aliverkkoon.
-     * @param first Ensimmäinen ttutkittava solmu.
-     * @param second Toinen tutkittava solmu.
-     * @return True, jos ovat samassa alijoukossa, ja false jos eivät ole.
-     */
-    public boolean sameMaze(Pair first, Pair second) {
-        return representative(first).equals(representative(second));
     }
     
     /**
@@ -160,19 +149,19 @@ public class Kruskal {
      * @param second Saman kaaren toisessa päässä oleva toinen yhdistettävä solmu.
      * @return True, jos olivat eri aliverkoissa ja yhdistettiin, ja false jos olivat jo samassa, eikä tarvinnut yhdistää.
      */
-    public boolean unite(Pair first, Pair second) {
+    public boolean unite(int[] first, int[] second) {
         first = representative(first);
         second = representative(second);
-        if (first.equals(second)) {
+        if (first[0] == second[0] && first[1] == second[1]) {
             return false;
         }
-        if (size[first.getX()][first.getY()] <= size[second.getX()][second.getY()]) {
-            parent[first.getX()][first.getY()] = second;
-            size[second.getX()][second.getY()] += size[first.getX()][first.getY()];
+        if (size[first[0]][first[1]] <= size[second[0]][second[1]]) {
+            parent[first[0] * n + first[1]] = second;
+            size[second[0]][second[1]] += size[first[0]][first[1]];
             return true;
         } else {
-            parent[second.getX()][second.getY()] = first;
-            size[first.getX()][first.getY()] += size[second.getX()][second.getY()];
+            parent[second[0] * n + second[1]] = first;
+            size[first[0]][first[1]] += size[second[0]][second[1]];
             return true;
         }
     }
@@ -194,7 +183,7 @@ public class Kruskal {
     }
     
     /**
-     * Palauttaa generate-metodin ajamiseen viimeksi kuluneen ajan nanosekunteina
+     * Palauttaa generate-metodin ajamiseen viimeksi kuluneen ajan nnosekunteina
      * @return Labyrintin generoimiseen viimeksi mennyt aika nanosekunteina
      */
     public long getTime() {
@@ -202,11 +191,11 @@ public class Kruskal {
     }
     
     /**
-     * Palauttaa listan solmujen vanhemmista.
+     * Palauttaa taulukon solmujen vanhemmista.
      * Testausta varten.
-     * @return  Lista solmujen vanhemmista.
+     * @return  Taulukko solmujen vanhemmista.
      */
-    public Pair[][] getParent() {
+    public int[][] getParent() {
         return parent;
     }
     
@@ -215,7 +204,7 @@ public class Kruskal {
      * Testausta varten.
      * @param parent Uusi lista solmujen vanhemmista.
      */
-    public void setParent(Pair[][] parent) {
+    public void setParent(int[][] parent) {
         this.parent = parent;
     }
     

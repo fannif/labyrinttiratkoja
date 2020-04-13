@@ -3,7 +3,6 @@ package labyrinthsolver.domain.algorithms;
 
 import labyrinthsolver.domain.utils.Maze;
 import labyrinthsolver.domain.utils.MersenneTwister;
-import labyrinthsolver.domain.utils.Pair;
 import labyrinthsolver.domain.utils.PairSet;
 
 /**
@@ -28,7 +27,6 @@ public class Sidewinder {
     public int[][] generate(Maze maze) {
         long startTime = System.nanoTime();
         int n = maze.getSize();
-        maze.initialize();
         maze.initializeWithWalls();
 
         int[][] grid = maze.getLayout();
@@ -43,16 +41,16 @@ public class Sidewinder {
             PairSet run = new PairSet();
             
             for (int x = 2; x < n; x = x + 2) {
-                run.add(new Pair(x, y));
+                run.add(new int[]{x, y});
                 
                 if (x < n - 1 && (random.nextInt(2) + 1) % 2 == 0) {
                     grid[x][y] = 0;
                 } else {
-                    Pair newPair = (Pair) run.randomPair();
+                    int[] newPair = run.randomPair();
                     if (newPair == null) {
                         continue;
                     }
-                    int newX = newPair.getX();
+                    int newX = newPair[0];
                     grid[newX - 1][y - 1] = 0;
                     run.clear();
                 }

@@ -16,15 +16,16 @@ public class Maze {
      * @param s On haluttu sokkelopohjan koko
      */
     public Maze(int s) {
-        size = s;
-        layout = new int[size][size];
-        initialize();
+        initialize(s);
     }
     
     /**
      * Alustaa tyhjän sokkelon, jossa on vain reunoilla seinät
+     * @param s Koko, johon sokkelo alustetaan.
      */
-    public void initialize() {
+    public void initialize(int s) {
+        size = s;
+        layout = new int[size][size];
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
                 layout[i][j] = 0;
@@ -42,7 +43,7 @@ public class Maze {
      * Lisää sokkeloon kaikkiin väleihin seinät.
      */
     public void initializeWithWalls() {
-        this.initialize();
+        this.initialize(size);
         for (int i = 0; i < size; i++) {
             if (i % 2 == 1) {
                 for (int j = 0; j < size - 1; j = j + 2) {

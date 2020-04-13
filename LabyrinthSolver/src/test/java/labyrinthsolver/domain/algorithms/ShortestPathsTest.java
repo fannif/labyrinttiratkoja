@@ -61,4 +61,12 @@ public class ShortestPathsTest {
         assertTrue(sp.getTime() == 0);
     }
     
+    @Test
+    public void solutionLengthIsPlausible() {
+        sp.solve(m);
+        int n = m.getSize();
+        int length = sp.solutionLength();
+        assertTrue(0 <= length && length < n * n);
+    }
+    
 }

@@ -1,8 +1,6 @@
 
 package labyrinthsolver.domain.utils;
 
-import labyrinthsolver.domain.utils.Pair;
-import labyrinthsolver.domain.utils.PairQueue;
 import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
@@ -26,13 +24,13 @@ public class PairQueueTest {
     
     @Test
     public void addingPairIncreasesCount() {
-        q.enqueue(new Pair(0, 0));
+        q.enqueue(new int[]{0, 0});
         assertTrue(q.getCount() == 1);
     }
     
     @Test
     public void dequeueDecreasesCount() {
-        Pair pair = new Pair(0, 0);
+        int[] pair = new int[]{0, 0};
         q.enqueue(pair);
         q.dequeue();
         assertTrue(q.getCount() == 0);
@@ -52,7 +50,7 @@ public class PairQueueTest {
     @Test
     public void fullReturnsTrueIfFull() {
         for (int i = 0; i < 10; i++) {
-            q.enqueue(new Pair(0, i));
+            q.enqueue(new int[]{0, i});
         }
         assertTrue(q.full());
     }
@@ -60,7 +58,7 @@ public class PairQueueTest {
     @Test
     public void countCannotExceedSize() {
         for (int i = 0; i < 12; i++) {
-            q.enqueue(new Pair(0, i));
+            q.enqueue(new int[]{0, i});
         }
         assertTrue(q.getCount() == 10);
     }
@@ -68,14 +66,14 @@ public class PairQueueTest {
     @Test
     public void enqueueIncreasesEndIndex() {
         int old = q.getEndIndex();
-        q.enqueue(new Pair(0, 0));
+        q.enqueue(new int[]{0, 0});
         assertTrue(q.getEndIndex() == old + 1);
     }
     
     @Test
     public void dequeueIncreasesStartIndex() {
         int old = q.getStartIndex();
-        q.enqueue(new Pair(0, 0));
+        q.enqueue(new int[]{0, 0});
         q.dequeue();
         assertTrue(q.getStartIndex() == old + 1);
     }

@@ -20,6 +20,7 @@ public class WallFollower {
     private int[][] grid;
     private int x;
     private int y;
+    private int path;
     private long time = 0;
     
     /**
@@ -42,6 +43,7 @@ public class WallFollower {
         long startTime = System.nanoTime();
         int n = maze.getSize();
         grid = new int[n][n];
+        path = 1;
 
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
@@ -70,6 +72,7 @@ public class WallFollower {
                 //Jotain on mennyt pieleen
                 break;
             }
+            path++;
         }
         long endTime = System.nanoTime();
         time = endTime - startTime;
@@ -236,5 +239,13 @@ public class WallFollower {
      */
     public long getTime() {
         return time;
+    }
+    
+    /**
+     * Palauttaa lopullisen merkatun polun pituuden.
+     * @return Lopullisen merkatun polun pituus.
+     */
+    public int solutionLength() {
+        return path;
     }
 }

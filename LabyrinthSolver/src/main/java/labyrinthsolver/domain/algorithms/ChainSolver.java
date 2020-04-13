@@ -13,6 +13,7 @@ public class ChainSolver {
     
     private int[][] grid;
     private boolean[][] path;
+    int pathLength;
     private long time;
     private int n;
     private int chainLength;
@@ -40,6 +41,7 @@ public class ChainSolver {
         n = maze.getSize();
         grid = new int[n][n];
         path = new boolean[n][n];
+        pathLength = 0;
 
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
@@ -135,6 +137,7 @@ public class ChainSolver {
             for (int j = 1; j < n - 1; j++) {
                 if (path[i][j]) {
                     grid[i][j] = 2;
+                    pathLength++;
                 }
             }
         }
@@ -271,6 +274,12 @@ public class ChainSolver {
         }
     }
     
-    
+    /**
+     * Palauttaa lopullisen merkatun polun pituuden.
+     * @return Lopullisen merkatun polun pituus.
+     */
+    public int solutionLength() {
+        return pathLength;
+    }
     
 }

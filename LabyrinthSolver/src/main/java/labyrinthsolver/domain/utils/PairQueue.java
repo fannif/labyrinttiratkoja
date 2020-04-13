@@ -9,7 +9,7 @@ package labyrinthsolver.domain.utils;
  */
 public class PairQueue {
     
-    private Pair[] queue;
+    private int[][] queue;
     private int endIndex = -1;
     private int startIndex = 0;
     private int size;
@@ -20,7 +20,7 @@ public class PairQueue {
      * @param size Kuvaa jonoon mahtuvien alkioiden maksimimäärää.
      */
     public PairQueue(int size) {
-        queue = new Pair[size];
+        queue = new int[size][2];
         this.size = size;
     }
     
@@ -29,7 +29,7 @@ public class PairQueue {
      * Samalla päivitetään jonon lopun paikka
      * @param pair On asetettava alkio
      */
-    public void enqueue(Pair pair) {
+    public void enqueue(int[] pair) {
         if (full()) {
             return;
         }
@@ -42,9 +42,9 @@ public class PairQueue {
      * Palauttaa jonon ensimmäisen alkion, ja poistaa sen jonosta
      * @return Jonon ensimmäinen alkio, joka myös poistetaan
      */
-    public Pair dequeue() {
+    public int[] dequeue() {
         if (empty()) {
-            return new Pair(-1, -1);
+            return new int[]{-1, -1};
         }
         int oldStart = startIndex;
         startIndex = (startIndex + 1) % size;
