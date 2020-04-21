@@ -2,8 +2,6 @@
 package labyrinthsolver.domain.algorithms;
 
 import labyrinthsolver.domain.utils.Maze;
-import labyrinthsolver.domain.algorithms.ShortestPaths;
-import labyrinthsolver.domain.algorithms.Sidewinder;
 import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
@@ -32,12 +30,12 @@ public class ShortestPathsTest {
     @Test
     public void BFSFindsShortestRoute() {
         m = new Maze(5);
-        m.setLayout(new int[][] {
-        {1, 1, 1, 1, 1},
-        {1, 0, 0, 0, 1},
-        {1, 0, 0, 0, 1},
-        {1, 0, 0, 0, 1},
-        {1, 1, 1, 1, 1}
+        m.setLayout(new int[] {
+        1, 1, 1, 1, 1,
+        1, 0, 0, 0, 1,
+        1, 0, 0, 0, 1,
+        1, 0, 0, 0, 1,
+        1, 1, 1, 1, 1
         });
         
         sp.solve(m);
@@ -47,13 +45,13 @@ public class ShortestPathsTest {
     @Test
     public void pickyBFSMarksGoalWithTwo() {
         m.setLayout(sp.solve(m));
-        assertTrue(m.getLayout()[19][19] == 2);
+        assertTrue(m.getFromCoordinates(19, 19) == 2);
     }
     
     @Test
     public void pickyBFSGetsBackToStart() {
         m.setLayout(sp.solve(m));
-        assertTrue(m.getLayout()[1][1] == 2);
+        assertTrue(m.getFromCoordinates(1, 1) == 2);
     }
     
     @Test

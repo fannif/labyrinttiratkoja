@@ -19,8 +19,8 @@ import labyrinthsolver.domain.utils.PairSet;
 public class Kruskal {
     
     private int[][] parent;
-    private int[][] grid;
-    private int [][] size;
+    private int[] grid;
+    private int [] size;
     private long time = 0;
     private int n;
     PairSet edges;
@@ -38,13 +38,13 @@ public class Kruskal {
      * @param maze Pohja, johon generoidaan labyrintti.
      * @return Generoitu labyrinttipohja.
      */
-    public int[][] generate(Maze maze) {
+    public int[] generate(Maze maze) {
         long startTime = System.nanoTime();
         n = maze.getSize();
         maze.initializeWithWalls();
         grid = maze.getLayout();
         parent = new int[n * n][2];
-        size = new int[n][n];
+        size = new int[n * n];
         edges = new PairSet();
         originalParents();
         originalSizes();
@@ -56,13 +56,13 @@ public class Kruskal {
             edges.remove(edge);
             if (unite(new int[]{edge[0], edge[1]}, new int[]{edge[2], edge[3]})) {
                 if (edge[0] > edge[2]) {
-                    grid[edge[0] - 1][edge[1]] = 0;
+                    grid[(edge[0] - 1) * n + edge[1]] = 0;
                 } else if (edge[0] < edge[2]) {
-                    grid[edge[0] + 1][edge[1]] = 0;
+                    grid[(edge[0] + 1) * n + edge[1]] = 0;
                 } else if (edge[1] > edge[3]) {
-                    grid[edge[0]][edge[1] - 1] = 0;
+                    grid[edge[0] * n + edge[1] - 1] = 0;
                 } else if (edge[1] < edge[3]) {
-                    grid[edge[0]][edge[1] + 1] = 0;
+                    grid[edge[0] * n + edge[1] + 1] = 0;
                 }
             }
         }
@@ -76,7 +76,6 @@ public class Kruskal {
      * jos labyrintti ajatellaan puurakenteena.
      */
     public void originalParents() {
-        n = grid.length;
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
                 parent[i * n + j] = new int[]{i, j};
@@ -90,11 +89,8 @@ public class Kruskal {
      * Alussa kussakin aliverkossa on vain solmu itse.
      */
     public void originalSizes() {
-        n = grid.length;
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < n; j++) {
-                size[i][j] = 1;
-            }
+        for (int i = 0; i < size.length; i++) {
+            size[i] = 1;
         }
     }
     
@@ -103,10 +99,9 @@ public class Kruskal {
      * seinät kaikki yhteen joukkoon.
      */
     public void originalEdges() {
-        n = grid.length;
         for (int i = 1; i < n - 1; i += 2) {
             for (int j = 1; j < n - 1; j += 2) {
-                if (grid[i][j] == 1) {
+                if (grid[i * n + j] == 1) {
                     continue;
                 }
                 if (i > 2) {
@@ -155,13 +150,13 @@ public class Kruskal {
         if (first[0] == second[0] && first[1] == second[1]) {
             return false;
         }
-        if (size[first[0]][first[1]] <= size[second[0]][second[1]]) {
+        if (size[first[0] * n + first[1]] <= size[second[0] * n + second[1]]) {
             parent[first[0] * n + first[1]] = second;
-            size[second[0]][second[1]] += size[first[0]][first[1]];
+            size[second[0] * n + second[1]] += size[first[0] * n + first[1]];
             return true;
         } else {
             parent[second[0] * n + second[1]] = first;
-            size[first[0]][first[1]] += size[second[0]][second[1]];
+            size[first[0] * n + first[1]] += size[second[0] * n + second[1]];
             return true;
         }
     }
@@ -170,7 +165,11 @@ public class Kruskal {
      * Palauttaa tämänhetkisen sokkelopohjan
      * @return Tämänhetkinen sokkelopohja
      */
-    public int[][] getGrid() {
+    public int[] getGrid() {
+        int[] grid = new int[this.grid.length];
+        for (int i = 0; i < grid.length; i++) {
+            grid[i] = this.grid[i];
+        }
         return grid;
     }
     
@@ -178,7 +177,11 @@ public class Kruskal {
      * Palauttaa tämänhetkisen kokotaulukon
      * @return Taulukko, jossa on eri alijoukkojen kokoja
      */
-    public int[][] getSize() {
+    public int[] getSize() {
+        int[] size = new int[this.size.length];
+        for (int i = 0; i < size.length; i++) {
+            size[i] = this.size[i];
+        }
         return size;
     }
     
@@ -222,8 +225,11 @@ public class Kruskal {
      * Testausta varten.
      * @param grid Uusi labyrinttipohja.
      */
-    public void setGrid(int[][] grid) {
-        this.grid = grid;
+    public void setGrid(int[] grid) {
+        this.grid = new int[grid.length];
+        for (int i = 0; i < grid.length; i++) {
+            this.grid[i] = grid[i];
+        }
     }
     
     /**
@@ -231,8 +237,11 @@ public class Kruskal {
      * Testausta varten.
      * @param size Uusi koko taulukko.
      */
-    public void setSize(int[][] size) {
-        this.size = size;
+    public void setSize(int[] size) {
+        this.size = new int[size.length];
+        for (int i = 0; i < size.length; i++) {
+            this.size[i] = size[i];
+        }
     }
     
     /**

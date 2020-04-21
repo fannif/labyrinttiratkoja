@@ -13,7 +13,9 @@ import static org.junit.Assert.*;
 public class WallFollowerTest {
     
     Maze m;
+    Maze m2;
     WallFollower wf;
+    WallFollower wf2;
     Sidewinder sidew;
     
     public WallFollowerTest() {
@@ -22,9 +24,12 @@ public class WallFollowerTest {
     @Before
     public void setUp() {
         m = new Maze(21);
+        m2 = new Maze(4);
         sidew = new Sidewinder();
         sidew.generate(m);
         wf = new WallFollower();
+        wf2 = new WallFollower();
+        wf2.solve(m2);
     }
     
     @Test
@@ -64,13 +69,13 @@ public class WallFollowerTest {
             {1, 1, 1, 1}
         };
         
-        wf.setGrid(maze);
+        wf2.setGrid(maze);
         
-        wf.setX(2);
-        wf.setY(2);
-        wf.goingUp();
+        wf2.setX(2);
+        wf2.setY(2);
+        wf2.goingUp();
         
-        assertTrue(wf.getX() == 1 && wf.getY() == 2);
+        assertTrue(wf2.getX() == 1 && wf2.getY() == 2);
     }
     
     @Test
@@ -82,13 +87,13 @@ public class WallFollowerTest {
             {1, 1, 1, 1}
         };
         
-        wf.setGrid(maze);
+        wf2.setGrid(maze);
         
-        wf.setX(1);
-        wf.setY(1);
-        wf.goingDown();
+        wf2.setX(1);
+        wf2.setY(1);
+        wf2.goingDown();
         
-        assertTrue(wf.getX() == 2 && wf.getY() == 1);
+        assertTrue(wf2.getX() == 2 && wf2.getY() == 1);
     }
     
     @Test
@@ -100,13 +105,13 @@ public class WallFollowerTest {
             {1, 1, 1, 1}
         };
         
-        wf.setGrid(maze);
+        wf2.setGrid(maze);
         
-        wf.setX(1);
-        wf.setY(1);
-        wf.goingLeft();
+        wf2.setX(1);
+        wf2.setY(1);
+        wf2.goingLeft();
         
-        assertTrue(wf.getX() == 1 && wf.getY() == 2);
+        assertTrue(wf2.getX() == 1 && wf2.getY() == 2);
     }
     
     @Test
@@ -118,13 +123,13 @@ public class WallFollowerTest {
             {1, 1, 1, 1}
         };
         
-        wf.setGrid(maze);
+        wf2.setGrid(maze);
         
-        wf.setX(2);
-        wf.setY(2);
-        wf.goingRight();
+        wf2.setX(2);
+        wf2.setY(2);
+        wf2.goingRight();
         
-        assertTrue(wf.getX() == 2 && wf.getY() == 1);
+        assertTrue(wf2.getX() == 2 && wf2.getY() == 1);
     }
     
     @Test
@@ -136,13 +141,13 @@ public class WallFollowerTest {
             {1, 1, 1, 1}
         };
         
-        wf.setGrid(maze);
+        wf2.setGrid(maze);
         
-        wf.setX(2);
-        wf.setY(1);
-        wf.goingUp();
+        wf2.setX(2);
+        wf2.setY(1);
+        wf2.goingUp();
         
-        assertTrue(wf.getX() == 1 && wf.getY() == 1);
+        assertTrue(wf2.getX() == 1 && wf2.getY() == 1);
     }
     
     @Test
@@ -154,13 +159,13 @@ public class WallFollowerTest {
             {1, 1, 1, 1}
         };
         
-        wf.setGrid(maze);
+        wf2.setGrid(maze);
         
-        wf.setX(1);
-        wf.setY(2);
-        wf.goingDown();
+        wf2.setX(1);
+        wf2.setY(2);
+        wf2.goingDown();
         
-        assertTrue(wf.getX() == 2 && wf.getY() == 2);
+        assertTrue(wf2.getX() == 2 && wf2.getY() == 2);
     }
     
     @Test
@@ -172,13 +177,13 @@ public class WallFollowerTest {
             {1, 1, 1, 1}
         };
         
-        wf.setGrid(maze);
+        wf2.setGrid(maze);
         
-        wf.setX(2);
-        wf.setY(2);
-        wf.goingLeft();
+        wf2.setX(2);
+        wf2.setY(2);
+        wf2.goingLeft();
         
-        assertTrue(wf.getX() == 1 && wf.getY() == 2);
+        assertTrue(wf2.getX() == 1 && wf2.getY() == 2);
     }
     
     @Test
@@ -190,13 +195,13 @@ public class WallFollowerTest {
             {1, 1, 1, 1}
         };
         
-        wf.setGrid(maze);
+        wf2.setGrid(maze);
         
-        wf.setX(1);
-        wf.setY(1);
-        wf.goingRight();
+        wf2.setX(1);
+        wf2.setY(1);
+        wf2.goingRight();
         
-        assertTrue(wf.getX() == 2 && wf.getY() == 1);
+        assertTrue(wf2.getX() == 2 && wf2.getY() == 1);
     }
     
     @Test
@@ -208,13 +213,13 @@ public class WallFollowerTest {
             {1, 1, 1, 1}
         };
         
-        wf.setGrid(maze);
+        wf2.setGrid(maze);
         
-        wf.setX(1);
-        wf.setY(1);
-        wf.goingUp();
+        wf2.setX(1);
+        wf2.setY(1);
+        wf2.goingUp();
         
-        assertTrue(wf.getX() == 2 && wf.getY() == 1);
+        assertTrue(wf2.getX() == 2 && wf2.getY() == 1);
     }
     
     @Test
@@ -226,13 +231,13 @@ public class WallFollowerTest {
             {1, 1, 1, 1}
         };
         
-        wf.setGrid(maze);
+        wf2.setGrid(maze);
         
-        wf.setX(2);
-        wf.setY(1);
-        wf.goingDown();
+        wf2.setX(2);
+        wf2.setY(1);
+        wf2.goingDown();
         
-        assertTrue(wf.getX() == 1 && wf.getY() == 1);
+        assertTrue(wf2.getX() == 1 && wf2.getY() == 1);
     }
     
     @Test
@@ -244,13 +249,13 @@ public class WallFollowerTest {
             {1, 1, 1, 1}
         };
         
-        wf.setGrid(maze);
+        wf2.setGrid(maze);
         
-        wf.setX(1);
-        wf.setY(1);
-        wf.goingLeft();
+        wf2.setX(1);
+        wf2.setY(1);
+        wf2.goingLeft();
         
-        assertTrue(wf.getX() == 1 && wf.getY() == 2);
+        assertTrue(wf2.getX() == 1 && wf2.getY() == 2);
     }
     
     @Test
@@ -262,26 +267,26 @@ public class WallFollowerTest {
             {1, 1, 1, 1}
         };
         
-        wf.setGrid(maze);
+        wf2.setGrid(maze);
         
-        wf.setX(2);
-        wf.setY(1);
-        wf.goingRight();
+        wf2.setX(2);
+        wf2.setY(1);
+        wf2.goingRight();
         
-        assertTrue(wf.getX() == 1 && wf.getY() == 1);
+        assertTrue(wf2.getX() == 1 && wf2.getY() == 1);
     }
     
     @Test
     public void solveHasBeenAtTheStartPoint() {
         m.setLayout(wf.solve(m));
-        assertTrue(m.getLayout()[1][1] == 2);
+        assertTrue(m.getFromCoordinates(1, 1) == 2);
     }
     
     @Test
     public void solveMakesItToTheGoalPoint() {
         m.setLayout(wf.solve(m));
-        int n = m.getLayout().length;
-        assertTrue(m.getLayout()[n - 2][n - 2] == 2);
+        int n = m.getSize();
+        assertTrue(m.getFromCoordinates(n - 2, n - 2) == 2);
     }
     
     @Test

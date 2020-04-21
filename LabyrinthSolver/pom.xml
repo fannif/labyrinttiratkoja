@@ -28,6 +28,7 @@
                 <configuration>
                     <excludes>
                         <exclude>labyrinthsolver/main/*</exclude>
+                        <exclude>labyrinthsolver/domain/utils/Tester*</exclude>
                     </excludes>
                 </configuration>
                 <executions>

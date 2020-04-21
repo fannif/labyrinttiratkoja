@@ -11,9 +11,10 @@ import labyrinthsolver.domain.utils.PairQueue;
  */
 public class ShortestPaths {
     
-    private int[][] grid;
-    private int[][] distance;
+    private int[] grid;
+    private int[] distance;
     private long time = 0;
+    private int n;
     
     /**
      * Konstruktorimetodi.
@@ -27,14 +28,14 @@ public class ShortestPaths {
      * @param maze Ratkaistava sokkelo
      * @return Ratkaistu sokkelopohja
      */
-    public int[][] solve(Maze maze) {
+    public int[] solve(Maze maze) {
         long startTime = System.nanoTime();
-        int n = maze.getSize();
-        grid = new int[n][n];
-        distance = new int[n][n];
+        n = maze.getSize();
+        grid = new int[n * n];
+        distance = new int[n * n];
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
-                grid[i][j] = maze.getLayout()[i][j];
+                grid[i * n + j] = maze.getLayout()[i * n + j];
             }
         }
         bFS();
@@ -52,32 +53,32 @@ public class ShortestPaths {
     public void bFS() {
         PairQueue queue = new PairQueue(5000);
         queue.enqueue(new int[]{1, 1});
-        grid[1][1] = 3;
-        distance[1][1] = 0;
+        grid[1 * n + 1] = 3;
+        distance[1 * n + 1] = 0;
         int[] currentPair = new int[]{1, 1};
         while (!queue.empty()) {
             currentPair = queue.dequeue();
             int x = currentPair[0];
             int y = currentPair[1];
-            if (grid[y + 1][x] == 0) {
+            if (grid[(y + 1) * n + x] == 0) {
                 queue.enqueue(new int[]{x, y + 1});
-                grid[y + 1][x] = 3;
-                distance[y + 1][x] = distance[y][x] + 1;
+                grid[(y + 1) * n + x] = 3;
+                distance[(y + 1) * n + x] = distance[y * n + x] + 1;
             } 
-            if (grid[y - 1][x] == 0) {
+            if (grid[(y - 1) * n + x] == 0) {
                 queue.enqueue(new int[]{x, y - 1});
-                grid[y - 1][x] = 3;
-                distance[y - 1][x] = distance[y][x] + 1;
+                grid[(y - 1) * n + x] = 3;
+                distance[(y - 1) * n + x] = distance[y * n + x] + 1;
             } 
-            if (grid[y][x + 1] == 0) {
+            if (grid[y * n + x + 1] == 0) {
                 queue.enqueue(new int[]{x + 1, y});
-                grid[y][x + 1] = 3;
-                distance[y][x + 1] = distance[y][x] + 1;
+                grid[y * n + x + 1] = 3;
+                distance[y * n + x + 1] = distance[y * n + x] + 1;
             } 
-            if (grid[y][x - 1] == 0) {
+            if (grid[y * n + x - 1] == 0) {
                 queue.enqueue(new int[]{x - 1, y});
-                grid[y][x - 1] = 3;
-                distance[y][x - 1] = distance[y][x] + 1;
+                grid[y * n + x - 1] = 3;
+                distance[y * n + x - 1] = distance[y * n + x] + 1;
             } 
         }
     }
@@ -92,28 +93,28 @@ public class ShortestPaths {
     public void pickyBFS(int startX, int startY) {
         PairQueue queue = new PairQueue(5000);
         queue.enqueue(new int[]{startX, startY});
-        grid[startX][startY] = 2;
+        grid[startX * n + startY] = 2;
         int[] currentPair = new int[]{startX, startY};
         while (!queue.empty()) {
             currentPair = queue.dequeue();    
             int x = currentPair[0];
             int y = currentPair[1];
-            int currentDist = distance[y][x];
-            if (distance[y + 1][x] == currentDist - 1 && grid[y + 1][x] != 1) {
+            int currentDist = distance[y * n + x];
+            if (distance[(y + 1) * n + x] == currentDist - 1 && grid[(y + 1) * n + x] != 1) {
                 queue.enqueue(new int[]{x, y + 1});
-                grid[y + 1][x] = 2;
+                grid[(y + 1) * n + x] = 2;
             } 
-            if (distance[y - 1][x] == currentDist - 1 && grid[y - 1][x] != 1) {
+            if (distance[(y - 1) * n + x] == currentDist - 1 && grid[(y - 1) * n + x] != 1) {
                 queue.enqueue(new int[]{x, y - 1});
-                grid[y - 1][x] = 2;
+                grid[(y - 1) * n + x] = 2;
             } 
-            if (distance[y][x + 1] == currentDist - 1 && grid[y][x + 1] != 1) {
+            if (distance[y * n + x + 1] == currentDist - 1 && grid[y * n + x + 1] != 1) {
                 queue.enqueue(new int[]{x + 1, y});
-                grid[y][x + 1] = 2;
+                grid[y * n + x + 1] = 2;
             } 
-            if (distance[y][x - 1] == currentDist - 1 && grid[y][x - 1] != 1) {
+            if (distance[y * n + x - 1] == currentDist - 1 && grid[y * n + x - 1] != 1) {
                 queue.enqueue(new int[]{x - 1, y});
-                grid[y][x - 1] = 2;
+                grid[y * n + x - 1] = 2;
             } 
         }
     }
@@ -126,7 +127,7 @@ public class ShortestPaths {
      * @return Etäisyys, joka on merkattu annetuille koordinaateille
      */
     public int getDistanceTo(int x, int y) {
-        return distance[y][x];
+        return distance[y * n + x];
     }
 
     /**
@@ -142,11 +143,10 @@ public class ShortestPaths {
      * @return Lopullisen merkatun polun pituus.
      */
     public int solutionLength() {
-        int n = grid.length;
         int path = 0;
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
-                if (grid[i][j] == 2) {
+                if (grid[i * n + j] == 2) {
                     path++;
                 }
             }

@@ -1,11 +1,7 @@
 
 package labyrinthsolver.domain.utils;
 
-import labyrinthsolver.domain.utils.Maze;
-import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -26,13 +22,8 @@ public class MazeTest {
     }
     
     @Test
-    public void constructorCreatesCorrectHeight() {
-        assertTrue(m.getLayout().length == 15);
-    }
-    
-    @Test
-    public void constructorCreatesCorrectWidth() {
-        assertTrue(m.getLayout()[0].length == 15);
+    public void constructorCreatesCorrectSizeArray() {
+        assertTrue(m.getLayout().length == 15 * 15);
     }
     
     @Test
@@ -45,16 +36,16 @@ public class MazeTest {
         boolean ones = true;
         
         for (int i = 0; i < m.getSize(); i++) {
-            if (m.getLayout()[i][0] != 1) {
+            if (m.getFromCoordinates(i, 0) != 1) {
                 ones = false;
             }
-            if (m.getLayout()[0][i] != 1) {
+            if (m.getFromCoordinates(0, i) != 1) {
                 ones = false;
             }
-            if (m.getLayout()[m.getSize() - 1][i] != 1) {
+            if (m.getFromCoordinates(m.getSize() - 1, i) != 1) {
                 ones = false;
             }
-            if (m.getLayout()[i][m.getSize() - 1] != 1) {
+            if (m.getFromCoordinates(i, m.getSize() - 1) != 1) {
                 ones = false;
             }
         }
@@ -71,11 +62,11 @@ public class MazeTest {
         for (int i = 1; i < m.getSize() - 1; i++) {
             for (int j = 1; j < m.getSize() - 1; j++) {
                 if (j % 2 == 0 || i % 2 == 0) {
-                    if (m.getLayout()[i][j] != 1) {
+                    if (m.getFromCoordinates(i, j) != 1) {
                         grid = false;
                     }
                 } else {
-                    if (m.getLayout()[i][j] != 0) {
+                    if (m.getFromCoordinates(i, j) != 0) {
                         grid = false;
                     }
                 }
@@ -87,7 +78,7 @@ public class MazeTest {
     
     @Test
     public void getFromCoordinatesReturnsCorrectValue() {
-        assertTrue(m.getFromCoordinates(0, 0) == 1 && m.getFromCoordinates(0, 0) == m.getLayout()[0][0]);
+        assertTrue(m.getFromCoordinates(0, 0) == 1 && m.getFromCoordinates(0, 0) == m.getLayout()[0]);
     }
     
     @Test
@@ -113,7 +104,7 @@ public class MazeTest {
     @Test
     public void setToCoordinatesSetsCorrectValueToCorrectCoordinates() {
         m.setToCoordinates(5, 6, 7);
-        assertTrue(m.getLayout()[5][6] == 7);
+        assertTrue(m.getFromCoordinates(5, 6) == 7);
     }
     
     @Test
@@ -126,21 +117,22 @@ public class MazeTest {
     
     @Test
     public void setLayoutSetsCorrectLayout() {
-        int[][] newMaze = new int[][]{
-            {0, 1, 2, 3, 4},
-            {0, 1, 2, 3, 4},
-            {0, 1, 2, 3, 4},
-            {0, 1, 2, 3, 4},
-            {0, 1, 2, 3, 4}
+        Maze m2 = new Maze(5);
+        int[] newMaze = new int[]{
+            0, 1, 2, 3, 4,
+            0, 1, 2, 3, 4,
+            0, 1, 2, 3, 4,
+            0, 1, 2, 3, 4,
+            0, 1, 2, 3, 4
         };
         
-        m.setLayout(newMaze);
+        m2.setLayout(newMaze);
         
         boolean correct = true;
         
-        for (int i = 0; i < m.getSize(); i++) {
-            for (int j = 0; j < m.getSize(); j++) {
-                if (m.getLayout()[i][j] != newMaze[i][j]) {
+        for (int i = 0; i < m2.getSize(); i++) {
+            for (int j = 0; j < m2.getSize(); j++) {
+                if (m2.getFromCoordinates(i, j) != newMaze[i * 5 + j]) {
                     correct = false;
                 }
             }
@@ -150,32 +142,17 @@ public class MazeTest {
     }
     
     @Test
-    public void setLayoutChangesTheSizeToMatchNewLayout() {
-        int[][] newMaze = new int[][]{
-            {0, 1, 2, 3, 4},
-            {0, 1, 2, 3, 4},
-            {0, 1, 2, 3, 4},
-            {0, 1, 2, 3, 4},
-            {0, 1, 2, 3, 4}
-        };
-        
-        m.setLayout(newMaze);
-        
-        assertTrue(m.getSize() == 5);
-    }
-    
-    @Test
-    public void layoutsCanOnlyBeSetIfTheyAreNByN() {
+    public void layoutsCanOnlyBeSetIfTheyMatchMazeSize() {
 
-        int[][] newMaze = new int[][]{
-            {0, 1, 2, 3, 4},
-            {0, 1, 2, 3, 4},
-            {0, 1, 2, 3, 4},
-            {0, 1, 2, 3, 4},
+        int[] newMaze = new int[]{
+            0, 1, 2, 3, 4,
+            0, 1, 2, 3, 4,
+            0, 1, 2, 3, 4,
+            0, 1, 2, 3, 4,
         };
         
         m.setLayout(newMaze);
         
-        assertTrue(m.getLayout().length == m.getLayout()[0].length);
+        assertTrue(m.getLayout().length == 15 * 15);
     }
 }

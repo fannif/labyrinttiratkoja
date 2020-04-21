@@ -20,6 +20,7 @@ import labyrinthsolver.domain.algorithms.RecursiveDivision;
 import labyrinthsolver.domain.algorithms.ShortestPaths;
 import labyrinthsolver.domain.algorithms.Sidewinder;
 import labyrinthsolver.domain.algorithms.WallFollower;
+import labyrinthsolver.domain.utils.Tester;
 
 public class Main extends Application {
     
@@ -30,6 +31,8 @@ public class Main extends Application {
      * @param args 
      */
     public static void main(String[] args) {
+//        Tester tester = new Tester();
+//        tester.runAll();
         launch(args);
     }
 
@@ -78,10 +81,11 @@ public class Main extends Application {
         
         BorderPane mazeLayout = new BorderPane();
         
-        VBox mazeMenu = new VBox(30);
+        VBox mazeMenu = new VBox(25);
         mazeMenu.setPadding(new Insets(30, 100, 30, 100));
         HBox generators = new HBox();
         HBox solvers = new HBox();
+
         Button generateNewSW = new Button("Generate a new Sidewinder maze");
         Button generateNewRD = new Button("Generate a new Recursive division maze");
         Button generateNewKruskal = new Button("Generate a new Kruskal maze");
@@ -102,6 +106,8 @@ public class Main extends Application {
         GridPane mazeGrid = new GridPane();
         
         showMaze(maze, mazeGrid);
+        
+        HBox generatedLast = new HBox();
         
         mazeMenu.setAlignment(Pos.CENTER);
         mazeMenu.getChildren().add(back);
@@ -151,6 +157,8 @@ public class Main extends Application {
             mazeMenu.getChildren().add(solvers);
             mazeMenu.getChildren().add(generators);
             primaryStage.setScene(mazeScene);
+            generatedLast.getChildren().clear();
+            generatedLast.getChildren().add(new Label("Time to generate: " + sidew.getTime() + " ns" + " (=" + sidew.getTime() / 1000000 + " ms)"));
         });
         
         generateRD.setOnAction((event) -> {
@@ -171,6 +179,8 @@ public class Main extends Application {
             mazeMenu.getChildren().add(solvers);
             mazeMenu.getChildren().add(generators);
             primaryStage.setScene(mazeScene);
+            generatedLast.getChildren().clear();
+            generatedLast.getChildren().add(new Label("Time to generate: " + reDiv.getTime() + " ns" + " (=" + reDiv.getTime() / 1000000 + " ms)"));
         });
         
         generateKruskal.setOnAction((event) -> {
@@ -191,6 +201,8 @@ public class Main extends Application {
             mazeMenu.getChildren().add(solvers);
             mazeMenu.getChildren().add(generators);
             primaryStage.setScene(mazeScene);
+            generatedLast.getChildren().clear();
+            generatedLast.getChildren().add(new Label("Time to generate: " + kruskal.getTime() + " ns" + " (=" + kruskal.getTime() / 1000000 + " ms)"));
         });
         
         solvefollower.setOnAction((event) -> {
@@ -209,6 +221,8 @@ public class Main extends Application {
                 mazeMenu.getChildren().add(new Label("Length of solution route: " + wallFollower.solutionLength()));
             }
             mazeMenu.getChildren().add(new Label("Time to solve: " + wallFollower.getTime() + " ns" + " (=" + wallFollower.getTime() / 1000000 + " ms)"));
+            mazeMenu.getChildren().add(generatedLast);
+            generatedLast.setAlignment(Pos.CENTER);
             mazeMenu.getChildren().add(mazeGrid);
             mazeMenu.getChildren().add(solvers);
             mazeMenu.getChildren().add(generators);
@@ -230,6 +244,8 @@ public class Main extends Application {
                 mazeMenu.getChildren().add(new Label("Length of solution route: " + allShortest.solutionLength()));
             }
             mazeMenu.getChildren().add(new Label("Time to solve: " + allShortest.getTime() + " ns" + " (=" + allShortest.getTime() / 1000000 + " ms)"));
+            mazeMenu.getChildren().add(generatedLast);
+            generatedLast.setAlignment(Pos.CENTER);
             mazeMenu.getChildren().add(mazeGrid);
             mazeMenu.getChildren().add(solvers);
             mazeMenu.getChildren().add(generators);
@@ -251,6 +267,8 @@ public class Main extends Application {
                 mazeMenu.getChildren().add(new Label("Length of solution route: " + chainSolver.solutionLength()));
             }
             mazeMenu.getChildren().add(new Label("Time to solve: " + chainSolver.getTime() + " ns" + " (=" + chainSolver.getTime() / 1000000 + " ms)"));
+            mazeMenu.getChildren().add(generatedLast);
+            generatedLast.setAlignment(Pos.CENTER);
             mazeMenu.getChildren().add(mazeGrid);
             mazeMenu.getChildren().add(solvers);
             mazeMenu.getChildren().add(generators);
@@ -273,6 +291,8 @@ public class Main extends Application {
             mazeMenu.getChildren().add(mazeGrid);
             mazeMenu.getChildren().add(solvers);
             mazeMenu.getChildren().add(generators);
+            generatedLast.getChildren().clear();
+            generatedLast.getChildren().add(new Label("Time to generate: " + sidew.getTime() + " ns" + " (=" + sidew.getTime() / 1000000 + " ms)"));
         });
         
         generateNewRD.setOnAction((event) -> {
@@ -292,6 +312,8 @@ public class Main extends Application {
             mazeMenu.getChildren().add(mazeGrid);
             mazeMenu.getChildren().add(solvers);
             mazeMenu.getChildren().add(generators);
+            generatedLast.getChildren().clear();
+            generatedLast.getChildren().add(new Label("Time to generate: " + reDiv.getTime() + " ns" + " (=" + reDiv.getTime() / 1000000 + " ms)"));
         });
         
         generateNewKruskal.setOnAction((event) -> {
@@ -311,6 +333,8 @@ public class Main extends Application {
             mazeMenu.getChildren().add(mazeGrid);
             mazeMenu.getChildren().add(solvers);
             mazeMenu.getChildren().add(generators);
+            generatedLast.getChildren().clear();
+            generatedLast.getChildren().add(new Label("Time to generate: " + kruskal.getTime() + " ns" + " (=" + kruskal.getTime() / 1000000 + " ms)"));
         });
         
         back.setOnAction((event) -> {
@@ -335,20 +359,20 @@ public class Main extends Application {
     public void showMaze(Maze maze, GridPane mazeGrid) {
         mazeGrid.getChildren().clear();
         int n = maze.getSize();
-        int[][] currentMaze = maze.getLayout();
+        int[] currentMaze = maze.getLayout();
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
                 Label square = new Label(" ");
                 square.setMaxSize(10, 10);
                 square.setMinSize(10, 10);
                 
-                if (currentMaze[i][j] == 1) {
+                if (currentMaze[i * n + j] == 1) {
                     square.setStyle("-fx-background-color: #000000");
                 } else if (i == 1 && j == 1) {
                     square.setStyle("-fx-background-color: #0000ff");
                 } else if (i == n - 2 && j == n - 2) {
                     square.setStyle("-fx-background-color: #00ff00");
-                } else if (currentMaze[i][j] == 2) {
+                } else if (currentMaze[i * n + j] == 2) {
                     square.setStyle("-fx-background-color: #ff22ff");
                 }
                 

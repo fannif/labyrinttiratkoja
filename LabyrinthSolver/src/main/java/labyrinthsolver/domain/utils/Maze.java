@@ -9,7 +9,7 @@ package labyrinthsolver.domain.utils;
 public class Maze {
     
     private int size;
-    private int[][] layout;
+    private int[] layout;
     
     /**
      * Konstruktori
@@ -25,17 +25,17 @@ public class Maze {
      */
     public void initialize(int s) {
         size = s;
-        layout = new int[size][size];
+        layout = new int[size * size];
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
-                layout[i][j] = 0;
+                layout[i * size + j] = 0;
             }
         }
         for (int i = 0; i < size; i++) {
-            layout[i][0] = 1;
-            layout[0][i] = 1;
-            layout[size - 1][i] = 1;
-            layout[i][size - 1] = 1;
+            layout[i * size + 0] = 1;
+            layout[0 * size + i] = 1;
+            layout[(size - 1) * size + i] = 1;
+            layout[i * size + size - 1] = 1;
         }
     } 
     
@@ -47,17 +47,17 @@ public class Maze {
         for (int i = 0; i < size; i++) {
             if (i % 2 == 1) {
                 for (int j = 0; j < size - 1; j = j + 2) {
-                    layout[i][j] = 1;
+                    layout[i * size + j] = 1;
                 }
             } else {
                 for (int j = 0; j < size; j++) {
-                    layout[i][j] = 1;
+                    layout[i * size + j] = 1;
                 }
             }
         }
         
         for (int i = 0; i < size; i++) {
-            layout[i][size - 1] = 1;
+            layout[i * size + size - 1] = 1;
         }
     }
     
@@ -73,7 +73,7 @@ public class Maze {
      * Palauttaa sokkelun pohjana toimivan taulukon
      * @return 
      */
-    public int[][] getLayout() {
+    public int[] getLayout() {
         return layout;
     }
 
@@ -81,12 +81,15 @@ public class Maze {
      * Asettaa uuden pohjan sokkelolle
      * @param layout Haluttu sokkelopohja
      */
-    public void setLayout(int[][] layout) {
-        if (layout.length != layout[0].length) {
+    public void setLayout(int[] layout) {
+        if (layout.length != this.layout.length) {
             return;
         }
-        this.layout = layout;
-        size = layout[0].length;
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                this.layout[i * size + j] = layout[i * size + j];
+            }
+        }
     }
     
     /**
@@ -99,7 +102,7 @@ public class Maze {
         if (i >= size || j >= size || i < 0 || j < 0) {
             return -1;
         }
-        return layout[i][j];
+        return layout[i * size + j];
     }
     
     /**
@@ -112,7 +115,7 @@ public class Maze {
         if (i >= size || j >= size || i < 0 || j < 0) {
             return;
         }
-        layout[i][j] = value;
+        layout[i * size + j] = value;
     }
     
 }

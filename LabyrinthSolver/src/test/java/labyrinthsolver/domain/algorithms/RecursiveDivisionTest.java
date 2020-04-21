@@ -2,8 +2,6 @@
 package labyrinthsolver.domain.algorithms;
 
 import labyrinthsolver.domain.utils.Maze;
-import labyrinthsolver.domain.algorithms.WallFollower;
-import labyrinthsolver.domain.algorithms.RecursiveDivision;
 import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
@@ -49,16 +47,16 @@ public class RecursiveDivisionTest {
         m.setLayout(rd.generate(m));
         
         for (int i = 0; i < n; i++) {
-            if (m.getLayout()[i][0] != 1) {
+            if (m.getLayout()[i * n + 0] != 1) {
                 wall = false;
             }
-            if (m.getLayout()[0][i] != 1) {
+            if (m.getLayout()[0 * n + i] != 1) {
                 wall = false;
             }
-            if (m.getLayout()[i][n - 1] != 1) {
+            if (m.getLayout()[i * n + n - 1] != 1) {
                 wall = false;
             }
-            if (m.getLayout()[n - 1][i] != 1) {
+            if (m.getLayout()[(n - 1) * n + i] != 1) {
                 wall = false;
             }
         }
@@ -69,21 +67,21 @@ public class RecursiveDivisionTest {
     @Test
     public void startingPointIsNotAWall() {
         m.setLayout(rd.generate(m));
-        assertTrue(m.getLayout()[1][1] == 0);
+        assertTrue(m.getLayout()[1 * m.getSize() + 1] == 0);
     }
     
     @Test
     public void goalPointIsNotAWall() {
         int n = m.getSize();
         m.setLayout(rd.generate(m));
-        assertTrue(m.getLayout()[n - 2][n - 2] == 0);
+        assertTrue(m.getLayout()[(n - 2) * n + n - 2] == 0);
     }
     
     @Test
     public void generatedMazeCanBeSolved() {
         rd.generate(m);
         m.setLayout(wf.solve(m));
-        assertTrue(m.getLayout()[13][13] == 2);
+        assertTrue(m.getLayout()[13 * m.getSize() + 13] == 2);
     }
     
     @Test

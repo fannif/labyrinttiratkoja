@@ -2,12 +2,7 @@
 package labyrinthsolver.domain.algorithms;
 
 import labyrinthsolver.domain.utils.Maze;
-import labyrinthsolver.domain.algorithms.WallFollower;
-import labyrinthsolver.domain.algorithms.Sidewinder;
-import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -36,16 +31,16 @@ public class SidewinderTest {
         m.setLayout(sw.generate(m));
         
         for (int i = 0; i < n; i++) {
-            if (m.getLayout()[i][0] != 1) {
+            if (m.getFromCoordinates(i, 0) != 1) {
                 wall = false;
             }
-            if (m.getLayout()[0][i] != 1) {
+            if (m.getFromCoordinates(0, i) != 1) {
                 wall = false;
             }
-            if (m.getLayout()[i][n - 1] != 1) {
+            if (m.getFromCoordinates(i, n - 1) != 1) {
                 wall = false;
             }
-            if (m.getLayout()[n - 1][i] != 1) {
+            if (m.getFromCoordinates(n - 1, i) != 1) {
                 wall = false;
             }
         }
@@ -56,14 +51,14 @@ public class SidewinderTest {
     @Test
     public void startingPointIsNotAWall() {
         m.setLayout(sw.generate(m));
-        assertTrue(m.getLayout()[1][1] == 0);
+        assertTrue(m.getFromCoordinates(1, 1) == 0);
     }
     
     @Test
     public void goalPointIsNotAWall() {
         int n = m.getSize();
         m.setLayout(sw.generate(m));
-        assertTrue(m.getLayout()[n - 2][n - 2] == 0);
+        assertTrue(m.getFromCoordinates(n - 2, n - 2) == 0);
     }
     
     @Test
@@ -74,7 +69,7 @@ public class SidewinderTest {
         
         m.setLayout(wf.solve(m));
         
-        assertTrue(m.getLayout()[n - 2][n - 2] == 2);
+        assertTrue(m.getFromCoordinates(n - 2, n - 2) == 2);
     }
     
     @Test

@@ -29,7 +29,7 @@ public class KruskalTest {
     public void sameMazeRecognizesIfInSameSubsection() {
         int[][] parents = new int[][]{new int[]{0, 0},new int[]{0, 0},new int[]{0, 0},new int[]{0, 0}};
         k.setParent(parents);
-        k.setGrid(new int[2][2]);
+        k.setGrid(new int[4]);
         int[] rep1 = k.representative(new int[]{0, 0});
         int[] rep2 = k.representative(new int[]{1, 0});
         assertTrue(rep1[0] == rep2[0] && rep1[1] == rep2[1]);
@@ -39,7 +39,7 @@ public class KruskalTest {
     public void sameMazeReturnsFalseNotIfInSameSubsection() {
         int[][] parents = new int[][]{new int[]{0, 0}, new int[]{0, 1},new int[]{0, 0},new int[]{0, 0}};
         k.setParent(parents);
-        k.setGrid(new int[2][2]);
+        k.setGrid(new int[4]);
         int[] rep1 = k.representative(new int[]{0, 0});
         int[] rep2 = k.representative(new int[]{0, 1});
         assertTrue(!(rep1[0] == rep2[0] && rep1[1] == rep2[1]));
@@ -47,15 +47,12 @@ public class KruskalTest {
     
     @Test
     public void originallyEachIsItsOwnParent() {
-        int[][] emptyParents = new int[m.getSize() * m.getSize()][2];
-        k.setParent(emptyParents);
-        k.setGrid(m.getLayout());
+        k.generate(m);
         k.originalParents();
         boolean works = true;
         for (int i = 0; i < m.getSize(); i++) {
             for (int j = 0; j < m.getSize(); j++) {
-                int[] pair = new int[]{i, j};
-                if (!(pair[0] == k.getParent()[i * k.getGrid().length + j][0] && pair[1] == k.getParent()[i * k.getGrid().length + j][1])) {
+                if (!(i == k.getParent()[i * m.getSize() + j][0] && j == k.getParent()[i * m.getSize() + j][1])) {
                     works = false;
                 }
             }
@@ -69,11 +66,10 @@ public class KruskalTest {
         k.setGrid(m.getLayout());
         k.originalSizes();
         boolean works = true;
-        for (int i = 0; i < m.getSize(); i++) {
-            for (int j = 0; j < m.getSize(); j++) {
-                if (1 != k.getSize()[i][j]) {
-                    works = false;
-                }
+        for (int i = 0; i < k.getSize().length; i++) {
+            if (k.getSize()[i] != 1) {
+                works = false;
+                break;
             }
         }
         assertTrue(works);
@@ -84,7 +80,7 @@ public class KruskalTest {
         int[][] emptyParents = new int[m.getSize() * m.getSize()][2];
         k.setParent(emptyParents);
         k.setSize(m.getLayout());
-        int[][] emptyMaze = new int[m.getSize()][m.getSize()];
+        int[] emptyMaze = new int[m.getSize() * m.getSize()];
         k.setGrid(emptyMaze);
         k.originalParents();
         k.originalSizes();
@@ -99,10 +95,10 @@ public class KruskalTest {
         int[][] emptyParents = new int[m.getSize() * m.getSize()][2];
         k.setParent(emptyParents);
         k.setSize(m.getLayout());
-        int[][] emptyMaze = new int[m.getSize()][m.getSize()];
+        int[] emptyMaze = new int[m.getSize() * m.getSize()];
         k.setGrid(emptyMaze);
         k.originalParents();
-        emptyMaze[0][0]++;
+        emptyMaze[0]++;
         k.setSize(emptyMaze);
         int[] p1 = new int[]{0, 0};
         int[] p2 = new int[]{0, 2};
@@ -113,12 +109,14 @@ public class KruskalTest {
     @Test
     public void originalEdgesContainsAllPossibleEdges() {
         boolean works = true;
-        int[][] maze = new int[][]{
-            {1,1,1,1,1},
-            {1,0,1,0,1},
-            {1,1,1,1,1},
-            {1,0,1,0,1},
-            {1,1,1,1,1}
+        Maze m2 = new Maze(5);
+        k.generate(m2);
+        int[] maze = new int[]{
+            1,1,1,1,1,
+            1,0,1,0,1,
+            1,1,1,1,1,
+            1,0,1,0,1,
+            1,1,1,1,1
         };
         k.setGrid(maze);
         k.setEdges(new PairSet());
@@ -151,16 +149,16 @@ public class KruskalTest {
         m.setLayout(k.generate(m));
         
         for (int i = 0; i < n; i++) {
-            if (m.getLayout()[i][0] != 1) {
+            if (m.getLayout()[i * n + 0] != 1) {
                 wall = false;
             }
-            if (m.getLayout()[0][i] != 1) {
+            if (m.getLayout()[0 * n + i] != 1) {
                 wall = false;
             }
-            if (m.getLayout()[i][n - 1] != 1) {
+            if (m.getLayout()[i * n + n - 1] != 1) {
                 wall = false;
             }
-            if (m.getLayout()[n - 1][i] != 1) {
+            if (m.getLayout()[(n - 1) * n + i] != 1) {
                 wall = false;
             }
         }

@@ -16,7 +16,8 @@ public class RecursiveDivision {
     private long time = 0;
     private int width;
     private int height;
-    private int grid[][];
+    private int grid[];
+    private int n;
     private MersenneTwister random = new MersenneTwister(System.currentTimeMillis());
     
     /**
@@ -30,9 +31,9 @@ public class RecursiveDivision {
      * @param maze Pohja, josta saadaan haluttu koko.
      * @return Generoitu sokkelopohja.
      */
-    public int[][] generate(Maze maze) {
+    public int[] generate(Maze maze) {
         long startTime = System.nanoTime();
-        int n = maze.getSize();
+        n = maze.getSize();
         maze.initialize(n);
         width = n;
         height = n;
@@ -85,7 +86,7 @@ public class RecursiveDivision {
                 if (i == path) {
                     continue;
                 }
-                grid[wall + offset[1]][i + offset[0]] = 1;
+                grid[(wall + offset[1]) * n + i + offset[0]] = 1;
             }
         } else {
             while (wall % 2 != 0 || wall == 0) {
@@ -99,7 +100,7 @@ public class RecursiveDivision {
                 if (i == path) {
                     continue;
                 }
-                grid[i + offset[1]][wall + offset[0]] = 1;
+                grid[(i + offset[1]) * n + wall + offset[0]] = 1;
             }
         }
         

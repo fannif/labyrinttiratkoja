@@ -17,10 +17,11 @@ import labyrinthsolver.domain.utils.Maze;
 public class WallFollower {
     
     private int direction = 0;
-    private int[][] grid;
+    private int[] grid;
     private int x;
     private int y;
     private int path;
+    private int n;
     private long time = 0;
     
     /**
@@ -39,21 +40,21 @@ public class WallFollower {
      * @param maze Ratkaistava sokkelo.
      * @return Ratkaistun sokkelon sokkelopohja
      */
-    public int[][] solve(Maze maze) {
+    public int[] solve(Maze maze) {
         long startTime = System.nanoTime();
-        int n = maze.getSize();
-        grid = new int[n][n];
+        n = maze.getSize();
+        grid = new int[n * n];
         path = 1;
 
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
-                grid[i][j] = maze.getLayout()[i][j];
+                grid[i * n + j] = maze.getLayout()[i * n + j];
             }
         }
         
         x = 1;
         y = 1;
-        grid[x][y] = 2;
+        grid[x * n + y] = 2;
         direction = 0;
         
         while (true) {
@@ -106,18 +107,18 @@ public class WallFollower {
      * Näin "pidetään kiinni" aina vasemmanpuoleisesta seinästä.
      */
     public void goingRight() {
-        if (grid[x][y - 1] != 1) {
+        if (grid[x * n + y - 1] != 1) {
             y = y - 1;
-            grid[x][y] = 2;
+            grid[x * n + y] = 2;
             turnLeft();
-        } else if (grid[x + 1][y] != 1) {
+        } else if (grid[(x + 1) * n + y] != 1) {
             x = x + 1;
-            grid[x][y] = 2;
-        } else if (grid[x][y + 1] != 1) {
+            grid[x * n + y] = 2;
+        } else if (grid[x * n + y + 1] != 1) {
             y = y + 1;
-            grid[x][y] = 2;
+            grid[x * n + y] = 2;
             turnRight();
-        } else if (grid[x - 1][y] != 1) {
+        } else if (grid[(x - 1) * n + y] != 1) {
             x = x - 1;
             turnLeft();
             turnLeft();
@@ -133,18 +134,18 @@ public class WallFollower {
      * Näin "pidetään kiinni" aina vasemmanpuoleisesta seinästä.
      */
     public void goingDown() {
-        if (grid[x + 1][y] != 1) {
+        if (grid[(x + 1) * n + y] != 1) {
             x = x + 1;
-            grid[x][y] = 2;
+            grid[x * n + y] = 2;
             turnLeft();
-        } else if (grid[x][y + 1] != 1) {
+        } else if (grid[x * n + y + 1] != 1) {
             y = y + 1;
-            grid[x][y] = 2;
-        } else if (grid[x - 1][y] != 1) {
+            grid[x * n + y] = 2;
+        } else if (grid[(x - 1) * n + y] != 1) {
             x = x - 1;
-            grid[x][y] = 2;
+            grid[x * n + y] = 2;
             turnRight();
-        } else if (grid[x][y - 1] != 1) {
+        } else if (grid[x * n + y - 1] != 1) {
             y = y - 1;
             turnLeft();
             turnLeft();
@@ -160,18 +161,18 @@ public class WallFollower {
      * Näin "pidetään kiinni" aina vasemmanpuoleisesta seinästä.
      */
     public void goingLeft() {
-        if (grid[x][y + 1] != 1) {
+        if (grid[x * n + y + 1] != 1) {
             y = y + 1;
-            grid[x][y] = 2;
+            grid[x * n + y] = 2;
             turnLeft();
-        } else if (grid[x - 1][y] != 1) {
+        } else if (grid[(x - 1) * n + y] != 1) {
             x = x - 1;
-            grid[x][y] = 2;
-        } else if (grid[x][y - 1] != 1) {
+            grid[x * n + y] = 2;
+        } else if (grid[x * n + y - 1] != 1) {
             y = y - 1;
-            grid[x][y] = 2;
+            grid[x * n + y] = 2;
             turnRight();
-        } else if (grid[x + 1][y] != 1) {
+        } else if (grid[(x + 1) * n + y] != 1) {
             x = x + 1;
             turnLeft();
             turnLeft();
@@ -187,18 +188,18 @@ public class WallFollower {
      * Näin "pidetään kiinni" aina vasemmanpuoleisesta seinästä.
      */
     public void goingUp() {
-        if (grid[x - 1][y] != 1) {
+        if (grid[(x - 1) * n + y] != 1) {
             x = x - 1;
-            grid[x][y] = 2;
+            grid[x * n + y] = 2;
             turnLeft();
-        } else if (grid[x][y - 1] != 1) {
+        } else if (grid[x * n + y - 1] != 1) {
             y = y - 1;
-            grid[x][y] = 2;
-        } else if (grid[x + 1][y] != 1) {
+            grid[x * n + y] = 2;
+        } else if (grid[(x + 1) * n + y] != 1) {
             x = x + 1;
-            grid[x][y] = 2;
+            grid[x * n + y] = 2;
             turnRight();
-        } else if (grid[x][y + 1] != 1) {
+        } else if (grid[x * n + y + 1] != 1) {
             y = y + 1;
             turnLeft();
             turnLeft();
@@ -230,7 +231,12 @@ public class WallFollower {
     }
 
     public void setGrid(int[][] grid) {
-        this.grid = grid.clone();
+        this.grid = new int[grid.length * grid.length];
+        for (int i = 0; i < grid.length; i++) {
+            for (int j = 0; j < grid.length; j++) {
+                this.grid[i * n + j] = grid[i][j];
+            }
+        }
     }
     
     /**

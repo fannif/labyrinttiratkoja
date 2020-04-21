@@ -24,17 +24,17 @@ public class Sidewinder {
      * @return Palauta luotu taulukkopohja, joka
      *  voidaan sitten asettaa labyrinttiin
      */
-    public int[][] generate(Maze maze) {
+    public int[] generate(Maze maze) {
         long startTime = System.nanoTime();
         int n = maze.getSize();
         maze.initializeWithWalls();
 
-        int[][] grid = maze.getLayout();
+        int[] grid = maze.getLayout();
         
         MersenneTwister random = new MersenneTwister(System.currentTimeMillis());
         
         for (int x = 1; x < n - 1; x++) {
-            grid[x][1] = 0;
+            grid[x * n + 1] = 0;
         }
         
         for (int y = 3; y < n; y = y + 2) {
@@ -44,14 +44,14 @@ public class Sidewinder {
                 run.add(new int[]{x, y});
                 
                 if (x < n - 1 && (random.nextInt(2) + 1) % 2 == 0) {
-                    grid[x][y] = 0;
+                    grid[x * n + y] = 0;
                 } else {
                     int[] newPair = run.randomPair();
                     if (newPair == null) {
                         continue;
                     }
                     int newX = newPair[0];
-                    grid[newX - 1][y - 1] = 0;
+                    grid[(newX - 1) * n + y - 1] = 0;
                     run.clear();
                 }
             }
