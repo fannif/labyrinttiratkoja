@@ -18,9 +18,17 @@ public class PairSet {
      * indeksiä, johon seuraava alkio tulisi.
      */
     public PairSet() {
-        set = new int[10][4];
-        size = 10;
-        endIndex = 0;
+        this(16);
+    }
+    
+    /**
+     * Kostruktoriversio, jossa voidaan itse antaa haluttu aloituskoko.
+     * @param size Joukon haluttu aloituskoko.
+     */
+    public PairSet(int size) {
+        set = new int[size][4];
+        this.size = size;
+        endIndex = 0;        
     }
     
     /**
@@ -57,7 +65,7 @@ public class PairSet {
             set[i] = set[i + 1];
         }
         endIndex--;
-        if (size >= 20 && endIndex < size / 4) {
+        if (size >= 32 && endIndex < size / 4) {
             decreaseSize();
         }
     }
@@ -74,7 +82,13 @@ public class PairSet {
             for (int j = 0; j < pair.length; j++) {
                 if (set[i][j] != pair[j]) {
                     exists = false;
+                    if (pair.length == 4) {
+                        if (set[i][0] == pair[2] && set[i][1] == pair[3]) {
+                            exists = true;
+                        }
+                    }
                 }
+                
             }
             if (exists) {
                 return i;
@@ -125,11 +139,11 @@ public class PairSet {
     }
     
     /**
-     * Tyhjentää joukon, ja asettaa sen maksimikooksi 10.
+     * Tyhjentää joukon, ja asettaa sen maksimikooksi 16.
      */
     public void clear() {
-        set = new int[10][4];
-        size = 10;
+        set = new int[16][4];
+        size = 16;
         endIndex = 0;
     }
 
