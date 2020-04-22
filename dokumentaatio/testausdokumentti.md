@@ -12,7 +12,7 @@ Myöhemmin lisäsin projektiini myös mahdollisuuden tarkastella algoritmien suo
 
 Aluksi käytin yleensä syötteenä vertailussa 51x51-kokoista labyrinttia. Se on tarpeeksi iso, että muodostetuissa labyrinteissa, reiteissä ja suoritusajoissa näkyy jo algoritmikohtaisia eroja ja ominaispiirteitä, mutta ei kuitenkaan niin iso, että sen mahtumisessa näytölle tai käsittelyssä olisi ongelmia. Algoritmeja toteuttaessa ja kehittäessä olen usein aluksi käyttänyt ihan pieniä labyrinttejä, kuten 15x15-kokoisia. Näin minun on ollut helpompi simuloida itse päässä algoritmin toimintaa tällaisessa labyrintissa ja löytää syitä virhetilanteille. Kun olen sitten tällä tavalla testaamalla saanut virheitä karsittua pois, niin olen edennyt isompaan labyrinttiin. Pienillä labyrinteilla oli hyvä kehitysvaiheessa huomata, mitä yhteistä virheisiin johtavilla labyrinteilla oli, ja siten päätellä, mistä ongelma voisi johtua.
 
-Manuaalisessa suorituskykytestauksessa huomasin, että käyttöliittymä oli ohjelman hitain elementti. Labyrintin kuvan generoimiseen menee itse algoritmien ajamiseen suhteessa todella paljon aikaa. Tämä teki isojen labyrinttien käsittelystä käyttöliittymän kautta kankeaa. Lisäsin siis käyttöliittymään mahdollisuuden käsitellä isompia labyrintteja ilman, että niistä näytetään kuvaa, jolloin toiminta nopeutui huomattavasti. Tätä ominaisuutta hyödyntäen on tehty suorituskykytestausta generoimalla ja ratkaisemalla labyrintteja vuorotellen eri algoritmilla. Testauksessa kävi ilmi, että Kruskalin algoritmi on huomattavasti muita algoritmeja hitaampi. Kun käsitellään 213*213-kokoista sokkeloa, niin Kruskalin algoritmilla menee noin 6 sekuntia, kun taas Sidewinderilla menee noin 30 millisekuntia ja rekusriivisella jakoalgoritmilla yleensä reilusti alle kymmenen millisekuntia. Testatessani olen huomannut, että vielä esimerkiksi 3003*3003-kokoisen sokkelon generointiin rekursiivisella jakoalgoritmilla menee reilusti alle puoli sekuntia. Tästä huomaa hyvin Kruskalin suhteellisen hitauden, kun se on paljon pienempienkin sokkeloiden tapauksessa huomattavasti tätä hitaampi.
+Manuaalisessa suorituskykytestauksessa huomasin, että käyttöliittymä oli ohjelman hitain elementti. Labyrintin kuvan generoimiseen menee itse algoritmien ajamiseen suhteessa todella paljon aikaa. Tämä teki isojen labyrinttien käsittelystä käyttöliittymän kautta kankeaa. Lisäsin siis käyttöliittymään mahdollisuuden käsitellä isompia labyrintteja ilman, että niistä näytetään kuvaa, jolloin toiminta nopeutui huomattavasti. Tätä ominaisuutta hyödyntäen on tehty suorituskykytestausta generoimalla ja ratkaisemalla labyrintteja vuorotellen eri algoritmilla. Testauksessa kävi ilmi, että algoritmit ovat melko tasanopeuksisia. Kun käsitellään 213*213-kokoista sokkeloa, niin Kruskalin algoritmilla menee noin 20 millisekuntia sekuntia, kun taas Sidewinderilla menee noin 30 millisekuntia ja rekusriivisella jakoalgoritmilla yleensä reilusti alle kymmenen millisekuntia.
 
 Käyttöliittymätestailussa ratkaisualgoritmeista Wall Follower on nopein. Sillä menee isossakin labyrintissa yleensä alle 3 millisekuntia. Lyhyimpien polkujen algoritmilla menee yleensä alle 10 millisekuntia. Ratkaisualgoritmeista hitain on ketjualgoritmi, jolla menee saman labyrintin ratkaisemiseen yleensä 5 - 10 kertaa kauemmin kuin lyhyimpien polkujen algoritmilla. Testauksessa kävi myös ilmi, että ratkaisijoista Wall Followerin löytämät reitit ovat yleensä pisimpiä ja lyhyimpien polkujen algoritmin löytämät selvästi lyhyimpiä.
 
@@ -34,21 +34,23 @@ Alla on testaamalla saamiani nopeustuloksia. Tulokset on saatu suhteellisen hita
 
 Ratkaisualgoritmien mediaaniajat, kun sokkeloiden koot ovat 9 * 9,	51 * 51,	99 * 99,	501 * 501 ja	999 * 999 tässä järjestyksessä:
 
-Wall follower:	24326 ns,	53607 ns,	286926 ns,	1931342 ns ja	7200182 ns
-Shortest paths:	536123 ns,	582198 ns,	817827 ns,	10633099 ns ja	43772062 ns
-Chain solver:	26860 ns,	744142 ns,	6591525 ns,	264169341 ns ja	2771443425 ns
+Wall follower:	29053 ns,	58149 ns,	269508 ns,	2040532 ns ja	9741090 ns
+Shortest paths:	517829 ns,	607517 ns,	798100 ns,	11227555 ns ja	51536876 ns
+Chain solver:	26500 ns,	222668 ns, 5153623 ns,	238416019 ns ja	2082421393 ns
 
-Ratkaisualgoritmeista hitain on siis pienillä sokkeloilla lyhyimpien polkujen algoritmi. Tämä ei ole yllättävää, sillä algoritmille ei riitä pelkästään löytää ratkaisua, vaan se löytää nimenomaan lyhyimmät ratkaisut. Kuitenkin isompia sokkeloita käsitellessä ketjualgoritmi on hitain. Tämä oli osin yllättävää, sillä lyhyimpien polkujen algoritmien voisi olettaa olevan hitaampi, kun ketjualgoritmi optimoi reittiä huomattavasti vähemmän. Ketjualgoritmin hitaus kuitenkin varmaan johtuu siitä, että aina kun se kohtaa halkaisijalla edetessää seinän, niin se joutuu lähtemään kiertämään sitä kahdesta suunnasta, jolloin se voi pahimmillaan kiertää joka törmäyksellä koko sokkelon kahdesti. Seinänseuraamisalgoritmi on käytännössä aina nopein. Sillä on etuna, että algoritmi on hyvin kevyt ja yksinkertainen, koska sen tarvitsee aina vain seurata seinää.
+
+Ratkaisualgoritmeista hitain on siis pienillä sokkeloilla lyhyimpien polkujen algoritmi. Tämä ei ole yllättävää, sillä algoritmille ei riitä pelkästään löytää ratkaisua, vaan se löytää nimenomaan lyhyimmät ratkaisut. Kuitenkin isompia sokkeloita käsitellessä ketjualgoritmi on selvästi hitain. Tämä oli osin yllättävää, sillä lyhyimpien polkujen algoritmien voisi olettaa olevan hitaampi, kun ketjualgoritmi optimoi reittiä huomattavasti vähemmän. Ketjualgoritmin hitaus kuitenkin varmaan johtuu siitä, että aina kun se kohtaa halkaisijalla edetessää seinän, niin se joutuu lähtemään kiertämään sitä kahdesta suunnasta, jolloin se voi pahimmillaan kiertää joka törmäyksellä koko sokkelon kahdesti. Seinänseuraamisalgoritmi on käytännössä aina nopein. Sillä on etuna, että algoritmi on hyvin kevyt ja yksinkertainen, koska sen tarvitsee aina vain seurata seinää.
 
 #### Generointialgoritmit
 
 Generointialgoritmien mediaaniajat, kun sokkeloiden koot ovat 9 * 9,	51 * 51,	99 * 99,	501 * 501 ja	999 * 999 tässä järjestyksessä:
 
-Sidewinder:	130487 ns,	1215101 ns,	5337038 ns,	107101498 ns ja	428531408 ns
-Recursive division:	15454 ns,	89476 ns,	336753 ns,	10712711 ns ja	23468649 ns
-Kruskal:	136968 ns,	25347572 ns,	225813242 ns,  ---- ja ----
+Sidewinder:	99930 ns,	1483285 ns,	4283031 ns,	115621703 ns ja	415608093 ns
+Recursive division:	17259 ns,	87403 ns,	346221 ns,	5817108 ns ja	24447469 ns
+Kruskal:	52642 ns,	448011 ns,	2392368 ns,	132322882 ns ja	900749868 ns
 
-Rekursiivinen jakoalgoritmi on tulosten perusteella ylivoimaisesti nopein kaikilla käsitellyillä sokkeloiden koilla. Kruskal puolestaan on ylivoimaisesti hitain. Kokojen 501 * 501 ja	999 * 999 taulukoiden ratkomiseen sata kertaa Kruskalilla menee niin kauan aikaa, etten ole onnistunut saamaan niistä vielä tuloksia. Kruskal sisältää monta osaa ja sisäkkäisiä metdoikutsuja, sekä hyödyntää paljon PairSettiä, jossa on todella hidas poisto-operaatio. Luultavasti näillä asioilla on tekemistä sen hitauden kanssa. Rekursiivisen jakoalgoritmin saattoi olettaakin olevan nopein, koska se jakaa aina sokkeloa kahteen osaan, jolloin käsiteltävä alue aina pienenee.
+
+Rekursiivinen jakoalgoritmi on tulosten perusteella ylivoimaisesti nopein kaikilla käsitellyillä sokkeloiden koilla. Kruskal puolestaan on isoilla taulukoilla hitain, kun taas Sidewinder on pienillä taulukoilla sitä hitaampi.Kruskal sisältää monta osaa ja sisäkkäisiä metodikutsuja, millä saattaa olla tekemistä sen hitauden kanssa. Rekursiivisen jakoalgoritmin saattoi olettaakin olevan nopein, koska se jakaa aina sokkeloa kahteen osaan, jolloin käsiteltävä alue aina pienenee.
 
 
 #### Kuvaaja:
