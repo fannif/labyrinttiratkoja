@@ -51,6 +51,8 @@ Kruskal:	136968 ns,	25347572 ns,	225813242 ns,  ---- ja ----
 Rekursiivinen jakoalgoritmi on tulosten perusteella ylivoimaisesti nopein kaikilla käsitellyillä sokkeloiden koilla. Kruskal puolestaan on ylivoimaisesti hitain. Kokojen 501 * 501 ja	999 * 999 taulukoiden ratkomiseen sata kertaa Kruskalilla menee niin kauan aikaa, etten ole onnistunut saamaan niistä vielä tuloksia. Kruskal sisältää monta osaa ja sisäkkäisiä metdoikutsuja, sekä hyödyntää paljon PairSettiä, jossa on todella hidas poisto-operaatio. Luultavasti näillä asioilla on tekemistä sen hitauden kanssa. Rekursiivisen jakoalgoritmin saattoi olettaakin olevan nopein, koska se jakaa aina sokkeloa kahteen osaan, jolloin käsiteltävä alue aina pienenee.
 
 
-### Kuvaaja:
-
+#### Kuvaaja:
+Huomaa, että kuvaajassa aika on logaritmisella asteikolla.
 ![Nopeuskuvaaja](https://github.com/fannif/labyrinttiratkoja/blob/master/dokumentaatio/algoritmiNopeusKuvaaja.png "Nopeuskuvaaja")
+
+Suorituskykytestit saa tällä hetkellä toistettua niin, että käy tekemässä pienen muokkauksen main-metodin koodiin. Main-metodin alussa on kaksi kommentoitua riviä, eli 'Tester tester = new Tester();' ja 'tester.runAll()'. Kun nämä rivit laittaa ei-kommentoiduiksi ja ajaa ohjelman, niin suoritetaan Tester-luokan suorituskykytestit.
