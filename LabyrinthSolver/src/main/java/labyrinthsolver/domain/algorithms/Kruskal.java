@@ -2,6 +2,7 @@
 package labyrinthsolver.domain.algorithms;
 
 import labyrinthsolver.domain.utils.Maze;
+import labyrinthsolver.domain.utils.MersenneTwister;
 import labyrinthsolver.domain.utils.PairSet;
 
 /**
@@ -24,6 +25,8 @@ public class Kruskal {
     private long time = 0;
     private int n;
     PairSet edges;
+    private int[][] testEdges;
+    private int edgeIndex;
     
     /**
      * Kostruktorimetodi.
@@ -45,15 +48,23 @@ public class Kruskal {
         grid = maze.getLayout();
         parent = new int[n * n][2];
         size = new int[n * n];
-        edges = new PairSet(n * n);
+        // edges = new PairSet(n * n);
+        testEdges = new int[n * n][4];
+        edgeIndex = 0;
         originalParents();
         originalSizes();
         originalEdges();
+        MersenneTwister random = new MersenneTwister(System.currentTimeMillis());
         int[] edge;
         
-        while (edges.getEndIndex() > 0) {
-            edge = edges.randomPair();
-            edges.remove(edge);
+        while (edgeIndex > 0) {
+            int next = random.nextInt(edgeIndex);
+            edge = testEdges[next];
+            testEdges[next] = testEdges[edgeIndex - 1];
+            edgeIndex--;
+            // edge = edges.randomPair();
+            //edges.remove(edge);
+            
             if (unite(new int[]{edge[0], edge[1]}, new int[]{edge[2], edge[3]})) {
                 if (edge[0] > edge[2]) {
                     grid[(edge[0] - 1) * n + edge[1]] = 0;
@@ -105,10 +116,14 @@ public class Kruskal {
                     continue;
                 }
                 if (i < n - 2) {
-                    edges.add(new int[]{i, j, i + 2, j});
+                //    edges.add(new int[]{i, j, i + 2, j});
+                testEdges[edgeIndex] = new int[]{i, j, i + 2, j};
+                edgeIndex++;
                 }
                 if (j < n - 2) {
-                    edges.add(new int[]{i, j, i, j + 2});
+                //    edges.add(new int[]{i, j, i, j + 2});
+                testEdges[edgeIndex] = new int[]{i, j, i, j + 2};
+                edgeIndex++;
                 }
             }
         }

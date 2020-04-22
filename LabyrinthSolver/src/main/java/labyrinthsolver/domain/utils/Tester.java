@@ -47,14 +47,14 @@ public class Tester {
         testSidewinder();
         System.out.println("\nTesting Recursive division...");
         testRecursiveDivision();
+        System.out.println("\nTesting Kruskal...");
+        testKruskal();
         System.out.println("\nTesting Wall follower...");
         testWallFollower();
         System.out.println("\nTesting Shortest paths...");
         testShortestPaths();
         System.out.println("\nTesting Chain solver...");
         testChainSolver();
-        System.out.println("\nTesting Kruskal...");
-        testKruskal();
         System.out.println("\nDone.");
         
     }
