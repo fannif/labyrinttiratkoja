@@ -31,9 +31,9 @@ public class Main extends Application {
      * @param args 
      */
     public static void main(String[] args) {
-//        Tester tester = new Tester();
-//        tester.runAll();
-        launch(args);
+        Tester tester = new Tester();
+        tester.runAll();
+     //   launch(args);
     }
 
     /**
@@ -77,12 +77,12 @@ public class Main extends Application {
         startMenu.getChildren().add(generateBig);
         
         startLayout.setCenter(startMenu);
-        Scene startScene = new Scene(startLayout, 1000, 900);
+        Scene startScene = new Scene(startLayout, 1000, 720);
         
         BorderPane mazeLayout = new BorderPane();
         
-        VBox mazeMenu = new VBox(25);
-        mazeMenu.setPadding(new Insets(30, 100, 30, 100));
+        VBox mazeMenu = new VBox(20);
+        mazeMenu.setPadding(new Insets(20, 100, 20, 100));
         HBox generators = new HBox();
         HBox solvers = new HBox();
 
@@ -117,7 +117,7 @@ public class Main extends Application {
         mazeMenu.getChildren().add(generators);
         
         mazeLayout.setCenter(mazeMenu);
-        Scene mazeScene = new Scene(mazeLayout, 1000, 900);
+        Scene mazeScene = new Scene(mazeLayout, 1000, 720);
         
         generateSmall.setOnAction((event) -> {
             maze.initialize(51);
@@ -363,8 +363,8 @@ public class Main extends Application {
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
                 Label square = new Label(" ");
-                square.setMaxSize(10, 10);
-                square.setMinSize(10, 10);
+                square.setMaxSize(8, 8);
+                square.setMinSize(8, 8);
                 
                 if (currentMaze[i * n + j] == 1) {
                     square.setStyle("-fx-background-color: #000000");

@@ -21,6 +21,7 @@ public class Tester {
     private ShortestPaths shortestp;
     private WallFollower wallf;
     private int[] testSizes;
+    private long[] results;
     
     
     /**
@@ -35,6 +36,7 @@ public class Tester {
         shortestp = new ShortestPaths();
         wallf = new WallFollower();
         testSizes = new int[]{9, 51, 99, 501, 999};
+        results = new long[100];
     }
     
     /**
@@ -63,15 +65,18 @@ public class Tester {
      */
     public void testSidewinder() {
         long sum = 0;
+        long time = 0;
         for (int i = 0; i < testSizes.length; i++) {
             sum = 0;
             for (int j = 0; j < 100; j++)  {
                 maze = new Maze(testSizes[i]);
                 sidew.generate(maze);
-                sum += sidew.getTime();
+                time = sidew.getTime();
+                sum += time;
+                results[j] = time;
             }
             long average = sum / 100;
-            System.out.println("Maze size: " + testSizes[i] + "-by-" + testSizes[i] + ", Average time to generate: " + average + " ns");
+            System.out.println("Maze size: " + testSizes[i] + "-by-" + testSizes[i] + ", Average time to generate: " + average + " ns, " + "Median: " + results[50] + " ns");
         }  
     }
     
@@ -81,16 +86,19 @@ public class Tester {
      */
     public void testWallFollower() {
         long sum = 0;
+        long time = 0;
         for (int i = 0; i < testSizes.length; i++) {
             sum = 0;
             maze = new Maze(testSizes[i]);
             for (int j = 0; j < 100; j++)  {
                 recursived.generate(maze);
                 wallf.solve(maze);
-                sum += wallf.getTime();
+                time = wallf.getTime();
+                sum += time;
+                results[j] = time;
             }
             long average = sum / 100;
-            System.out.println("Maze size: " + testSizes[i] + "-by-" + testSizes[i] + ", Average time to solve: " + average + " ns");
+            System.out.println("Maze size: " + testSizes[i] + "-by-" + testSizes[i] + ", Average time to solve: " + average + " ns, " + "Median: " + results[50] + " ns");
         }
     }
     
@@ -100,16 +108,19 @@ public class Tester {
      */
     public void testShortestPaths() {
         long sum = 0;
+        long time = 0;
         for (int i = 0; i < testSizes.length; i++) {
             sum = 0;
             maze = new Maze(testSizes[i]);
             for (int j = 0; j < 100; j++)  {
                 recursived.generate(maze);
                 shortestp.solve(maze);
-                sum += shortestp.getTime();
+                time = shortestp.getTime();
+                sum += time;
+                results[j] = time;
             }
             long average = sum / 100;
-            System.out.println("Maze size: " + testSizes[i] + "-by-" + testSizes[i] + ", Average time to solve: " + average + " ns");
+            System.out.println("Maze size: " + testSizes[i] + "-by-" + testSizes[i] + ", Average time to solve: " + average + " ns, " + "Median: " + results[50] + " ns");
         }
     }
     
@@ -119,15 +130,18 @@ public class Tester {
      */
     public void testKruskal() {
         long sum = 0;
+        long time = 0;
         for (int i = 0; i < testSizes.length; i++) {
             sum = 0;
             for (int j = 0; j < 100; j++)  {
                 maze = new Maze(testSizes[i]);
                 kruskal.generate(maze);
-                sum += kruskal.getTime();
+                time = kruskal.getTime();
+                sum += time;
+                results[j] = time;
             }
             long average = sum / 100;
-            System.out.println("Maze size: " + testSizes[i] + "-by-" + testSizes[i] + ", Average time to generate: " + average + " ns");
+            System.out.println("Maze size: " + testSizes[i] + "-by-" + testSizes[i] + ", Average time to generate: " + average + " ns, " + "Median: " + results[50] + " ns");
         }
     }
     
@@ -137,16 +151,19 @@ public class Tester {
      */
     public void testChainSolver() {
         long sum = 0;
+        long time = 0;
         for (int i = 0; i < testSizes.length; i++) {
             sum = 0;
             maze = new Maze(testSizes[i]);
             for (int j = 0; j < 100; j++)  {
                 recursived.generate(maze);
                 chains.solve(maze);
-                sum += chains.getTime();
+                time = chains.getTime();
+                sum += time;
+                results[j] = time;
             }
             long average = sum / 100;
-            System.out.println("Maze size: " + testSizes[i] + "-by-" + testSizes[i] + ", Average time to solve: " + average + " ns");
+            System.out.println("Maze size: " + testSizes[i] + "-by-" + testSizes[i] + ", Average time to solve: " + average + " ns, " + "Median: " + results[50] + " ns");
         }
     }
     
@@ -156,15 +173,18 @@ public class Tester {
      */
     public void testRecursiveDivision() {
         long sum = 0;
+        long time = 0;
         for (int i = 0; i < testSizes.length; i++) {
             sum = 0;
             for (int j = 0; j < 100; j++)  {
                 maze = new Maze(testSizes[i]);
                 recursived.generate(maze);
-                sum += recursived.getTime();
+                time = recursived.getTime();
+                sum += time;
+                results[j] = time;
             }
             long average = sum / 100;
-            System.out.println("Maze size: " + testSizes[i] + "-by-" + testSizes[i] + ", Average time to generate: " + average + " ns");
+            System.out.println("Maze size: " + testSizes[i] + "-by-" + testSizes[i] + ", Average time to generate: " + average + " ns, " + "Median: " + results[50] + " ns");
         }
     }
     
