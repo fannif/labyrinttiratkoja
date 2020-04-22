@@ -60,10 +60,7 @@ public class PairSet {
         if (exists < 0) {
             return;
         }
-        set[exists] = null;
-        for (int i = exists; i < endIndex - 1; i++) {
-            set[i] = set[i + 1];
-        }
+        set[exists] = set[endIndex - 1];
         endIndex--;
         if (size >= 32 && endIndex < size / 4) {
             decreaseSize();
@@ -162,7 +159,5 @@ public class PairSet {
     public int getSize() {
         return size;
     }
-    
-    
     
 }

@@ -45,7 +45,7 @@ public class Kruskal {
         grid = maze.getLayout();
         parent = new int[n * n][2];
         size = new int[n * n];
-        edges = new PairSet(n * n * 2);
+        edges = new PairSet(n * n);
         originalParents();
         originalSizes();
         originalEdges();

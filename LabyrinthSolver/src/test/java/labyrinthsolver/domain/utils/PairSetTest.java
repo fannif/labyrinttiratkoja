@@ -58,41 +58,45 @@ public class PairSetTest {
     
     @Test
     public void whenSetGetsFullSizeIsDoubled() {
-        for (int i = 0; i < 12; i++) {
+        int size = set.getSize();
+        for (int i = 0; i < size + 2; i++) {
             set.add(new int[]{0, i});
         }
-        assertTrue(set.getSize() == 20);
+        assertTrue(set.getSize() == 2 * size);
     }
     
     @Test
     public void whenAmountGetsSmallSizeIsCutToHalf() {
-        for (int i = 0; i < 12; i++) {
+        int size = set.getSize();
+        for (int i = 0; i < size + 2; i++) {
             set.add(new int[]{0, i});
         }
-        for (int i = 0; i < 10; i++) {
+        int newSize = set.getSize();
+        for (int i = 0; i < size; i++) {
             set.remove(new int[]{0, i});
         }
-        assertTrue(set.getSize() == 10);
+        assertTrue(set.getSize() == newSize / 2);
     }
     
     @Test
-    public void sizeIsNotDecreasedIfSizeIsNotOverTen() {
+    public void sizeIsNotDecreasedIfSizeIsNotOver16() {
         for (int i = 0; i < 5; i++) {
             set.add(new int[]{0, i});
         }
         for (int i = 0; i < 4; i++) {
             set.remove(new int[]{0, i});
         }
-        assertTrue(set.getSize() == 10);
+        assertTrue(set.getSize() == 16);
     }
     
     @Test
-    public void afterClearSizeIsTen() {
-        for (int i = 0; i < 12; i++) {
+    public void afterClearSizeIs16() {
+        int size = set.getSize();
+        for (int i = 0; i < size + 2; i++) {
             set.add(new int[]{0, i});
         }
         set.clear();
-        assertTrue(set.getSize() == 10);
+        assertTrue(set.getSize() == 16);
     }
     
     @Test
