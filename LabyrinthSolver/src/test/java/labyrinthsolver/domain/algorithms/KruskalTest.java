@@ -108,7 +108,10 @@ public class KruskalTest {
     
     @Test
     public void originalEdgesContainsAllPossibleEdges() {
-        boolean works = true;
+        boolean works1 = false;
+        boolean works2 = false;
+        boolean works3 = false;
+        boolean works4 = false;
         Maze m2 = new Maze(5);
         k.generate(m2);
         int[] maze = new int[]{
@@ -119,21 +122,24 @@ public class KruskalTest {
             1,1,1,1,1
         };
         k.setGrid(maze);
-        k.setEdges(new PairSet());
+        k.setEdges(new int[25][4]);
         k.originalEdges();
-        if (k.getEdges().contains(new int[]{1, 1, 1, 3}) < 0) {
-            works = false;
+        for (int i = 0; i < k.getEdges().length; i++) {
+            if (k.getEdges()[i][0] == 1 && k.getEdges()[i][1] == 1 && k.getEdges()[i][2] == 1 && k.getEdges()[i][3] == 3) {
+                works1 = true;
+            }
+            if (k.getEdges()[i][0] == 1 && k.getEdges()[i][1] == 1 && k.getEdges()[i][2] == 3 && k.getEdges()[i][3] == 1) {
+                works2 = true;
+            }
+            if (k.getEdges()[i][0] == 1 && k.getEdges()[i][1] == 3 && k.getEdges()[i][2] == 3 && k.getEdges()[i][3] == 3) {
+                works3 = true;
+            }
+            if (k.getEdges()[i][0] == 3 && k.getEdges()[i][1] == 1 && k.getEdges()[i][2] == 3 && k.getEdges()[i][3] == 3) {
+                works4 = true;
+            }
         }
-        if (k.getEdges().contains(new int[]{1, 1, 3, 1}) < 0) {
-            works = false;
-        }
-        if (k.getEdges().contains(new int[]{1, 3, 3, 3}) < 0) {
-            works = false;
-        }
-        if (k.getEdges().contains(new int[]{3, 1, 3, 3}) < 0) {
-            works = false;
-        }
-        assertTrue(works);
+        
+        assertTrue(works1 && works2 && works3 && works4);
     }
     
     @Test

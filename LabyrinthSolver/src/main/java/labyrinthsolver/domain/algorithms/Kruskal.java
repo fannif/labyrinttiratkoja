@@ -24,8 +24,8 @@ public class Kruskal {
     private int [] size;
     private long time = 0;
     private int n;
-    PairSet edges;
-    private int[][] testEdges;
+    // PairSet edges;
+    private int[][] edges;
     private int edgeIndex;
     
     /**
@@ -49,7 +49,7 @@ public class Kruskal {
         parent = new int[n * n][2];
         size = new int[n * n];
         // edges = new PairSet(n * n);
-        testEdges = new int[n * n][4];
+        edges = new int[n * n][4];
         edgeIndex = 0;
         originalParents();
         originalSizes();
@@ -59,8 +59,8 @@ public class Kruskal {
         
         while (edgeIndex > 0) {
             int next = random.nextInt(edgeIndex);
-            edge = testEdges[next];
-            testEdges[next] = testEdges[edgeIndex - 1];
+            edge = edges[next];
+            edges[next] = edges[edgeIndex - 1];
             edgeIndex--;
             // edge = edges.randomPair();
             //edges.remove(edge);
@@ -117,13 +117,13 @@ public class Kruskal {
                 }
                 if (i < n - 2) {
                 //    edges.add(new int[]{i, j, i + 2, j});
-                testEdges[edgeIndex] = new int[]{i, j, i + 2, j};
-                edgeIndex++;
+                    edges[edgeIndex] = new int[]{i, j, i + 2, j};
+                    edgeIndex++;
                 }
                 if (j < n - 2) {
                 //    edges.add(new int[]{i, j, i, j + 2});
-                testEdges[edgeIndex] = new int[]{i, j, i, j + 2};
-                edgeIndex++;
+                    edges[edgeIndex] = new int[]{i, j, i, j + 2};
+                    edgeIndex++;
                 }
             }
         }
@@ -226,7 +226,7 @@ public class Kruskal {
      * Testausta varten.
      * @return Joukko mahdollisista poistettavista kaarista.
      */
-    public PairSet getEdges() {
+    public int[][] getEdges() {
         return edges;
     }
     
@@ -259,7 +259,7 @@ public class Kruskal {
      * Testaamista varten.
      * @param edges Uusi joukko poistettavia solmujen välisiä seiniä.
      */
-    public void setEdges(PairSet edges) {
+    public void setEdges(int[][] edges) {
         this.edges = edges;
     }
     

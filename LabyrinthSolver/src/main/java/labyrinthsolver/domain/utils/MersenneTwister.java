@@ -18,14 +18,14 @@ public class MersenneTwister {
      * Konstruktorimetodi, joka alustaa arvoja satunnaislukutaulukkoon.
      * @param seed Taulukkoon ensimmäiseksi alkioksi tuleva lähtöalkio.
      */
-    public MersenneTwister (long seed) {
+    public MersenneTwister(long seed) {
         this.seed = (int) (seed % 100000);
         next = 0;
         values = new int[624];
         values[0] = this.seed;
         for (int i = 1; i < 624; i++) {
             // Siirretään ja kerrotaan taulukon bittejä
-            values[i] = 1812433253 * (values[i-1] ^ (values[i-1] >> 30)) + i;
+            values[i] = 1812433253 * (values[i - 1] ^ (values[i - 1] >> 30)) + i;
         }
     }
     
