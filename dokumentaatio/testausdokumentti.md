@@ -55,4 +55,4 @@ Rekursiivinen jakoalgoritmi on tulosten perusteella ylivoimaisesti nopein kaikil
 Huomaa, että kuvaajassa aika on logaritmisella asteikolla.
 ![Nopeuskuvaaja](https://github.com/fannif/labyrinttiratkoja/blob/master/dokumentaatio/algoritmiNopeusKuvaaja.png "Nopeuskuvaaja")
 
-Suorituskykytestit saa tällä hetkellä toistettua niin, että käy tekemässä pienen muokkauksen main-metodin koodiin. Main-metodin alussa on kaksi kommentoitua riviä, eli 'Tester tester = new Tester();' ja 'tester.runAll()'. Kun nämä rivit laittaa ei-kommentoiduiksi ja ajaa ohjelman, niin suoritetaan Tester-luokan suorituskykytestit.
+Suorituskykytestit saa tällä hetkellä toistettua niin, että käy tekemässä pienen muokkauksen main-metodin koodiin. Main-metodin alussa on kaksi kommentoitua riviä, eli `Tester tester = new Tester();` ja `tester.runAll()`. Kun nämä rivit laittaa ei-kommentoiduiksi ja ajaa ohjelman, niin suoritetaan Tester-luokan suorituskykytestit.
