@@ -60,7 +60,11 @@ public class PairSet {
         if (exists < 0) {
             return;
         }
+        set[exists] = null;
         set[exists] = set[endIndex - 1];
+//        for (int i = exists; i < endIndex - 1; i++) {
+//            set[i] = set[i + 1];
+//        }
         endIndex--;
         if (size >= 32 && endIndex < size / 4) {
             decreaseSize();
@@ -80,7 +84,7 @@ public class PairSet {
                 if (set[i][j] != pair[j]) {
                     exists = false;
                     if (pair.length == 4) {
-                        if (set[i][0] == pair[2] && set[i][1] == pair[3]) {
+                        if (set[i][0] == pair[2] && set[i][1] == pair[3] && set[i][2] == pair[0] && set[i][3] == pair[1]) {
                             exists = true;
                         }
                     }
