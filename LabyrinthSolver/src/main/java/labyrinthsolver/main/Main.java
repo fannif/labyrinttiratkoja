@@ -31,9 +31,9 @@ public class Main extends Application {
      * @param args 
      */
     public static void main(String[] args) {
-        Tester tester = new Tester();
-        tester.runAll();
-     //   launch(args);
+//        Tester tester = new Tester();
+//        tester.runAll();
+        launch(args);
     }
 
     /**
