@@ -1,5 +1,5 @@
 
 build
 
-/LabyrinthSolver/target/
+/LabyrinthSolver/target*
 /LabyrinthSolver/nbproject/
