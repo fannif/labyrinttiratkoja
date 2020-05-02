@@ -26,3 +26,6 @@ Raportti kertoo testien rivi- ja haaraumakattavuuden. Kattavuusraportti löytyy 
 
 ### Checkstyle
 Voit generoida Checkstyle-raportin samasta hakemistossa ollessasi kuin Jacoco-raportin. Komento on `mvn jxr:jxr checkstyle:checkstyle`. Komento luo target-kansioon projektista Checkstyle-raportin (target/site/checkstyle.html), jonka voi avata selaimella, sekä tulostaa terminaaliin tyylivirheiden määrän.
+
+### Jar-tiedosto
+Jos lataat projektin ZIP-tiedostona tai kloonaat sen, niin voit generoida siitä Jar-tiedoston komennolla `mvn package`. Komento tulee tehdä samassa kansiossa, kuin esimerkiksi Jacoco-raportin komento. Voit myös ladata projektin suoraan Jar-tiedostona releasesta.
