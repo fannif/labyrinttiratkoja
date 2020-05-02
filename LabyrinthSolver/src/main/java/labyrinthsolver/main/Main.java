@@ -31,9 +31,7 @@ public class Main extends Application {
      * @param args 
      */
     public static void main(String[] args) {
-        Tester tester = new Tester();
-        tester.runAll();
-    //    launch(args);
+        launch(args);
     }
 
     /**
@@ -66,6 +64,7 @@ public class Main extends Application {
         
         Button generateSmall = new Button("Generate a 51-by-51 maze");
         Button generateBig = new Button("Generate a 213-by-213 maze");
+        Button testPerformance = new Button("Run performance tests (Duration: Approx. 9 mins)");
         
         Button generateSW = new Button("Generate a Sidewinder maze");
         Button generateRD = new Button("Generate a Recursive Division maze");
@@ -75,6 +74,8 @@ public class Main extends Application {
         startMenu.getChildren().add(welcome);
         startMenu.getChildren().add(generateSmall);
         startMenu.getChildren().add(generateBig);
+        startMenu.getChildren().add(testPerformance);
+        startMenu.getChildren().add(new Label("The results and progress for performance tests are \nshown in the console window, instead of the UI window.\nRunning the tests will take approximately 9 minutes.\nWhile the tests are running, the program cannot do anything else."));
         
         startLayout.setCenter(startMenu);
         Scene startScene = new Scene(startLayout, 1000, 720);
@@ -343,6 +344,20 @@ public class Main extends Application {
             startMenu.getChildren().add(welcome);
             startMenu.getChildren().add(generateSmall);
             startMenu.getChildren().add(generateBig);
+            startMenu.getChildren().add(testPerformance);
+            startMenu.getChildren().add(new Label("The results and progress for performance tests are \nshown in the console window, instead of the UI window.\nRunning the tests will take approximately 9 minutes.\nWhile the tests are running, the program cannot do anything else."));
+            primaryStage.setScene(startScene);
+        });
+        
+        testPerformance.setOnAction((event) -> {
+            runPerformanceTests();
+            startMenu.getChildren().clear();
+            startMenu.setAlignment(Pos.CENTER);
+            startMenu.getChildren().add(welcome);
+            startMenu.getChildren().add(generateSmall);
+            startMenu.getChildren().add(generateBig);
+            startMenu.getChildren().add(testPerformance);
+            startMenu.getChildren().add(new Label("The results and progress for performance tests are \nshown in the console window, instead of the UI window.\nRunning the tests will take approximately 9 minutes.\nWhile the tests are running, the program cannot do anything else."));
             primaryStage.setScene(startScene);
         });
         
@@ -379,6 +394,14 @@ public class Main extends Application {
                 mazeGrid.add(square, i, j);
             }
         }
+    }
+    
+    /**
+     * Ajaa automatisoidut suorituskykytestit.
+     */
+    public void runPerformanceTests() {
+        Tester tester = new Tester();
+        tester.runAll();
     }
     
 }
