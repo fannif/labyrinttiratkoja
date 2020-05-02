@@ -2,6 +2,11 @@
 
 ## Tietorakenteet ja algoritmit harjoitustyö 2020
 
+### Release
+https://github.com/fannif/labyrinttiratkoja/releases/tag/v1.0
+
+### Dokumentaatio
+
 #### [Viikkoraportti 1](https://github.com/fannif/labyrinttiratkoja/tree/master/dokumentaatio/viikkoraportti1.md)
 
 #### [Viikkoraportti 2](https://github.com/fannif/labyrinttiratkoja/blob/master/dokumentaatio/viikkoraportti2.md)
