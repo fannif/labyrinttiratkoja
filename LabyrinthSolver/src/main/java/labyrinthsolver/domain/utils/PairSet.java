@@ -26,7 +26,7 @@ public class PairSet {
      * @param size Joukon haluttu aloituskoko.
      */
     public PairSet(int size) {
-        set = new int[size][4];
+        set = new int[size][2];
         this.size = size;
         endIndex = 0;        
     }
@@ -80,11 +80,6 @@ public class PairSet {
             for (int j = 0; j < pair.length; j++) {
                 if (set[i][j] != pair[j]) {
                     exists = false;
-                    if (pair.length == 4) {
-                        if (set[i][0] == pair[2] && set[i][1] == pair[3] && set[i][2] == pair[0] && set[i][3] == pair[1]) {
-                            exists = true;
-                        }
-                    }
                 }
                 
             }
