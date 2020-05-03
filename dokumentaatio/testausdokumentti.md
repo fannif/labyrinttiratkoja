@@ -1,10 +1,12 @@
 ## Testausdokumentti
 
-Tähän mennessä prohektiin on kirjoitettu yksikkötestejä sekä testailtu toimintaa ja suoritusnopeuksia manuaalisesti graafisen käyttöliittymän kautta sekä erillisen Tester-luokan avulla. Olen vertaillut nopeuksia, ja pohtinut mistä niiden erot johtuvat.
+Projektiin on kirjoitettu yksikkötestejä sekä testailtu toimintaa ja suoritusnopeuksia manuaalisesti graafisen käyttöliittymän kautta sekä erillisen Tester-luokan avulla. Olen vertaillut nopeuksia, ja pohtinut mistä niiden erot johtuvat.
 
 ### Yksikkötestaus ja testaus käyttöliittymän kautta
 
 Yksikkötestejä olen kirjoittanut projektiin alusta asti. Pyrkimyksenä on ollut pitää kaikkien sovelluslogiikan luokkien testikattavuus hyvänä. Olen pyrkinyt testaamaan erityisesti sitä, että luokkien ydintoiminnallisuus toimii niin, kuin sen minun käyttötarkoituksessani ja siinä ilmenevissä mahdollisissa tilanteissa pitäisikin. Esimerkiksi generointialgoritmeille olen aina rakentanut testit, jotka varmistavat, että generoitu labyrintti on mahdollista ratkaista, ja että seiniä on oikeissa paikoissa. Ratkaisualgoritmeille puolestaan olen aina testannut, että ne oikeasti pääsevät maaliin asti.
+
+Main-luokkaa, joka sisältää käyttöliittymän, ja Tester-luokkaa, joka sisältää suorituskykytestit, ei olla testattu yksikkötesteillä. Tämä johtuu siitä, että niiden testaaminen ei kurssin kannalta olisi ollut oleellista.
 
 Yksikkötestien ohella olen tehnyt alusta asti jatkuvaa manuaalista testausta graafisesta käyttöliittymästä. Siksi toteutinkin ohjelmaan heti graafisen käyttöliittymän. Olen tarkastellut sieltä, millaisia labyrintteja algoritmini luovat: ovatko ne järkevän näköisiä, tarpeeksi monimutkaisia ja ratkaistavissa. Siinä samalla olen myös heti huomannut, jos seiniä on jostain syystä väärässä paikassa. Ratkaisualgoritmien yhteydessä olen pystynyt graafisesta käyttöliittymästä tarkastelemaan niiden reittejä. Olen erikokoisilla sokkeloilla valmistanut, että ratkaisupolku menee maaliin asti ja on yhtenäinen, eikä mene seinien läpi.
 
@@ -57,4 +59,4 @@ Rekursiivinen jakoalgoritmi on tulosten perusteella ylivoimaisesti nopein kaikil
 Huomaa, että kuvaajassa aika on logaritmisella asteikolla.
 ![Nopeuskuvaaja](https://github.com/fannif/labyrinttiratkoja/blob/master/dokumentaatio/algoritmiNopeusKuvaaja.png "Nopeuskuvaaja")
 
-Suorituskykytestit saa tällä hetkellä toistettua niin, että käy tekemässä pienen muokkauksen main-metodin koodiin. Main-metodin alussa on kaksi kommentoitua riviä, eli `Tester tester = new Tester();` ja `tester.runAll()`. Kun nämä rivit laittaa ei-kommentoiduiksi ja ajaa ohjelman, niin suoritetaan Tester-luokan suorituskykytestit.
+Suorituskykytestit saa toistettua ohjelman graafisesta käyttöliittymästä. Kun ohjelman käynnistää, voi alkuvalikosta valita vaihtoehdon, jolla ajetaan suorituskykytestit. Tämä tehdään alkuvalikon kolmannesta napista. Varsinaiset testien tulokset eivät kuitenkaan tulostu graafiseen käyttöliittymään, vaan sen sijaan terminaaliin tai konsoliin, josta ohjelmaa ajetaan.
