@@ -1,6 +1,6 @@
 ## Testausdokumentti
 
-Projektiin on kirjoitettu yksikkötestejä sekä testailtu toimintaa ja suoritusnopeuksia manuaalisesti graafisen käyttöliittymän kautta sekä erillisen Tester-luokan avulla. Olen vertaillut nopeuksia, ja pohtinut mistä niiden erot johtuvat.
+Projektiin on kirjoitettu yksikkötestejä sekä testailtu toimintaa ja suoritusnopeuksia manuaalisesti graafisen käyttöliittymän kautta sekä automatisoidusti erillisen Tester-luokan avulla. Olen vertaillut nopeuksia, ja pohtinut mistä niiden erot johtuvat.
 
 ### Yksikkötestaus ja testaus käyttöliittymän kautta
 
