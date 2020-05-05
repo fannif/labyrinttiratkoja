@@ -37,7 +37,9 @@ Alla on testaamalla saamiani nopeustuloksia. Tulokset on saatu suhteellisen hita
 Ratkaisualgoritmien mediaaniajat, kun sokkeloiden koot ovat 9 * 9,	51 * 51,	99 * 99,	501 * 501 ja	999 * 999 tässä järjestyksessä:
 
 Wall follower:	29053 ns,	58149 ns,	269508 ns,	2040532 ns ja	9741090 ns
+
 Shortest paths:	517829 ns,	607517 ns,	798100 ns,	11227555 ns ja	51536876 ns
+
 Chain solver:	26500 ns,	222668 ns, 5153623 ns,	238416019 ns ja	2082421393 ns
 
 
@@ -48,7 +50,9 @@ Ratkaisualgoritmeista hitain on siis pienillä sokkeloilla lyhyimpien polkujen a
 Generointialgoritmien mediaaniajat, kun sokkeloiden koot ovat 9 * 9,	51 * 51,	99 * 99,	501 * 501 ja	999 * 999 tässä järjestyksessä:
 
 Sidewinder:	99930 ns,	1483285 ns,	4283031 ns,	115621703 ns ja	415608093 ns
+
 Recursive division:	17259 ns,	87403 ns,	346221 ns,	5817108 ns ja	24447469 ns
+
 Kruskal:	52642 ns,	448011 ns,	2392368 ns,	132322882 ns ja	900749868 ns
 
 
