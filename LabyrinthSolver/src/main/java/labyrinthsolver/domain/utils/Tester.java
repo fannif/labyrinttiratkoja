@@ -1,6 +1,7 @@
 
 package labyrinthsolver.domain.utils;
 
+import java.util.Arrays;
 import labyrinthsolver.domain.algorithms.ChainSolver;
 import labyrinthsolver.domain.algorithms.Kruskal;
 import labyrinthsolver.domain.algorithms.RecursiveDivision;
@@ -76,6 +77,7 @@ public class Tester {
                 results[j] = time;
             }
             long average = sum / 100;
+            Arrays.sort(results);
             System.out.println("Maze size: " + testSizes[i] + "-by-" + testSizes[i] + ", Average time to generate: " + average + " ns, " + "Median: " + results[50] + " ns");
         }  
     }
@@ -98,6 +100,7 @@ public class Tester {
                 results[j] = time;
             }
             long average = sum / 100;
+            Arrays.sort(results);
             System.out.println("Maze size: " + testSizes[i] + "-by-" + testSizes[i] + ", Average time to solve: " + average + " ns, " + "Median: " + results[50] + " ns");
         }
     }
@@ -120,6 +123,7 @@ public class Tester {
                 results[j] = time;
             }
             long average = sum / 100;
+            Arrays.sort(results);
             System.out.println("Maze size: " + testSizes[i] + "-by-" + testSizes[i] + ", Average time to solve: " + average + " ns, " + "Median: " + results[50] + " ns");
         }
     }
@@ -141,6 +145,7 @@ public class Tester {
                 results[j] = time;
             }
             long average = sum / 100;
+            Arrays.sort(results);
             System.out.println("Maze size: " + testSizes[i] + "-by-" + testSizes[i] + ", Average time to generate: " + average + " ns, " + "Median: " + results[50] + " ns");
         }
     }
@@ -163,6 +168,7 @@ public class Tester {
                 results[j] = time;
             }
             long average = sum / 100;
+            Arrays.sort(results);
             System.out.println("Maze size: " + testSizes[i] + "-by-" + testSizes[i] + ", Average time to solve: " + average + " ns, " + "Median: " + results[50] + " ns");
         }
     }
@@ -184,6 +190,7 @@ public class Tester {
                 results[j] = time;
             }
             long average = sum / 100;
+            Arrays.sort(results);
             System.out.println("Maze size: " + testSizes[i] + "-by-" + testSizes[i] + ", Average time to generate: " + average + " ns, " + "Median: " + results[50] + " ns");
         }
     }
